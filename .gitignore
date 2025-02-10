@@ -1,0 +1,55 @@
+# Node.js dependencies (React Native)
+node_modules/
+package-lock.json
+yarn.lock
+
+
+build/
+
+# Flutter dependencies
+.dart_tool/
+.build/
+
+pubspec.lock
+
+# IDE/Editor settings
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Build outputs
+build/
+android/.gradle/
+android/app/outputs/
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+
+# APK & AAB files
+*.apk
+*.aab
+
+# Debug & Intermediate files
+*.swp
+*.swo
+*.swn
+*.tmp
+*.bak
+
+# Git Large File Storage (LFS) - prevent committing huge files
+*.zip
+*.bin
+*.dill
+
+# Ignore Firebase and sensitive keys (configure separately)
+google-services.json
+firebase_options.dart
