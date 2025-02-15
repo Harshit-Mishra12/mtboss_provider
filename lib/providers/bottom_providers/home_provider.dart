@@ -56,9 +56,11 @@ class HomeProvider with ChangeNotifier {
   onTapBookings(BookingModel data, context) {
     final dash = Provider.of<UserDataApiProvider>(context, listen: false);
 
-    log("data.bookingStatus!.slug :${data.bookingStatus!.slug}");
+    // log("data.bookingStatus!.slug :${data.bookingStatus!.slug}");
+
     if (data.bookingStatus != null) {
       if (data.bookingStatus!.slug == appFonts.pending) {
+        // log("data.bookingStatus!.slug :${appFonts.pending}");
         //route.pushNamed(context, routeName.packageBookingScreen);
         route
             .pushNamed(context, routeName.pendingBooking, arg: data.id)
@@ -131,18 +133,18 @@ class HomeProvider with ChangeNotifier {
   //gridview tap
   onTapOption(index, context, title, data) {
     final value = Provider.of<DashboardProvider>(context, listen: false);
-    if (title == appFonts.totalService) {
+    if (title == translations!.totalService) {
       route.pushNamed(context, routeName.serviceList);
-    } else if (title == appFonts.totalCategory) {
+    } else if (title == translations!.totalCategory) {
       log("dataaa:$data");
       route.pushNamed(context, routeName.categories);
-    } else if (title == appFonts.totalEarning) {
+    } else if (title == translations!.totalEarning) {
       log("title::: $title");
-      log("title::: ${appFonts.totalEarning}");
+      log("title::: ${translations!.totalEarning}");
       route.pushNamed(context, routeName.earnings);
-    } else if (title == appFonts.totalServiceman) {
+    } else if (title == translations!.totalServiceman) {
       route.pushNamed(context, routeName.servicemanList);
-    } else if (title == appFonts.totalBooking) {
+    } else if (title == translations!.totalBooking) {
       value.selectIndex = 1;
       value.notifyListeners();
     }

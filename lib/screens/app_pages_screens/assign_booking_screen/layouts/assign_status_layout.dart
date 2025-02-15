@@ -19,7 +19,7 @@ class AssignStatusLayout extends StatelessWidget {
             children: [
               Text(
                   language(context,
-                      "${language(context, status) ?? language(context, appFonts.status)}:"),
+                      "${language(context, status) ?? language(context, translations!.status)}:"),
                   style: appCss.dmDenseMedium14.textColor(isGreen == true
                       ? appColor(context).appTheme.online
                       : appColor(context).appTheme.red)),

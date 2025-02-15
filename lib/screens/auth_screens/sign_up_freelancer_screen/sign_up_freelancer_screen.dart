@@ -10,41 +10,53 @@ class SignupFreelancerScreen extends StatefulWidget {
   State<SignupFreelancerScreen> createState() => _SignupFreelancerScreenState();
 }
 
-class _SignupFreelancerScreenState extends State<SignupFreelancerScreen> with TickerProviderStateMixin {
+class _SignupFreelancerScreenState extends State<SignupFreelancerScreen>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context1) {
     return Consumer<SignUpCompanyProvider>(builder: (context1, value, child) {
       return StatefulWrapper(
-        onInit: ()=> Future.delayed(const Duration(milliseconds: 50),()=> value.onReady()),
+        onInit: () => Future.delayed(
+            const Duration(milliseconds: 50), () => value.onReady()),
         child: PopScope(
           canPop: false,
-          onPopInvoked: (bool didPop)=> value.popInvokeFree(didPop,context),
+          onPopInvoked: (bool didPop) => value.popInvokeFree(didPop, context),
           child: LoadingComponent(
             child: Scaffold(
-                appBar: AppBarCommon(title: appFonts.signUp),
+                appBar: AppBarCommon(title: translations!.signUp),
                 body: SingleChildScrollView(
-                  controller: value.controller,
+                    controller: value.controller,
                     child: Column(children: [
                       Stack(
-                        alignment: rtl(context) ? Alignment.centerLeft : Alignment.centerRight,
+                        alignment: rtl(context)
+                            ? Alignment.centerLeft
+                            : Alignment.centerRight,
                         children: [
                           LinearPercentIndicator(
                               animation: true,
-                              padding: const EdgeInsets.symmetric(horizontal: Insets.i20),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: Insets.i20),
                               width: MediaQuery.of(context).size.width,
                               lineHeight: Sizes.s46,
                               barRadius: const Radius.circular(AppRadius.r8),
-                              percent:  value.fPageIndex == 0
-                                  ? 0.50
-                                  : 1,
-                              backgroundColor:
-                              appColor(context).appTheme.primary.withOpacity(0.6),
+                              percent: value.fPageIndex == 0 ? 0.50 : 1,
+                              backgroundColor: appColor(context)
+                                  .appTheme
+                                  .primary
+                                  .withOpacity(0.6),
                               progressColor: appColor(context).appTheme.primary,
-                              center: Text(  language(context,
-                                  value.fPageIndex == 1 ?appFonts.fewMoreSteps1:  appFonts.fewMoreSteps) ,
-                                  style: appCss.dmDenseMedium14
-                                      .textColor(appColor(context).appTheme.whiteBg)).paddingSymmetric(horizontal: Insets.i15)),
-                          Image.asset(eGifAssets.coin,height: Sizes.s26,width: Sizes.s26).paddingSymmetric(horizontal: Insets.i35)
+                              center: Text(
+                                      language(
+                                          context,
+                                          value.fPageIndex == 1
+                                              ? translations!.fewMoreSteps1
+                                              : translations!.fewMoreSteps),
+                                      style: appCss.dmDenseMedium14.textColor(
+                                          appColor(context).appTheme.whiteBg))
+                                  .paddingSymmetric(horizontal: Insets.i15)),
+                          Image.asset(eGifAssets.coin,
+                                  height: Sizes.s26, width: Sizes.s26)
+                              .paddingSymmetric(horizontal: Insets.i35)
                         ],
                       ),
                       const VSpace(Sizes.s15),
@@ -56,23 +68,27 @@ class _SignupFreelancerScreenState extends State<SignupFreelancerScreen> with Ti
                             children: [
                               Text(
                                   language(
-                                      context,
-                                      value.fPageIndex == 0
-                                          ? appFonts.freelancerDetails
-                                          : appFonts.locationDetails)
+                                          context,
+                                          value.fPageIndex == 0
+                                              ? translations!.freelancerDetails
+                                              : translations!.locationDetails)
                                       .toUpperCase(),
-                                  style: appCss.dmDenseMedium16
-                                      .textColor(appColor(context).appTheme.darkText)),
-                              const DottedLines().paddingSymmetric(vertical: Insets.i20),
+                                  style: appCss.dmDenseMedium16.textColor(
+                                      appColor(context).appTheme.darkText)),
+                              const DottedLines()
+                                  .paddingSymmetric(vertical: Insets.i20),
                               value.fPageIndex == 0
                                   ? const SignUpOneFreelancer()
                                   : SignUpTwoFreelancer(sync: this)
                             ]).paddingSymmetric(vertical: Insets.i20)
                       ]).paddingSymmetric(horizontal: Insets.i20),
                       ButtonCommon(
-                          title: value.fPageIndex == 0 ? appFonts.next : appFonts.finish,
-                          onTap:() => value.onFreelancerTap(context))
-                          .paddingSymmetric(horizontal: Insets.i20, vertical: Insets.i20)
+                              title: value.fPageIndex == 0
+                                  ? translations!.next
+                                  : translations!.finish,
+                              onTap: () => value.onFreelancerTap(context))
+                          .paddingSymmetric(
+                              horizontal: Insets.i20, vertical: Insets.i20)
                     ]))),
           ),
         ),

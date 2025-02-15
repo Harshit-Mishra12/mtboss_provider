@@ -41,8 +41,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer3<HomeProvider, BookingProvider, DashboardProvider>(
-        builder: (context1, value, booking, dashCtrl, child) {
+    return Consumer4<LanguageProvider,HomeProvider, BookingProvider, DashboardProvider>(
+        builder: (context1, lang,value, booking, dashCtrl, child) {
       return StatefulWrapper(
           onInit: () => Future.delayed(const Duration(milliseconds: 100),
               () => value.onReady(context, this)),
@@ -72,10 +72,17 @@ class _HomeScreenState extends State<HomeScreen>
                                         style: appCss.dmDenseRegular14
                                             .textColor(
                                                 appColor(context).appTheme.red),
-                                      ).paddingAll(Sizes.s20).boxShapeExtension(color: appColor(context).appTheme.red.withOpacity(.10),radius: 8),
+                                      ).paddingAll(Sizes.s20).boxShapeExtension(
+                                          color: appColor(context)
+                                              .appTheme
+                                              .red
+                                              .withOpacity(.10),
+                                          radius: 8),
                                       const VSpace(Sizes.s15),
                                     ],
-                                  ).padding(horizontal:Sizes.s20).width(MediaQuery.sizeOf(context).width),
+                                  )
+                                      .padding(horizontal: Sizes.s20)
+                                      .width(MediaQuery.sizeOf(context).width),
                                 if (isServiceman) const ProviderInfo(),
                                 WalletBalanceLayout(
                                     onTap: () => value.onWithdraw(context)),
@@ -172,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen>
                                       HeadingRowCommon(
                                           isViewAllShow:
                                               booking.bookingList.length >= 10,
-                                          title: appFonts.recentBooking,
+                                          title: translations!.recentBooking,
                                           onTap: () =>
                                               value.onTapIndexOne(dashCtrl)),
                                       const VSpace(Sizes.s15),

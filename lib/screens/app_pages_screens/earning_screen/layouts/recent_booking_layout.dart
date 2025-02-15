@@ -1,4 +1,3 @@
-
 import '../../../../config.dart';
 
 class RecentBookingLayout extends StatelessWidget {
@@ -17,7 +16,9 @@ class RecentBookingLayout extends StatelessWidget {
               style: appCss.dmDenseMedium16
                   .textColor(appColor(context).appTheme.darkText)),
           Row(children: [
-            Text(language(context, "${getSymbol(context)}${currency(context).currencyVal * data!.total!}"),
+            Text(
+                language(context,
+                    "${getSymbol(context)}${currency(context).currencyVal * data!.total!}"),
                 style: appCss.dmDenseBold18
                     .textColor(appColor(context).appTheme.primary)),
             const HSpace(Sizes.s8),
@@ -55,40 +56,42 @@ class RecentBookingLayout extends StatelessWidget {
         ]),
         data!.service!.media != null && data!.service!.media!.isNotEmpty
             ? CachedNetworkImage(
-            imageUrl: data!.service!.media![0].originalUrl!,
-            imageBuilder: (context, imageProvider) => Container(
-                height: Sizes.s84,
-                width: Sizes.s84,
-                decoration: ShapeDecoration(
-                    image: DecorationImage(
-                        image: imageProvider, fit: BoxFit.cover),
-                    shape: const SmoothRectangleBorder(
-                        borderRadius: SmoothBorderRadius.all(SmoothRadius(
-                            cornerRadius: AppRadius.r10,
-                            cornerSmoothing: 1))))),
-            placeholder: (context, url) => CommonCachedImage(
-                image: eImageAssets.noImageFound1,
-                height: Sizes.s84,
-                width: Sizes.s84,
-                radius: AppRadius.r10),
-            errorWidget: (context, url, error) => CommonCachedImage(
-                image: eImageAssets.noImageFound1,
-                height: Sizes.s84,
-                width: Sizes.s84,
-                radius: AppRadius.r10))
+                imageUrl: data!.service!.media![0].originalUrl!,
+                imageBuilder: (context, imageProvider) => Container(
+                    height: Sizes.s84,
+                    width: Sizes.s84,
+                    decoration: ShapeDecoration(
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                        shape: const SmoothRectangleBorder(
+                            borderRadius: SmoothBorderRadius.all(SmoothRadius(
+                                cornerRadius: AppRadius.r10,
+                                cornerSmoothing: 1))))),
+                placeholder: (context, url) => CommonCachedImage(
+                    image: eImageAssets.noImageFound1,
+                    height: Sizes.s84,
+                    width: Sizes.s84,
+                    radius: AppRadius.r10),
+                errorWidget: (context, url, error) => CommonCachedImage(
+                    image: eImageAssets.noImageFound1,
+                    height: Sizes.s84,
+                    width: Sizes.s84,
+                    radius: AppRadius.r10))
             : CommonCachedImage(
-            image: eImageAssets.noImageFound1,
-            height: Sizes.s84,
-            width: Sizes.s84,
-            radius: AppRadius.r10)
+                image: eImageAssets.noImageFound1,
+                height: Sizes.s84,
+                width: Sizes.s84,
+                radius: AppRadius.r10)
       ]),
       const VSpace(Sizes.s12),
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(language(context, appFonts.requiredServiceman),
+        Text(language(context, translations!.requiredServiceman),
             style: appCss.dmDenseMedium12
                 .textColor(appColor(context).appTheme.darkText)),
         const HSpace(Sizes.s8),
-        Text(language(context, "${data!.requiredServicemen!} ${appFonts.serviceman}"),
+        Text(
+            language(context,
+                "${data!.requiredServicemen!} ${translations!.serviceman}"),
             style: appCss.dmDenseMedium14
                 .textColor(appColor(context).appTheme.primary))
       ]),
@@ -99,37 +102,36 @@ class RecentBookingLayout extends StatelessWidget {
                 if (data!.servicemen!.isNotEmpty)
                   data!.isExpand == true
                       ? Column(
-                      children: data!.servicemen!.asMap().entries.map((s) {
-                        return ServiceProviderLayout(
-
-                            title:
-                                capitalizeFirstLetter(language(context, appFonts.serviceman)),
-                            image: s.value.media != null
-                                ? s.value.media![0].originalUrl!
-                                : null,
-                            name: s.value.name,
-                            rate: s.value.reviewRatings ?? "0",
-                            index: s.key,
-                            list: data!.servicemen!);
-                      }).toList())
+                          children: data!.servicemen!.asMap().entries.map((s) {
+                          return ServiceProviderLayout(
+                              title: capitalizeFirstLetter(
+                                  language(context, translations!.serviceman)),
+                              image: s.value.media != null
+                                  ? s.value.media![0].originalUrl!
+                                  : null,
+                              name: s.value.name,
+                              rate: s.value.reviewRatings ?? "0",
+                              index: s.key,
+                              list: data!.servicemen!);
+                        }).toList())
                       : Column(
-                      children: data!.servicemen!
-                          .getRange(0, 1)
-                          .toList()
-                          .asMap()
-                          .entries
-                          .map((s) {
-                        return ServiceProviderLayout(
-                            expand: data!.isExpand,
-                            title: appFonts.serviceman,
-                            image: s.value.media != null
-                                ? s.value.media![0].originalUrl!
-                                : null,
-                            name: s.value.name,
-                            rate: s.value.reviewRatings ?? "0",
-                            index: s.key,
-                            list:const []);
-                      }).toList()),
+                          children: data!.servicemen!
+                              .getRange(0, 1)
+                              .toList()
+                              .asMap()
+                              .entries
+                              .map((s) {
+                          return ServiceProviderLayout(
+                              expand: data!.isExpand,
+                              title: translations!.serviceman,
+                              image: s.value.media != null
+                                  ? s.value.media![0].originalUrl!
+                                  : null,
+                              name: s.value.name,
+                              rate: s.value.reviewRatings ?? "0",
+                              index: s.key,
+                              list: const []);
+                        }).toList()),
               ])
                 .paddingSymmetric(horizontal: Insets.i15)
                 .boxShapeExtension(
@@ -138,13 +140,11 @@ class RecentBookingLayout extends StatelessWidget {
                 .paddingOnly(
                     bottom: data!.servicemen!.length > 1 ? Insets.i20 : 0)
             : Text(
-                language(context,
-                    "${appFonts.note}${appFonts.servicemanNotSelectedYet}"),
-                style: appCss.dmDenseMedium12
-                    .textColor(appColor(context).appTheme.lightText)
-              ).alignment(Alignment.centerLeft),
-
-
+                    language(context,
+                        "${translations!.note}${translations!.servicemanNotSelectedYet}"),
+                    style: appCss.dmDenseMedium12
+                        .textColor(appColor(context).appTheme.lightText))
+                .alignment(Alignment.centerLeft),
         if (data!.servicemen != null)
           if (data!.servicemen!.length > 1)
             CommonArrow(
@@ -157,7 +157,7 @@ class RecentBookingLayout extends StatelessWidget {
       ])
     ])
         .paddingSymmetric(horizontal: Insets.i15, vertical: Insets.i20)
-        .boxBorderExtension(context,   bColor: appColor(context).appTheme.stroke)
+        .boxBorderExtension(context, bColor: appColor(context).appTheme.stroke)
         .paddingOnly(bottom: Insets.i15)
         .inkWell(onTap: onTap);
   }

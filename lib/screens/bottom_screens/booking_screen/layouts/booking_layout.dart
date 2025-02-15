@@ -23,9 +23,8 @@ class BookingLayout extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(children: [
-
                       if (data!.servicePackageId != null)
-                        BookingStatusLayout(title: appFonts.package)
+                        BookingStatusLayout(title: translations!.package)
                     ]),
                     Text(language(context, data!.service!.title),
                             style: appCss.dmDenseMedium16
@@ -79,34 +78,34 @@ class BookingLayout extends StatelessWidget {
               .paddingSymmetric(vertical: Insets.i12),
           if (data!.bookingStatus != null)
             StatusRow(
-              title: appFonts.bookingStatus,
+              title: translations!.bookingStatus,
               statusText: data!.bookingStatus!.name!,
               statusId: data!.bookingStatusId,
             ),
           if (data!.parentBookingNumber != null)
             StatusRow(
-              title: appFonts.subBookingId,
+              title: translations!.subBookingId,
               title2: data!.parentBookingNumber != null
                   ? "#${data!.parentBookingNumber}"
                   : "",
             ),
           if (data!.bookingStatus != null &&
-              data!.bookingStatus!.slug != appFonts.cancelled)
+              data!.bookingStatus!.slug != translations!.cancelled)
             StatusRow(
-                title: appFonts.requiredServiceman,
+                title: translations!.requiredServiceman,
                 title2:
-                    "${((data!.requiredServicemen ?? 1) + (data!.totalExtraServicemen != null ? (data!.totalExtraServicemen ?? 1) : 0))} ${language(context, appFonts.serviceman)}",
+                    "${((data!.requiredServicemen ?? 1) + (data!.totalExtraServicemen != null ? (data!.totalExtraServicemen ?? 1) : 0))} ${language(context, translations!.serviceman)}",
                 style: appCss.dmDenseMedium12
                     .textColor(appColor(context).appTheme.darkText)),
-          if(data!.dateTime != null)
+          if (data!.dateTime != null)
+            StatusRow(
+                title: translations!.dateTime,
+                title2: DateFormat("dd-MM-yyyy, hh:mm aa")
+                    .format(DateTime.parse(data!.dateTime!)),
+                style: appCss.dmDenseMedium12
+                    .textColor(appColor(context).appTheme.darkText)),
           StatusRow(
-              title: appFonts.dateTime,
-              title2: DateFormat("dd-MM-yyyy, hh:mm aa")
-                  .format(DateTime.parse(data!.dateTime!)),
-              style: appCss.dmDenseMedium12
-                  .textColor(appColor(context).appTheme.darkText)),
-          StatusRow(
-              title: appFonts.location,
+              title: translations!.location,
               title2: data!.address != null
                   ? "${data!.address!.country!.name}-${data!.address!.state!.name}"
                   : data!.consumer!.primaryAddress != null
@@ -116,26 +115,27 @@ class BookingLayout extends StatelessWidget {
                   .textColor(appColor(context).appTheme.darkText)),
           if (data!.bookingStatus != null)
             StatusRow(
-                title: appFonts.payment,
+                title: translations!.payment,
                 title2: data!.paymentStatus != null
                     ? data!.paymentMethod == "cash"
                         ? data!.paymentStatus!.toLowerCase() == "completed"
                             ? data!.paymentStatus!
-                            : language(context, appFonts.notPaid).toUpperCase()
+                            : language(context, translations!.notPaid)
+                                .toUpperCase()
                         : data!.paymentStatus!
-                    : data!.bookingStatus!.slug == appFonts.accepted
+                    : data!.bookingStatus!.slug == translations!.accepted
                         ? data!.paymentStatus == "COMPLETED"
-                            ? language(context, appFonts.paid)
-                            : language(context, appFonts.notPaid)
+                            ? language(context, translations!.paid)
+                            : language(context, translations!.notPaid)
                         : data!.paymentMethod == "cash"
-                            ? language(context, appFonts.notPaid)
-                            : language(context, appFonts.paid),
+                            ? language(context, translations!.notPaid)
+                            : language(context, translations!.paid),
                 style: appCss.dmDenseMedium12
                     .textColor(appColor(context).appTheme.online)),
           StatusRow(
-              title: appFonts.paymentMethod,
+              title: translations!.paymentMethod,
               title2: data!.paymentMethod == "cash"
-                  ? language(context, appFonts.cash)
+                  ? language(context, translations!.cash)
                   : capitalizeFirstLetter(data!.paymentMethod!),
               style: appCss.dmDenseMedium12
                   .textColor(appColor(context).appTheme.online)),
@@ -148,7 +148,7 @@ class BookingLayout extends StatelessWidget {
                 if (data!.consumer != null)
                   ServiceProviderLayout(
                           expand: value.isExpand,
-                          title: appFonts.customer,
+                          title: translations!.customer,
                           image: data!.consumer!.media != null &&
                                   data!.consumer!.media!.isNotEmpty
                               ? data!.consumer!.media![0].originalUrl!
@@ -173,8 +173,8 @@ class BookingLayout extends StatelessWidget {
                                 children:
                                     data!.servicemen!.asMap().entries.map((s) {
                               return ServiceProviderLayout(
-                                  title: capitalizeFirstLetter(
-                                      language(context, appFonts.serviceman)),
+                                  title: capitalizeFirstLetter(language(
+                                      context, translations!.serviceman)),
                                   image: s.value.media != null
                                       ? s.value.media![0].originalUrl!
                                       : null,
@@ -204,46 +204,48 @@ class BookingLayout extends StatelessWidget {
                     color: appColor(context).appTheme.whiteBg)*/
                     ]),
                 if (data!.servicemen!.isEmpty)
-                  Text(language(context, appFonts.noteServicemenNotSelectYet),
+                  Text(
+                          language(context,
+                              translations!.noteServicemenNotSelectYet),
                           style: appCss.dmDenseRegular12
                               .textColor(appColor(context).appTheme.lightText))
                       .paddingOnly(top: Insets.i8),
                 if (data!.servicemen!.isEmpty &&
-                    data!.bookingStatus!.slug == appFonts.assigned)
+                    data!.bookingStatus!.slug == translations!.assigned)
                   RichText(
                       text: TextSpan(
                           style: appCss.dmDenseMedium12
                               .textColor(appColor(context).appTheme.red),
-                          text: language(context, appFonts.note),
+                          text: language(context, translations!.note),
                           children: [
                         TextSpan(
                             style: appCss.dmDenseRegular12
                                 .textColor(appColor(context).appTheme.red),
-                            text:
-                                language(context, appFonts.youAssignedService))
+                            text: language(
+                                context, translations!.youAssignedService))
                       ])).paddingOnly(top: Insets.i8),
                 if (data!.servicemen!.isEmpty &&
-                    data!.bookingStatus!.slug == appFonts.ongoing)
+                    data!.bookingStatus!.slug == translations!.ongoing)
                   if (isFreelancer != true)
                     RichText(
                         text: TextSpan(
                             style: appCss.dmDenseMedium12
                                 .textColor(appColor(context).appTheme.red),
-                            text: language(context, appFonts.note),
+                            text: language(context, translations!.note),
                             children: [
                           TextSpan(
                               style: appCss.dmDenseRegular12
                                   .textColor(appColor(context).appTheme.red),
                               text: language(
-                                  context, appFonts.youAssignedService))
+                                  context, translations!.youAssignedService))
                         ])).paddingOnly(top: Insets.i8),
                 if (data!.bookingStatus != null)
-                  if (data!.bookingStatus!.slug == appFonts.pending &&
+                  if (data!.bookingStatus!.slug == translations!.pending &&
                       data!.servicemen!.isEmpty)
                     Row(children: [
                       Expanded(
                           child: ButtonCommon(
-                              title: appFonts.reject,
+                              title: translations!.reject,
                               onTap: () =>
                                   value.onRejectBooking(context, data!.id),
                               style: appCss.dmDenseSemiBold16.textColor(
@@ -253,16 +255,17 @@ class BookingLayout extends StatelessWidget {
                       const HSpace(Sizes.s15),
                       Expanded(
                           child: ButtonCommon(
-                              title: appFonts.accept,
+                              title: translations!.accept,
                               onTap: () =>
                                   value.onAcceptBooking(context, data!.id)))
                     ]).paddingOnly(top: Insets.i15, bottom: Sizes.s20),
                 if (data!.bookingStatus != null)
-                  if ((data!.bookingStatus!.slug == appFonts.accept ||
-                          data!.bookingStatus!.slug == appFonts.accepted) &&
+                  if ((data!.bookingStatus!.slug == translations!.accept ||
+                          data!.bookingStatus!.slug ==
+                              translations!.accepted) &&
                       data!.servicemen!.isEmpty)
                     ButtonCommon(
-                            title: appFonts.assigned,
+                            title: translations!.assigned,
                             onTap: () => value.onAssignTap(context, data!),
                             style: appCss.dmDenseSemiBold16
                                 .textColor(appColor(context).appTheme.primary),
@@ -292,20 +295,18 @@ class BookingLayout extends StatelessWidget {
                   .textColor(appColor(context).appTheme.whiteColor),
             ),
           ),
-        ).paddingOnly(
-
-            left: Sizes.s20),
-
+        ).padding(horizontal: Sizes.s20),
         Positioned(
             bottom: Insets.i2,
             left: Insets.i150,
             child: CommonArrow(
-                arrow: data!.isExpand == true
-                    ? eSvgAssets.upDoubleArrow
-                    : eSvgAssets.downDoubleArrow,
-                isThirteen: true,
-                onTap: () => value.onExpand(data),
-                color: appColor(context).appTheme.fieldCardBg).center()),
+                    arrow: data!.isExpand == true
+                        ? eSvgAssets.upDoubleArrow
+                        : eSvgAssets.downDoubleArrow,
+                    isThirteen: true,
+                    onTap: () => value.onExpand(data),
+                    color: appColor(context).appTheme.fieldCardBg)
+                .center()),
       ],
     ).paddingOnly(top: Sizes.s8, bottom: Sizes.s8);
   }

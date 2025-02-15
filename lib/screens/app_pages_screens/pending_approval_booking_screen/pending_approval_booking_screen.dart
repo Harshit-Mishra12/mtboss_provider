@@ -12,7 +12,8 @@ class PendingApprovalBookingScreen extends StatelessWidget {
               const Duration(milliseconds: 50), () => value.onReady(context)),
           child: LoadingComponent(
             child: Scaffold(
-                appBar: AppBarCommon(title: appFonts.pendingApprovalBooking),
+                appBar:
+                    AppBarCommon(title: translations!.pendingApprovalBooking),
                 body: RefreshIndicator(
                   onRefresh: () async {
                     value.getBookingDetailById(context);
@@ -30,7 +31,7 @@ class PendingApprovalBookingScreen extends StatelessWidget {
                                     context, value.bookingModel)),
                             if (isFreelancer != true)
                               const ServicemenPayableLayout(amount: "30.36"),
-                            Text(language(context, appFonts.billSummary),
+                            Text(language(context, translations!.billSummary),
                                     style: appCss.dmDenseMedium14.textColor(
                                         appColor(context).appTheme.darkText))
                                 .paddingOnly(
@@ -50,8 +51,8 @@ class PendingApprovalBookingScreen extends StatelessWidget {
                       Material(
                           elevation: 20,
                           child: AssignStatusLayout(
-                              title: appFonts.theServicemenNotApprove,
-                              status: appFonts.status.toUpperCase()))
+                              title: translations!.theServicemenNotApprove,
+                              status: translations!.status!.toUpperCase()))
                     ],
                   ),
                 )),

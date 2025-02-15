@@ -1,4 +1,3 @@
-
 import '../../../../config.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -25,7 +24,10 @@ class HomeAppBar extends StatelessWidget {
                 image: eImageAssets.noImageFound3,
                 isCircle: true),
         const HSpace(Sizes.s10),
-        Text(userModel != null ?userModel!.name! : language(context, appFonts.helloThere),
+        Text(
+            userModel != null
+                ? userModel!.name!
+                : language(context, translations!.helloThere),
             style: appCss.dmDenseBold14
                 .textColor(appColor(context).appTheme.darkText))
       ]),

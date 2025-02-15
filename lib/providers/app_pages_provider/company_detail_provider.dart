@@ -141,13 +141,11 @@ class CompanyDetailProvider with ChangeNotifier {
   }
 
   //country selection function
-  onChangeCountryCompany(context,val,CountryStateModel c) {
+  onChangeCountryCompany(context, val, CountryStateModel c) {
     countryValue = val;
 
     country = c;
-    int index = countryList
-        .indexWhere((element) => element.id == c.id);
-
+    int index = countryList.indexWhere((element) => element.id == c.id);
 
     if (index >= 0) {
       statesList = countryList[index].state!;
@@ -160,7 +158,7 @@ class CompanyDetailProvider with ChangeNotifier {
   }
 
   // state selection function
-  onChangeStateCompany(val,StateModel c) {
+  onChangeStateCompany(val, StateModel c) {
     stateValue = val;
     state = c;
     notifyListeners();
@@ -206,11 +204,14 @@ class CompanyDetailProvider with ChangeNotifier {
     state = null;
     companyName.text = userModel!.company!.name ?? "";
     companyMail.text = userModel!.company!.email ?? "";
-    companyPhone.text = userModel!.company!.phone != null ?userModel!.company!.phone.toString():"";
+    companyPhone.text = userModel!.company!.phone != null
+        ? userModel!.company!.phone.toString()
+        : "";
     dialCode = userModel!.company!.code ?? "";
     description.text = userModel!.company!.description ?? "";
     logo = userModel!.company!.media![0].originalUrl;
-    areaData = "${userModel!.company!.primaryAddress!.area}, ${userModel!.company!.primaryAddress!.address}";
+    areaData =
+        "${userModel!.company!.primaryAddress!.area}, ${userModel!.company!.primaryAddress!.address}";
     area.text = userModel!.company!.primaryAddress!.area ?? "";
     street.text = userModel!.company!.primaryAddress!.address ?? "";
     city.text = userModel!.company!.primaryAddress!.city ?? "";
@@ -224,20 +225,18 @@ class CompanyDetailProvider with ChangeNotifier {
       country = countryList[ind];
       statesList = countryList[ind].state!;
       notifyListeners();
-
     }
 
     print("country :$country");
 
     int stateInd = statesList.indexWhere((element) =>
-    element.id.toString() == userModel!.company!.primaryAddress!.stateId);
+        element.id.toString() == userModel!.company!.primaryAddress!.stateId);
     log("stateIndstateInd ;$stateInd");
     if (stateInd >= 0) {
       state = statesList[stateInd];
       notifyListeners();
-
     }
-  print("state :$state");
+    print("state :$state");
     notifyListeners();
   }
 
@@ -278,13 +277,16 @@ class CompanyDetailProvider with ChangeNotifier {
 
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
 
-    value.onDeleteDialog(sync, context, eImageAssets.servicemen,
-        appFonts.deleteLocation, appFonts.deleteLocationSuccessfully, () {
+    value.onDeleteDialog(
+        sync,
+        context,
+        eImageAssets.servicemen,
+        translations!.deleteLocation,
+        translations!.deleteLocationSuccessfully, () {
       notifyListeners();
     });
     value.notifyListeners();
   }
-
 
   //phone dial code selection
   changeDialCode(CountryCodeCustom country) {
@@ -320,8 +322,7 @@ class CompanyDetailProvider with ChangeNotifier {
     }
   }
 
-  deleteZone(context,id)async{
-
+  deleteZone(context, id) async {
     try {
       showLoading(context);
       List ids = [];
@@ -368,16 +369,16 @@ class CompanyDetailProvider with ChangeNotifier {
       notifyListeners();
       await apiServices
           .postApi(api.zoneUpdate, {"zoneIds": ids}, isToken: true)
-          .then((value)async {
+          .then((value) async {
         log("ZOOOO :${value.data}");
         hideLoading(context);
 
         notifyListeners();
         if (value.isSuccess!) {
           final common = Provider.of<CommonApiProvider>(context, listen: false);
-        await  common.selfApi(context);
+          await common.selfApi(context);
           isSelectedZone = false;
-          zoneSelect =[];
+          zoneSelect = [];
           notifyListeners();
         } else {
           snackBarMessengers(context,
@@ -460,7 +461,6 @@ class CompanyDetailProvider with ChangeNotifier {
       await apiServices
           .postApi(api.updateCompanyProfile, formData, isToken: true)
           .then((value) async {
-
         if (value.isSuccess!) {
           final commonApi =
               Provider.of<CommonApiProvider>(context, listen: false);
@@ -469,11 +469,14 @@ class CompanyDetailProvider with ChangeNotifier {
           notifyListeners();
           companyName.text = userModel!.company!.name ?? "";
           companyMail.text = userModel!.company!.email ?? "";
-          companyPhone.text = userModel!.company!.phone != null?userModel!.company!.phone.toString():"";
+          companyPhone.text = userModel!.company!.phone != null
+              ? userModel!.company!.phone.toString()
+              : "";
           dialCode = userModel!.company!.code ?? "";
           description.text = userModel!.company!.description ?? "";
           logo = userModel!.company!.media![0].originalUrl;
-          areaData = "${userModel!.company!.primaryAddress!.area}, ${userModel!.company!.primaryAddress!.address}";
+          areaData =
+              "${userModel!.company!.primaryAddress!.area}, ${userModel!.company!.primaryAddress!.address}";
           area.text = userModel!.company!.primaryAddress!.area ?? "";
           street.text = userModel!.company!.primaryAddress!.address ?? "";
           city.text = userModel!.company!.primaryAddress!.city ?? "";
@@ -482,12 +485,12 @@ class CompanyDetailProvider with ChangeNotifier {
           latitude.text = userModel!.company!.primaryAddress!.latitude ?? "";
           longitude.text = userModel!.company!.primaryAddress!.longitude ?? "";
           int ind = countryList.indexWhere((element) =>
-          element.id.toString() == userModel!.company!.primaryAddress!.countryId);
+              element.id.toString() ==
+              userModel!.company!.primaryAddress!.countryId);
           if (ind >= 0) {
             country = countryList[ind];
             statesList = countryList[ind].state!;
             notifyListeners();
-
           }
           hideLoading(context);
 
@@ -495,22 +498,22 @@ class CompanyDetailProvider with ChangeNotifier {
           print("country :$country");
 
           int stateInd = statesList.indexWhere((element) =>
-          element.id.toString() == userModel!.company!.primaryAddress!.stateId);
+              element.id.toString() ==
+              userModel!.company!.primaryAddress!.stateId);
           log("stateIndstateInd ;$stateInd");
           if (stateInd >= 0) {
             state = statesList[stateInd];
             notifyListeners();
-
           }
           notifyListeners();
           showDialog(
               context: context,
               builder: (context) => AlertDialogCommon(
-                  title: appFonts.updateSuccessfully,
+                  title: translations!.updateSuccessfully,
                   height: Sizes.s140,
                   image: eGifAssets.successGif,
-                  subtext: language(context, appFonts.hurrayUpdateProfile),
-                  bText1: language(context, appFonts.okay),
+                  subtext: language(context, translations!.hurrayUpdateProfile),
+                  bText1: language(context, translations!.okay),
                   b1OnTap: () => route.pop(context)));
         } else {
           hideLoading(context);

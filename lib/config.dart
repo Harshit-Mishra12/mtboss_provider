@@ -1,3 +1,4 @@
+import 'package:fixit_provider/model/translation_model.dart';
 import 'package:fixit_provider/services/api_methods.dart';
 import 'package:fixit_provider/services/api_service.dart';
 export 'package:fixit_provider/widgets/common_list_index.dart';
@@ -26,11 +27,10 @@ export '../common/theme/theme_service.dart';
 export '../utils/general_utils.dart';
 export 'package:fixit_provider/services/common_list_services.dart';
 
-
 export '../helper/alert_class.dart';
 export 'package:fixit_provider/model/index.dart';
 
- GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 ThemeService appColor(context) {
   final themeServices = Provider.of<ThemeService>(context, listen: false);
@@ -57,14 +57,14 @@ hideLoading(context) async {
   Provider.of<LoadingProvider>(context, listen: false).hideLoading();
 }
 
-String language(context, text) {
-  return AppLocalizations.of(context)!.translate(text);
+String language(context, String? text) {
+  return AppLocalizations.of(context)!.translate(text ?? "");
 }
 
-bool rtl(context){
-  return AppLocalizations.of(context)?.locale.languageCode == "ar";
+bool rtl(BuildContext context) {
+  final languageProvider = context.watch<LanguageProvider>();
+  return languageProvider.locale?.languageCode == 'ar';
 }
-
 
 bool isDark(context) {
   final themeServices = Provider.of<ThemeService>(context, listen: false);
@@ -72,13 +72,11 @@ bool isDark(context) {
   return themeServices.isDarkMode;
 }
 
-
 int themeIndex(context) {
   final themeServices = Provider.of<ThemeService>(context, listen: false);
 
   return themeServices.themeIndex;
 }
-
 
 Session session = Session();
 AppFonts appFonts = AppFonts();
@@ -90,3 +88,4 @@ TextCommon textCommon = TextCommon();
 ApiServices apiServices = ApiServices();
 ApiMethods api = ApiMethods();
 CollectionName collectionName = CollectionName();
+Translation? translations;

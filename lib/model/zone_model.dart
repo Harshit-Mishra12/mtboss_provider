@@ -8,12 +8,17 @@ class ZoneModel {
   String? deletedAt;
 
   ZoneModel(
-      {this.id, this.name,  this.status, this.createdById, this.createdAt, this.updatedAt, this.deletedAt});
+      {this.id,
+      this.name,
+      this.status,
+      this.createdById,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt});
 
   ZoneModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = int.tryParse(json['id'].toString()) ?? 0;
     name = json['name'];
-
     status = json['status']?.toString();
     createdById = json['created_by_id']?.toString();
     createdAt = json['created_at'];
@@ -33,5 +38,3 @@ class ZoneModel {
     return data;
   }
 }
-
-

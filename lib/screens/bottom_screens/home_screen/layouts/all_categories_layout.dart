@@ -16,7 +16,7 @@ class AllCategoriesLayout extends StatelessWidget {
             if (isFreelancer != true)
               HeadingRowCommon(
                       isViewAllShow: servicemanList.length >= 4,
-                      title: appFonts.availableServiceman,
+                      title: translations!.availableServiceman,
                       onTap: () =>
                           route.pushNamed(context, routeName.servicemanList))
                   .padding(
@@ -53,7 +53,7 @@ class AllCategoriesLayout extends StatelessWidget {
               Column(children: [
                 HeadingRowCommon(
                     isViewAllShow: booking.bookingList.length >= 10,
-                    title: appFonts.recentBooking,
+                    title: translations!.recentBooking,
                     onTap: () => value.onTapIndexOne(dashCtrl)),
                 const VSpace(Sizes.s15),
                 booking.bookingList.length > 2
@@ -85,7 +85,7 @@ class AllCategoriesLayout extends StatelessWidget {
           // Column(children: [
           //   HeadingRowCommon(
           //       isViewAllShow: booking.bookingList.length >= 10,
-          //       title: appFonts.recentBooking,
+          //       title: translations!.recentBooking,
           //       onTap: () => value.onTapIndexOne(dashCtrl)),
           //   const VSpace(Sizes.s15),
           //   booking.bookingList.length > 2
@@ -115,7 +115,7 @@ class AllCategoriesLayout extends StatelessWidget {
               children: [
                 HeadingRowCommon(
                         isViewAllShow: jobRequestList.length >= 4,
-                        title: appFonts.customJobRequest,
+                        title: translations!.customJobRequest,
                         onTap: () =>
                             route.pushNamed(context, routeName.jobRequestList))
                     .paddingSymmetric(horizontal: Insets.i20),
@@ -146,7 +146,7 @@ class AllCategoriesLayout extends StatelessWidget {
           if (popularServiceList.isNotEmpty)
             HeadingRowCommon(
                     isViewAllShow: popularServiceList.length >= 10,
-                    title: appFonts.popularService,
+                    title: translations?.popularService ?? "fgjgvh",
                     onTap: () => route.pushNamed(
                         context, routeName.popularServiceScreen))
                 .paddingSymmetric(horizontal: Insets.i20),
@@ -185,7 +185,7 @@ class AllCategoriesLayout extends StatelessWidget {
               children: [
                 if (blogList.isNotEmpty)
                   HeadingRowCommon(
-                          title: appFonts.latestBlog,
+                          title: translations!.latestBlog,
                           isViewAllShow: blogList.length >= 10,
                           onTap: () => route.pushNamed(
                               context, routeName.latestBlogViewAll))

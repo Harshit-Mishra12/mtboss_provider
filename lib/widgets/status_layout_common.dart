@@ -11,25 +11,21 @@ class StatusLayoutCommon extends StatelessWidget {
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Expanded(
           flex: 8,
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(language(context, title!),
-                    style: appCss.dmDenseSemiBold14.textColor(
-                        appColor(context).appTheme.darkText)),
-                Text(language(context, appFonts.thisServiceCanBe),
-                    style: appCss.dmDenseMedium12.textColor(
-                        appColor(context).appTheme.lightText))
-              ])),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(language(context, title!),
+                style: appCss.dmDenseSemiBold14
+                    .textColor(appColor(context).appTheme.darkText)),
+            Text(language(context, translations!.thisServiceCanBe),
+                style: appCss.dmDenseMedium12
+                    .textColor(appColor(context).appTheme.lightText))
+          ])),
       const HSpace(Sizes.s25),
       Expanded(
-          flex: 2,
-          child: FlutterSwitchCommon(
-              value: value,
-              onToggle: onToggle))
-    ]).paddingAll(Insets.i15)
-        .boxShapeExtension(
-        color: appColor(context).appTheme.whiteBg)
+          flex: 2, child: FlutterSwitchCommon(value: value, onToggle: onToggle))
+    ])
+        .paddingAll(Insets.i15)
+        .boxShapeExtension(color: appColor(context).appTheme.whiteBg)
         .paddingSymmetric(horizontal: Insets.i20);
   }
 }

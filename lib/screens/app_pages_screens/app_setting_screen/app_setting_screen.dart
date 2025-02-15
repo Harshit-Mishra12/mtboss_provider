@@ -5,8 +5,8 @@ class AppSettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<AppSettingProvider,ThemeService>(
-        builder: (context1, settingCtrl,theme, child) {
+    return Consumer2<AppSettingProvider, ThemeService>(
+        builder: (context1, settingCtrl, theme, child) {
       return LoadingComponent(
           child: Scaffold(
               appBar: AppBar(
@@ -14,9 +14,13 @@ class AppSettingScreen extends StatelessWidget {
                   centerTitle: true,
                   leadingWidth: 80,
                   leading: CommonArrow(
-                      arrow: rtl(context) ? eSvgAssets.arrowRight : eSvgAssets.arrowLeft,
-                      onTap: () => route.pop(context)).paddingAll(Insets.i8),
-                  title: Text(language(context, appFonts.appSetting),
+                          arrow: rtl(context)
+                              ? eSvgAssets.arrowRight
+                              : eSvgAssets.arrowLeft,
+                          onTap: () => route.pushReplacementNamed(context,
+                              routeName.dashboard) /*route.pop(context)*/)
+                      .paddingAll(Insets.i8),
+                  title: Text(language(context, translations!.appSetting),
                       style: appCss.dmDenseBold18
                           .textColor(appColor(context).appTheme.darkText))),
               body: const AppSettingLayout()));

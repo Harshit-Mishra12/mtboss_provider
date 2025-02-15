@@ -265,7 +265,7 @@ dynamic en = {
   "service": "Service",
   "servicemanDetail": "Serviceman Detail",
   "chines": "Chinese",
-  "addServicemen": "Add Servicemen",
+  "addServicemen": "Add Serviceman",
   "selectOne": "Select One",
   "location": "Location",
   "chooseFromGallery": "Choose From Gallery",
@@ -661,9 +661,9 @@ dynamic en = {
   'faq': "FAQ's",
   'selectZone': "Select Zone",
   'purchased': "Purchased",
-  'useCurrentLocation': "Use Current Location",'noteForCategorySelection':
-  "Any category that you've chosen If such a category has a parent, the parent category will be chosen automatically.",
-
+  'useCurrentLocation': "Use Current Location",
+  'noteForCategorySelection':
+      "Any category that you've chosen If such a category has a parent, the parent category will be chosen automatically.",
 
   'readLess': "Read Less",
   'readMore': "Read More",
@@ -682,11 +682,11 @@ dynamic en = {
   "confirm": "Confirm",
   "myBid": "My Bid",
 
-
   "userSite": "User Site",
   "providerSite": "Provider Site",
   "remotely": "Remotely",
   "maintenanceMode": "App Under Maintenance",
-  "appIsUnderMaintenance": "Our app is temporarily down for improvements; we’ll be back shortly!",
-  "subBookingId":"Sub Booking ID",
+  "appIsUnderMaintenance":
+      "Our app is temporarily down for improvements; we’ll be back shortly!",
+  "subBookingId": "Sub Booking ID",
 };

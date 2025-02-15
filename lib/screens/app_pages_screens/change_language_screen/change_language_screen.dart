@@ -18,8 +18,8 @@ class ChangeLanguageScreen extends StatelessWidget {
                           : eSvgAssets.arrowLeft,
                       onTap: () => route.pop(context)).paddingAll(Insets.i8),
                   title: Text(
-                      language(
-                          context, language(context, appFonts.changeLanguage)),
+                      language(context,
+                          language(context, translations!.changeLanguage)),
                       style: appCss.dmDenseBold18
                           .textColor(appColor(context).appTheme.darkText))),
               body: Column(
@@ -27,9 +27,9 @@ class ChangeLanguageScreen extends StatelessWidget {
                   children: [
                     const RadioLayout(),
                     ButtonCommon(
-                      title: appFonts.update,
-                      onTap: () => languageCtrl
-                          .changeLocale(languageCtrl.selectLanguage),
+                      title: translations!.update,
+                      onTap: () => languageCtrl.changeLocale(languageCtrl
+                          .languageList[languageCtrl.selectedIndex]),
                     ).paddingAll(Insets.i20)
                   ])));
     });

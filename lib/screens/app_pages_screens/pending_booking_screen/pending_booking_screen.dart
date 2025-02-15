@@ -11,20 +11,22 @@ class PendingBookingScreen extends StatelessWidget {
         canPop: true,
         onPopInvoked: (didPop) {
           value.onBack(context, false);
-          if(didPop) return;
+          if (didPop) return;
         },
         child: StatefulWrapper(
-            onInit: () => Future.delayed(
-                const Duration(milliseconds: 100), () => value.onReady(context)),
+            onInit: () => Future.delayed(const Duration(milliseconds: 100),
+                () => value.onReady(context)),
             child: LoadingComponent(
-                child:value.bookingModel == null
-                    ?   const BookingDetailShimmer()
-                    :  Scaffold(
-                    appBar: AppBarCommon(title: appFonts.pendingBooking,onTap: ()=> value.onBack(context, true)),
-                    body: RefreshIndicator(
-                        onRefresh: () async {
-                          value.onRefresh(context);
-                        },
+                child: value.bookingModel == null
+                    ? const BookingDetailShimmer()
+                    : Scaffold(
+                        appBar: AppBarCommon(
+                            title: translations!.pendingBooking,
+                            onTap: () => value.onBack(context, true)),
+                        body: RefreshIndicator(
+                            onRefresh: () async {
+                              value.onRefresh(context);
+                            },
                             child: Stack(
                                 alignment: Alignment.bottomCenter,
                                 children: [
@@ -35,14 +37,15 @@ class PendingBookingScreen extends StatelessWidget {
                                               children: [
                                         StatusDetailLayout(
                                             data: value.bookingModel,
-                                            onTapStatus: () => showBookingStatus(
-                                                context, value.bookingModel)),
+                                            onTapStatus: () =>
+                                                showBookingStatus(context,
+                                                    value.bookingModel)),
                                         if (value.isAmount)
                                           ServicemenPayableLayout(
                                               amount: value.amountCtrl.text),
                                         Text(
                                                 language(context,
-                                                    appFonts.billSummary),
+                                                    translations!.billSummary),
                                                 style: appCss.dmDenseMedium14
                                                     .textColor(appColor(context)
                                                         .appTheme
@@ -56,8 +59,8 @@ class PendingBookingScreen extends StatelessWidget {
                                         if (value.bookingModel!.service!
                                                     .reviews !=
                                                 null &&
-                                            value.bookingModel!.service!.reviews!
-                                                .isNotEmpty)
+                                            value.bookingModel!.service!
+                                                .reviews!.isNotEmpty)
                                           ReviewListWithTitle(
                                               reviews: value.bookingModel!
                                                   .service!.reviews!)
@@ -66,12 +69,12 @@ class PendingBookingScreen extends StatelessWidget {
                                   Material(
                                       elevation: 20,
                                       child: BottomSheetButtonCommon(
-                                              textOne: appFonts.reject,
-                                              textTwo: appFonts.accept,
-                                              clearTap: () =>
-                                                  value.onRejectBooking(context),
-                                              applyTap: () =>
-                                                  value.onAcceptBooking(context))
+                                              textOne: translations!.reject,
+                                              textTwo: translations!.accept,
+                                              clearTap: () => value
+                                                  .onRejectBooking(context),
+                                              applyTap: () => value
+                                                  .onAcceptBooking(context))
                                           .paddingAll(Insets.i20)
                                           .decorated(
                                               color: appColor(context)

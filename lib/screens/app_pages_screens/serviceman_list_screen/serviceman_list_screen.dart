@@ -7,116 +7,154 @@ class ServicemanListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ServicemanListProvider>(builder: (context1, value, child) {
+    return Consumer2<LanguageProvider,ServicemanListProvider>(builder: (context1,lang, value, child) {
       return PopScope(
         canPop: true,
         onPopInvoked: (didPop) {
           value.onBack(context, false);
-          if(didPop) return;
+          if (didPop) return;
         },
         child: LoadingComponent(
           child: StatefulWrapper(
             onInit: () => Future.delayed(Durations.short3)
                 .then((val) => value.onReady(context)),
-            child:value.widget1Opacity == 0.0 ? const ServicemanListShimmer() :  Scaffold(
-                appBar: AppBar(
-                    leadingWidth: 80,
-                    title: Text(language(context, appFonts.servicemanList),
-                        style: appCss.dmDenseBold18
-                            .textColor(appColor(context).appTheme.darkText)),
-                    centerTitle: true,
-                    leading: CommonArrow(
-                        arrow: rtl(context)
-                            ? eSvgAssets.arrowRight
-                            : eSvgAssets.arrowLeft,
-                        onTap: () => value.onBack(context, true)).paddingAll(Insets.i8),
-                    actions: [
-                      CommonArrow(
-                              arrow: eSvgAssets.add,
-                              onTap: () =>
-                                  route.pushNamed(context, routeName.addServicemen).then((e)=>  value.notifyListeners()))
-                          .paddingSymmetric(horizontal: Insets.i20)
-                    ]),
-                body: SingleChildScrollView(
-                    child: Column(children: [
-                  SearchTextFieldCommon(
-                          controller: value.searchCtrl,
-                          focusNode: value.searchFocus,
-                          suffixIcon:value.searchCtrl.text.isNotEmpty? Icon(Icons.cancel,color: appColor(context).appTheme.darkText).inkWell(onTap: (){
-                            value.searchList = [];
-                            value.searchCtrl.text ="";
-                            value.notifyListeners();
-                            value.getServicemenByProviderId(context);
-                          }): null,
-                          onChanged: (v) {
-                            if (v.isEmpty) {
-                              value.searchList = [];
-                              value.notifyListeners();
-                            }else if(v.length>3){
-                              value.getServicemenByProviderId(context);
-                            }
-                          },
-                          onFieldSubmitted: (v) =>
-                              value.getServicemenByProviderId(context))
-                      .paddingOnly(top: Insets.i15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                          flex: 3,
-                          child: Text(language(context, appFonts.filterBy),
-                              style: appCss.dmDenseRegular14
-                                  .textColor(appColor(context).appTheme.lightText))),
-                      Expanded(
-                        flex: 4,
-                        child: DarkDropDownLayout(
-                            isField: true,
-                            isOnlyText: true,
-                            hintText: appFonts.allServicemen,
-                            val: value.expValue,
-                            categoryList: appArray.servicemenExperienceList,
-                            onChanged: (val) => value.onExperience(val,context)),
-                      )
-                    ],
-                  ).paddingSymmetric(vertical: Insets.i20),
-          
-                  value.searchCtrl.text.isNotEmpty ? value.searchList.isEmpty ?EmptyLayout(
-                      title: appFonts.noMatching,
-                      subtitle: appFonts.attemptYourSearch,
-                      isButton: false,
-                      widget: Image.asset(eImageAssets.noSearch, height: Sizes.s340)).paddingOnly(top: Insets.i50): GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      itemCount: value.searchCtrl.text.isNotEmpty ? value.searchList.length: servicemanList.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisExtent: 220,
-                          crossAxisSpacing: 15,
-                          mainAxisSpacing: 15),
-                      itemBuilder: (context, index) {
-                        return AvailableServiceLayout(
-                            onTap: () =>
-                                route.pushNamed(context, routeName.servicemanDetail,arg: {"detail": value.searchCtrl.text.isNotEmpty ?value.searchList[index].id:servicemanList[index].id}),
-                            data:value.searchCtrl.text.isNotEmpty ?value.searchList[index] : servicemanList[index]);
-                      }) :
-                  servicemanList.isEmpty ? const CommonEmpty(): GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      itemCount:  servicemanList.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisExtent: 220,
-                          crossAxisSpacing: 15,
-                          mainAxisSpacing: 15),
-                      itemBuilder: (context, index) {
-                        return AvailableServiceLayout(
-                            onTap: () =>
-                                route.pushNamed(context, routeName.servicemanDetail,arg:{"detail": servicemanList[index].id}),
-                            data:servicemanList[index]);
-                      })
-                ]).paddingSymmetric(horizontal: Insets.i20))),
+            child: value.widget1Opacity == 0.0
+                ? const ServicemanListShimmer()
+                : Scaffold(
+                    appBar: AppBar(
+                        leadingWidth: 80,
+                        title: Text(
+                            language(context, translations!.servicemanList),
+                            style: appCss.dmDenseBold18.textColor(
+                                appColor(context).appTheme.darkText)),
+                        centerTitle: true,
+                        leading: CommonArrow(
+                                arrow: rtl(context)
+                                    ? eSvgAssets.arrowRight
+                                    : eSvgAssets.arrowLeft,
+                                onTap: () => value.onBack(context, true))
+                            .paddingAll(Insets.i8),
+                        actions: [
+                          CommonArrow(
+                                  arrow: eSvgAssets.add,
+                                  onTap: () =>
+                                      route
+                                          .pushNamed(
+                                              context, routeName.addServicemen)
+                                          .then((e) => value.notifyListeners()))
+                              .paddingSymmetric(horizontal: Insets.i20)
+                        ]),
+                    body: SingleChildScrollView(
+                        child: Column(children: [
+                      SearchTextFieldCommon(
+                              controller: value.searchCtrl,
+                              focusNode: value.searchFocus,
+                              suffixIcon: value.searchCtrl.text.isNotEmpty
+                                  ? Icon(Icons.cancel,
+                                          color: appColor(context)
+                                              .appTheme
+                                              .darkText)
+                                      .inkWell(onTap: () {
+                                      value.searchList = [];
+                                      value.searchCtrl.text = "";
+                                      value.notifyListeners();
+                                      value.getServicemenByProviderId(context);
+                                    })
+                                  : null,
+                              onChanged: (v) {
+                                if (v.isEmpty) {
+                                  value.searchList = [];
+                                  value.notifyListeners();
+                                } else if (v.length > 3) {
+                                  value.getServicemenByProviderId(context);
+                                }
+                              },
+                              onFieldSubmitted: (v) =>
+                                  value.getServicemenByProviderId(context))
+                          .paddingOnly(top: Insets.i15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                              flex: 3,
+                              child: Text(
+                                  language(context, translations!.filterBy),
+                                  style: appCss.dmDenseRegular14.textColor(
+                                      appColor(context).appTheme.lightText))),
+                          Expanded(
+                            flex: 4,
+                            child: DarkDropDownLayout(
+                                isField: true,
+                                isOnlyText: true,
+                                hintText: translations!.allServicemen,
+                                val: value.expValue,
+                                categoryList: appArray.servicemenExperienceList,
+                                onChanged: (val) =>
+                                    value.onExperience(val, context)),
+                          )
+                        ],
+                      ).paddingSymmetric(vertical: Insets.i20),
+                      value.searchCtrl.text.isNotEmpty
+                          ? value.searchList.isEmpty
+                              ? EmptyLayout(
+                                      title: translations!.noMatching,
+                                      subtitle: translations!.attemptYourSearch,
+                                      isButton: false,
+                                      widget: Image.asset(eImageAssets.noSearch,
+                                          height: Sizes.s340))
+                                  .paddingOnly(top: Insets.i50)
+                              : GridView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.zero,
+                                  itemCount: value.searchCtrl.text.isNotEmpty
+                                      ? value.searchList.length
+                                      : servicemanList.length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          mainAxisExtent: 220,
+                                          crossAxisSpacing: 15,
+                                          mainAxisSpacing: 15),
+                                  itemBuilder: (context, index) {
+                                    return AvailableServiceLayout(
+                                        onTap: () => route.pushNamed(context,
+                                                routeName.servicemanDetail,
+                                                arg: {
+                                                  "detail": value.searchCtrl
+                                                          .text.isNotEmpty
+                                                      ? value
+                                                          .searchList[index].id
+                                                      : servicemanList[index].id
+                                                }),
+                                        data: value.searchCtrl.text.isNotEmpty
+                                            ? value.searchList[index]
+                                            : servicemanList[index]);
+                                  })
+                          : servicemanList.isEmpty
+                              ? const CommonEmpty()
+                              : GridView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.zero,
+                                  itemCount: servicemanList.length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          mainAxisExtent: 220,
+                                          crossAxisSpacing: 15,
+                                          mainAxisSpacing: 15),
+                                  itemBuilder: (context, index) {
+                                    return AvailableServiceLayout(
+                                        onTap: () => route.pushNamed(context,
+                                                routeName.servicemanDetail,
+                                                arg: {
+                                                  "detail":
+                                                      servicemanList[index].id
+                                                }),
+                                        data: servicemanList[index]);
+                                  })
+                    ]).paddingSymmetric(horizontal: Insets.i20))),
           ),
         ),
       );

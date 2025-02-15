@@ -16,15 +16,15 @@ class UserDataApiProvider extends ChangeNotifier {
           log("statisticModel :${value.data}");
           if (isServiceman) {
             appArray.serviceManEarningList.asMap().entries.forEach((element) {
-              if (element.value['title'] == appFonts.totalEarning) {
+              if (element.value['title'] == translations!.totalEarning) {
                 element.value["price"] =
                     statisticModel!.totalRevenue!.toString();
               }
-              if (element.value['title'] == appFonts.totalBooking) {
+              if (element.value['title'] == translations!.totalBooking) {
                 element.value["price"] =
                     statisticModel!.totalBookings.toString();
               }
-              if (element.value['title'] == appFonts.totalService) {
+              if (element.value['title'] == translations!.totalService) {
                 element.value["price"] =
                     statisticModel!.totalServices.toString();
               }
@@ -34,25 +34,25 @@ class UserDataApiProvider extends ChangeNotifier {
             });
           } else {
             appArray.earningList.asMap().entries.forEach((element) {
-              if (element.value['title'] == appFonts.totalEarning) {
+              if (element.value['title'] == translations!.totalEarning) {
                 element.value["price"] =
                     statisticModel!.totalRevenue!.toString();
                 log("element.value['title']::${element.value['title']}");
                 log("element.value['title']::${element.value["price"]}");
               }
-              if (element.value['title'] == appFonts.totalBooking) {
+              if (element.value['title'] == translations!.totalBooking) {
                 element.value["price"] =
                     statisticModel!.totalBookings.toString();
               }
-              if (element.value['title'] == appFonts.totalService) {
+              if (element.value['title'] == translations!.totalService) {
                 element.value["price"] =
                     statisticModel!.totalServices.toString();
               }
-              if (element.value['title'] == appFonts.totalCategory) {
+              if (element.value['title'] == translations!.totalCategory) {
                 element.value["price"] =
                     statisticModel!.totalCategories.toString();
               }
-              if (element.value['title'] == appFonts.totalServiceman) {
+              if (element.value['title'] == translations!.totalServiceman) {
                 element.value["price"] =
                     statisticModel!.totalCategories.toString();
               }
@@ -142,7 +142,6 @@ class UserDataApiProvider extends ChangeNotifier {
 
 //provider document detail
   getDocumentDetails() async {
-    log("getDocumentDetails harshit id: ${userModel!.id}");
     try {
       await apiServices
           .getApi("${api.userDocuments}/${userModel!.id}", [], isToken: true)
@@ -150,12 +149,10 @@ class UserDataApiProvider extends ChangeNotifier {
         providerDocumentList = [];
         notUpdateDocumentList = [];
         notifyListeners();
-        log("value.isSuccess getDocumentDetails ::${value.isSuccess}");
         if (value.isSuccess!) {
           for (var data in value.data) {
             providerDocumentList.add(ProviderDocumentModel.fromJson(data));
           }
-          log("providerDocumentList ::${value.isSuccess}");
           log("providerDocumentList ::${providerDocumentList.length}");
           log("documentList ::${documentList.length}");
           notifyListeners();
@@ -174,9 +171,8 @@ class UserDataApiProvider extends ChangeNotifier {
         }
         notifyListeners();
       });
-    } catch (e, stacktrace) {
-      log("ERROR in getDocumentDetails: $e");
-      log("Stack Trace: $stacktrace"); // Optional for more debugging info
+    } catch (e) {
+      log("ERRROEEE getDocumentDetails : $e");
       notifyListeners();
     }
   }
@@ -214,7 +210,7 @@ class UserDataApiProvider extends ChangeNotifier {
           addressList = [];
 
           List address = value.data['data'];
-          //   log("address :$address");
+            log("address :$address");
           final locationVal =
               Provider.of<NewLocationProvider>(context, listen: false);
           locationVal.locationList = [];
@@ -222,10 +218,8 @@ class UserDataApiProvider extends ChangeNotifier {
             if (!addressList.contains(PrimaryAddress.fromJson(data))) {
               addressList.add(PrimaryAddress.fromJson(data));
             }
-
             notifyListeners();
           }
-
           for (var d in addressList) {
             var body = {
               "latitude": d.latitude,
@@ -244,8 +238,10 @@ class UserDataApiProvider extends ChangeNotifier {
             };
 
             locationVal.locationList.add(body);
+            log("locationVal:::${locationVal.latitudeCtrl.text}//${locationVal.longitudeCtrl.text}///${locationVal.countryCtrl.text}//${locationVal.cityCtrl.text}");
+
+            log("addressList 1:${locationVal.locationList.last}");
           }
-          log("addressList 1:$addressList");
           notifyListeners();
         }
       });
@@ -341,10 +337,10 @@ class UserDataApiProvider extends ChangeNotifier {
               Provider.of<DeleteDialogProvider>(context, listen: false);
           delete.onResetPass(
               context,
-              language(context, appFonts.hurrayLocationDelete),
-              language(context, appFonts.okay), () {
+              language(context, translations!.hurrayLocationDelete),
+              language(context, translations!.okay), () {
             route.pop(context);
-          }, title: appFonts.deleteSuccessfully);
+          }, title: translations!.deleteSuccessfully);
           final userApi =
               Provider.of<UserDataApiProvider>(context, listen: false);
           userApi.getAddressList(context);
@@ -478,7 +474,7 @@ class UserDataApiProvider extends ChangeNotifier {
       await apiServices
           .getApi(api.booking, data ?? [], isToken: true)
           .then((value) {
-        log("value.isSuccess!:${value.isSuccess!} || ${value.data!}");
+        //log("value.isSuccess!:${value.isSuccess!} || ${value.data!}");
         if (value.isSuccess!) {
           booking.bookingList = [];
           for (var data in value.data) {

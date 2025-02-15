@@ -1,4 +1,3 @@
-
 import '../../../config.dart';
 
 class AddPackageScreen extends StatefulWidget {
@@ -24,8 +23,8 @@ class _AddPackageScreenState extends State<AddPackageScreen>
                   child: Scaffold(
                       appBar: ActionAppBar(
                           title: value.isEdit
-                              ? appFonts.editPackage
-                              : appFonts.addPackage,
+                              ? translations!.editPackage
+                              : translations!.addPackage,
                           onTap: () => value.onBackButton(context),
                           actions: [
                             if (value.isEdit)

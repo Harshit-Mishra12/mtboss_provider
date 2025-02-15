@@ -113,7 +113,7 @@ class ZoneDropDown extends StatelessWidget {
                       ),
                   if (!isAddLocation)
                     if (signup.zoneSelect.isEmpty)
-                      Text(language(context, appFonts.selectZone),
+                      Text(language(context, translations!.selectZone),
                           style: appCss.dmDenseMedium14
                               .textColor(appColor(context).appTheme.lightText)),
                   if (isAddLocation)
@@ -135,17 +135,18 @@ class ZoneDropDown extends StatelessWidget {
                                                     e.key
                                                 ? Sizes.s8
                                                 : 0),
-                                        padding:
-                                            const EdgeInsets.symmetric(
-                                                horizontal: Sizes.s9,
-                                                vertical: Sizes.s5),
+                                        padding: const EdgeInsets
+                                            .symmetric(
+                                            horizontal: Sizes.s9,
+                                            vertical: Sizes.s5),
                                         decoration: ShapeDecoration(
                                             shape: SmoothRectangleBorder(
                                               borderRadius: SmoothBorderRadius(
                                                   cornerRadius: 8,
                                                   cornerSmoothing: 1),
                                             ),
-                                            color: Color.fromRGBO(84, 101, 255, 0.1)),
+                                            color: Color
+                                                .fromRGBO(84, 101, 255, 0.1)),
                                         child:
                                             Row(
                                                 mainAxisSize: MainAxisSize.min,
@@ -162,9 +163,10 @@ class ZoneDropDown extends StatelessWidget {
                                               const HSpace(Sizes.s2),
                                               Text(e.value.name!,
                                                   style: appCss.dmDenseLight14
-                                                      .textColor(appColor(context)
-                                                          .appTheme
-                                                          .primary))
+                                                      .textColor(
+                                                          appColor(context)
+                                                              .appTheme
+                                                              .primary))
                                             ]))
                                     .inkWell(
                                         onTap: () => !isAddLocation
@@ -174,7 +176,7 @@ class ZoneDropDown extends StatelessWidget {
                       ),
                   if (isAddLocation)
                     if (company.zoneSelect.isEmpty)
-                      Text(language(context, appFonts.selectZone),
+                      Text(language(context, translations!.selectZone),
                           style: appCss.dmDenseMedium14
                               .textColor(appColor(context).appTheme.lightText))
                 ],

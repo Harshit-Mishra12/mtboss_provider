@@ -63,8 +63,8 @@ class FeaturedServicesLayout extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(capitalizeFirstLetter(data!.title),
-                            style: appCss.dmDenseSemiBold15
-                                .textColor(appColor(context).appTheme.darkText)),
+                            style: appCss.dmDenseSemiBold15.textColor(
+                                appColor(context).appTheme.darkText)),
                       ),
                       Text(
                           "${getSymbol(context)}${currency(context).currencyVal * (data!.price!)}",
@@ -94,27 +94,27 @@ class FeaturedServicesLayout extends StatelessWidget {
                         SvgPicture.asset(eSvgAssets.receipt),
                         const HSpace(Sizes.s5),
                         Text(
-                            "${data!.bookingsCount ?? 0} ${language(context, appFonts.booked)}",
+                            "${data!.bookingsCount ?? 0} ${language(context, translations!.booked)}",
                             style: appCss.dmDenseMedium12.textColor(
                                 appColor(context).appTheme.lightText))
                       ]),
-                      if(data!.ratingCount != null)
-                      Row(children: [
-                        SvgPicture.asset(eSvgAssets.star),
-                        const HSpace(Sizes.s3),
-                        Text(
-                            data!.ratingCount != null
-                                ? data!.ratingCount.toString()
-                                : "0",
-                            style: appCss.dmDenseMedium13
-                                .textColor(appColor(context).appTheme.darkText))
-                      ])
+                      if (data!.ratingCount != null)
+                        Row(children: [
+                          SvgPicture.asset(eSvgAssets.star),
+                          const HSpace(Sizes.s3),
+                          Text(
+                              data!.ratingCount != null
+                                  ? data!.ratingCount.toString()
+                                  : "0",
+                              style: appCss.dmDenseMedium13.textColor(
+                                  appColor(context).appTheme.darkText))
+                        ])
                     ])),
                 const VSpace(Sizes.s10),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(language(context, appFonts.activeStatus),
+                      Text(language(context, translations!.activeStatus),
                           style: appCss.dmDenseMedium12
                               .textColor(appColor(context).appTheme.darkText)),
                       Theme(

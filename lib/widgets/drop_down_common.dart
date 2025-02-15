@@ -6,9 +6,10 @@ class DropDownLayout extends StatelessWidget {
   final String? icon, hintText, val;
   final List? categoryList;
   final String? doc;
+  final double? textWidth;
   final CategoryModel? cat;
   final ValueChanged? onChanged;
-  final bool? isIcon, isField, isBig, isListIcon, isOnlyText;
+  final bool? isIcon, isField, isBig, isListIcon, isOnlyText, isWidth;
   final List<DocumentModel>? document;
   final List<CategoryModel>? category;
 
@@ -27,7 +28,9 @@ class DropDownLayout extends StatelessWidget {
       this.document,
       this.doc,
       this.category,
-      this.cat});
+      this.cat,
+      this.textWidth,
+      this.isWidth});
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +73,9 @@ class DropDownLayout extends StatelessWidget {
                             : null,
                         contentPadding: EdgeInsets.zero,
                         isDense: true,
-                        disabledBorder:CommonWidgetLayout().noneDecoration(),
+                        disabledBorder: CommonWidgetLayout().noneDecoration(),
                         focusedBorder: CommonWidgetLayout().noneDecoration(),
-                        enabledBorder:CommonWidgetLayout().noneDecoration(),
+                        enabledBorder: CommonWidgetLayout().noneDecoration(),
                         border: CommonWidgetLayout().noneDecoration()),
                     padding: EdgeInsets.zero,
                     value: document != null && document!.isNotEmpty ? doc : val,
@@ -112,15 +115,28 @@ class DropDownLayout extends StatelessWidget {
                                 value: e.value.id.toString(),
                                 child: Row(
                                   children: [
-                                    Text(language(context, e.value.title),
-                                        style: appCss.dmDenseMedium14.textColor(
-                                            doc == null
-                                                ? appColor(context)
-                                                    .appTheme
-                                                    .lightText
-                                                : appColor(context)
-                                                    .appTheme
-                                                    .darkText)),
+                                    isWidth == true
+                                        ? Text(language(context, e.value.title),
+                                                style: appCss.dmDenseMedium14
+                                                    .textColor(doc == null
+                                                        ? appColor(context)
+                                                            .appTheme
+                                                            .lightText
+                                                        : appColor(context)
+                                                            .appTheme
+                                                            .darkText)
+                                                    .textHeight(1.5))
+                                            .width(Sizes.s200)
+                                        : Text(language(context, e.value.title),
+                                            style: appCss.dmDenseMedium14
+                                                .textColor(doc == null
+                                                    ? appColor(context)
+                                                        .appTheme
+                                                        .lightText
+                                                    : appColor(context)
+                                                        .appTheme
+                                                        .darkText)
+                                                .textHeight(1.8)),
                                   ],
                                 ));
                           }).toList()

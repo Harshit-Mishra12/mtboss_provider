@@ -28,7 +28,6 @@ class DarkDropDownLayout extends StatelessWidget {
     log("categoryList :$val");
     return DropdownButtonHideUnderline(
             child: ButtonTheme(
-
                 child: DropdownButtonFormField(
                     value: val,
                     hint: Text(language(context, hintText ?? ""),
@@ -55,11 +54,12 @@ class DarkDropDownLayout extends StatelessWidget {
                         .textColor(appColor(context).appTheme.darkText),
                     icon: SvgPicture.asset(eSvgAssets.dropDown,
                         colorFilter: ColorFilter.mode(
-                        val==null?appColor(context).appTheme.lightText:    appColor(context).appTheme.darkText,
+                            val == null
+                                ? appColor(context).appTheme.lightText
+                                : appColor(context).appTheme.darkText,
                             BlendMode.srcIn)),
                     isDense: true,
                     isExpanded: true,
-
                     items: reviewLowHighList != null &&
                             reviewLowHighList!.isNotEmpty
                         ? reviewLowHighList!.asMap().entries.map((e) {
@@ -84,7 +84,9 @@ class DarkDropDownLayout extends StatelessWidget {
                                               shape: BoxShape.circle),
                                     if (isListIcon == true)
                                       const HSpace(Sizes.s12),
-                                    Text(capitalizeFirstLetter(language(context, e.value['title'])),
+                                    Text(
+                                        capitalizeFirstLetter(language(
+                                            context, e.value['title'])),
                                         style: appCss.dmDenseRegular14
                                             .textColor(appColor(context)
                                                 .appTheme
@@ -115,7 +117,9 @@ class DarkDropDownLayout extends StatelessWidget {
                                                   shape: BoxShape.circle),
                                         if (isListIcon == true)
                                           const HSpace(Sizes.s12),
-                                        Text(capitalizeFirstLetter(language(context, e.value)),
+                                        Text(
+                                            capitalizeFirstLetter(
+                                                language(context, e.value)),
                                             style: appCss.dmDenseRegular14
                                                 .textColor(appColor(context)
                                                     .appTheme
@@ -146,8 +150,8 @@ class DarkDropDownLayout extends StatelessWidget {
                                         if (isListIcon == true)
                                           const HSpace(Sizes.s12),
                                         Text(
-                                           capitalizeFirstLetter( language(
-                                               context, e.value ?? e.value)),
+                                            capitalizeFirstLetter(language(
+                                                context, e.value ?? e.value)),
                                             style: appCss.dmDenseRegular14
                                                 .textColor(appColor(context)
                                                     .appTheme

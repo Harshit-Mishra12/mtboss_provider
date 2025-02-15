@@ -94,7 +94,7 @@ class _PickupLayoutState extends State<PickupLayout>
     return  StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection(collectionName.calls)
-          .doc(userModel!.id.toString())
+          .doc(userModel?.id.toString())
           .collection(collectionName.calling)
           .limit(1)
           .snapshots(),

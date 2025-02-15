@@ -1,6 +1,5 @@
 import '../../../../config.dart';
 
-
 class ChangePasswordLayout extends StatelessWidget {
   const ChangePasswordLayout({super.key});
 
@@ -15,62 +14,61 @@ class ChangePasswordLayout extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ContainerWithTextLayout(
-                  title: language(context, appFonts.currentPassword)),
+                  title: language(context, translations!.currentPassword)),
               const VSpace(Sizes.s8),
               TextFieldCommon(
-                  hintText: language(context, appFonts.enterCurrentPassword),
-                  obscureText: resetPass.isOldPassword,
-                  controller: resetPass.txtOldPassword,
-                  focusNode: resetPass.oldPasswordFocus,
-                  prefixIcon: eSvgAssets.lock,
-                  validator: (value) =>
-                      validation.passValidation(context, value),
-                  onFieldSubmitted: (value) =>
-                      validation.fieldFocusChange(
-                          context,
-                          resetPass.oldPasswordFocus,
-                          resetPass.passwordFocus),
-                  suffixIcon: SvgPicture.asset(
-                      resetPass.isOldPassword
-                          ? eSvgAssets.hide
-                          : eSvgAssets.eye,
-                      fit: BoxFit.scaleDown)
-                      .inkWell(
-                      onTap: () => resetPass.oldPasswordSeenTap()))
-                  .paddingSymmetric(horizontal: Insets.i20),
-              const VSpace(Sizes.s15),
-              ContainerWithTextLayout(
-                  title: language(context, appFonts.newPassword)),
-              const VSpace(Sizes.s8),
-              TextFieldCommon(
-                      hintText: language(context, appFonts.enterNewPassword),
-                      obscureText: resetPass.isNewPassword,
-                      controller: resetPass.txtNewPassword,
-                      focusNode: resetPass.passwordFocus,
+                      hintText:
+                          language(context, translations!.enterCurrentPassword),
+                      obscureText: resetPass.isOldPassword,
+                      controller: resetPass.txtOldPassword,
+                      focusNode: resetPass.oldPasswordFocus,
                       prefixIcon: eSvgAssets.lock,
                       validator: (value) =>
                           validation.passValidation(context, value),
-                      onFieldSubmitted: (value) =>
-                          validation.fieldFocusChange(
-                              context,
-                              resetPass.passwordFocus,
-                              resetPass.confirmPasswordFocus),
+                      onFieldSubmitted: (value) => validation.fieldFocusChange(
+                          context,
+                          resetPass.oldPasswordFocus,
+                          resetPass.passwordFocus),
                       suffixIcon: SvgPicture.asset(
-                              resetPass.isNewPassword
+                              resetPass.isOldPassword
                                   ? eSvgAssets.hide
                                   : eSvgAssets.eye,
                               fit: BoxFit.scaleDown)
-                          .inkWell(
-                              onTap: () => resetPass.newPasswordSeenTap()))
+                          .inkWell(onTap: () => resetPass.oldPasswordSeenTap()))
                   .paddingSymmetric(horizontal: Insets.i20),
               const VSpace(Sizes.s15),
               ContainerWithTextLayout(
-                  title: language(context, appFonts.confirmPassword)),
+                  title: language(context, translations!.newPassword)),
               const VSpace(Sizes.s8),
               TextFieldCommon(
-                focusNode: resetPass.confirmPasswordFocus,
+                  hintText: language(context, translations!.enterNewPassword),
+                  obscureText: resetPass.isNewPassword,
+                  controller: resetPass.txtNewPassword,
+                  focusNode: resetPass.passwordFocus,
+                  prefixIcon: eSvgAssets.lock,
+                  validator: (value) =>
+                      validation.passValidation(context, value),
+                  onFieldSubmitted: (value) => validation.fieldFocusChange(
+                      context,
+                      resetPass.passwordFocus,
+                      resetPass.confirmPasswordFocus),
+                  suffixIcon: SvgPicture.asset(
+                          resetPass.isNewPassword
+                              ? eSvgAssets.hide
+                              : eSvgAssets.eye,
+                          fit: BoxFit.scaleDown)
+                      .inkWell(
+                          onTap: () =>
+                              resetPass.newPasswordSeenTap())).paddingSymmetric(
+                  horizontal: Insets.i20),
+              const VSpace(Sizes.s15),
+              ContainerWithTextLayout(
+                  title: language(context, translations!.confirmPassword)),
+              const VSpace(Sizes.s8),
+              TextFieldCommon(
+                      focusNode: resetPass.confirmPasswordFocus,
                       hintText:
-                          language(context, appFonts.enterConfirmPassword),
+                          language(context, translations!.enterConfirmPassword),
                       controller: resetPass.txtConfirmPassword,
                       obscureText: resetPass.isConfirmPassword,
                       validator: (value) => validation.confirmPassValidation(
@@ -81,13 +79,12 @@ class ChangePasswordLayout extends StatelessWidget {
                                   : eSvgAssets.eye,
                               fit: BoxFit.scaleDown)
                           .inkWell(
-                              onTap: () =>
-                                  resetPass.confirmPasswordSeenTap()),
+                              onTap: () => resetPass.confirmPasswordSeenTap()),
                       prefixIcon: eSvgAssets.lock)
                   .paddingSymmetric(horizontal: Insets.i20),
               const VSpace(Sizes.s40),
               ButtonCommon(
-                title: appFonts.updatePassword,
+                title: translations!.updatePassword,
                 onTap: () => resetPass.updatePassword(context),
               ).paddingSymmetric(horizontal: Insets.i20)
             ]).paddingSymmetric(vertical: Insets.i20)

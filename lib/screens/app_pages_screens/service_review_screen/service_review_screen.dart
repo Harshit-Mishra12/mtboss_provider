@@ -5,7 +5,7 @@ class ServiceReviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ServiceReviewProvider>(builder: (context1, value, child) {
+    return Consumer2<LanguageProvider,ServiceReviewProvider>(builder: (context1,lang, value, child) {
       return StatefulWrapper(
           onInit: () => Future.delayed(
               const Duration(milliseconds: 20), () => value.onReady(context)),
@@ -14,7 +14,7 @@ class ServiceReviewScreen extends StatelessWidget {
               onPopInvoked: (bool? popInvoke) => value.onBack(context, false),
               child: Scaffold(
                   appBar: AppBarCommon(
-                      title: appFonts.review,
+                      title: translations!.review,
                       onTap: () => value.onBack(context, true)),
                   body: SingleChildScrollView(
                       child: Column(children: [
@@ -31,7 +31,9 @@ class ServiceReviewScreen extends StatelessWidget {
                                                 .toString())
                                             : 0),
                                 Row(children: [
-                                  Text(language(context, appFonts.averageRate),
+                                  Text(
+                                      language(
+                                          context, translations!.averageRate),
                                       style: appCss.dmDenseMedium12.textColor(
                                           appColor(context).appTheme.primary)),
                                   const HSpace(Sizes.s4),
@@ -46,7 +48,7 @@ class ServiceReviewScreen extends StatelessWidget {
                                 color: appColor(context)
                                     .appTheme
                                     .primary
-                                    .withOpacity(0.1),
+                                    .withValues(alpha: 0.1),
                                 border: Border.all(
                                     color: appColor(context).appTheme.primary),
                                 borderRadius:
@@ -73,7 +75,7 @@ class ServiceReviewScreen extends StatelessWidget {
                     Row(children: [
                       Expanded(
                           flex: 4,
-                          child: Text(language(context, appFonts.review),
+                          child: Text(language(context, translations!.review),
                               style: appCss.dmDenseMedium16.textColor(
                                   appColor(context).appTheme.darkText))),
                       Expanded(
@@ -82,22 +84,21 @@ class ServiceReviewScreen extends StatelessWidget {
                               isOnlyText: true,
                               isField: true,
                               isIcon: false,
-                              hintText: appFonts.all,
+                              hintText: translations!.all,
                               val: value.exValue,
                               reviewLowHighList: appArray.reviewLowHighList,
                               onChanged: (val) => value.onReview(val)))
                     ]),
                     const VSpace(Sizes.s15),
-                    if(value.reviewList.isEmpty)
-                      const CommonEmpty(),
-                    if(value.reviewList.isNotEmpty)
-                    ...value.reviewList.asMap().entries.map((e) =>
-                        ServiceReviewLayout(
-                            isSetting: value.isSetting,
-                            onTap: () => value.onTap(context,e.value),
-                            data: e.value,
-                            index: e.key,
-                            list: appArray.reviewList))
+                    if (value.reviewList.isEmpty) const CommonEmpty(),
+                    if (value.reviewList.isNotEmpty)
+                      ...value.reviewList.asMap().entries.map((e) =>
+                          ServiceReviewLayout(
+                              isSetting: value.isSetting,
+                              onTap: () => value.onTap(context, e.value),
+                              data: e.value,
+                              index: e.key,
+))
                   ]).padding(horizontal: Insets.i20, bottom: Insets.i20)))));
     });
   }

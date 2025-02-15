@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../config.dart';
 
 class CustomerServiceLayout extends StatelessWidget {
-  final String? title, status, name, image, token, phone, code,bookingId,role;
+  final String? title, status, name, image, token, phone, code, bookingId, role;
   final double? rate;
   final int? id;
   final GestureTapCallback? phoneTap, moreTap;
@@ -23,7 +23,9 @@ class CustomerServiceLayout extends StatelessWidget {
       this.id,
       this.token,
       this.phone,
-      this.code, this.bookingId, this.role});
+      this.code,
+      this.bookingId,
+      this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +36,9 @@ class CustomerServiceLayout extends StatelessWidget {
             style: appCss.dmDenseMedium12
                 .textColor(appColor(context).appTheme.lightText)),
         if (language(context, title) ==
-            language(context, appFonts.servicemanDetail))
+            language(context, translations!.servicemanDetail))
           Row(children: [
-            Text(language(context, appFonts.view),
+            Text(language(context, translations!.view),
                 style: appCss.dmDenseMedium12
                     .textColor(appColor(context).appTheme.primary)),
             const HSpace(Sizes.s4),
@@ -80,7 +82,7 @@ class CustomerServiceLayout extends StatelessWidget {
                 style: appCss.dmDenseMedium14
                     .textColor(appColor(context).appTheme.darkText)),
             if (language(context, title) !=
-                language(context, appFonts.customerDetails))
+                language(context, translations!.customerDetails))
               if (rate != null && rate != 0.0)
                 Row(children: [
                   RatingBar(
@@ -107,31 +109,31 @@ class CustomerServiceLayout extends StatelessWidget {
                 ])
           ])
         ]),
-        if(id != null && userModel!= null)
-        if (id != userModel!.id)
-          if (status != "pending")
-            Row(children: [
-              SocialIconCommon(
-                  icon: eSvgAssets.chatOut,
-                  onTap: () => route.pushNamed(context, routeName.chat, arg: {
-                        "image": image,
-                        "name": name,
-                        "role": role,
-                        "userId": id,
-                        "token": token,
-                        "phone": phone,
-                        "code": code,
-                        "bookingId":bookingId
-                      }).then((e) {
-                        final chat = Provider.of<ChatHistoryProvider>(context,
-                            listen: false);
-                        chat.onReady(context);
-                      })),
-              const HSpace(Sizes.s12),
-              SocialIconCommon(
-                  icon: eSvgAssets.phone,
-                  onTap: () => onTapPhone(phone, context))
-            ])
+        if (id != null && userModel != null)
+          if (id != userModel!.id)
+            if (status != "pending")
+              Row(children: [
+                SocialIconCommon(
+                    icon: eSvgAssets.chatOut,
+                    onTap: () => route.pushNamed(context, routeName.chat, arg: {
+                          "image": image,
+                          "name": name,
+                          "role": role,
+                          "userId": id,
+                          "token": token,
+                          "phone": phone,
+                          "code": code,
+                          "bookingId": bookingId
+                        }).then((e) {
+                          final chat = Provider.of<ChatHistoryProvider>(context,
+                              listen: false);
+                          chat.onReady(context);
+                        })),
+                const HSpace(Sizes.s12),
+                SocialIconCommon(
+                    icon: eSvgAssets.phone,
+                    onTap: () => onTapPhone(phone, context))
+              ])
       ])
     ]))
         .paddingAll(Insets.i15)

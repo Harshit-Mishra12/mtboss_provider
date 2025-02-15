@@ -1,4 +1,3 @@
-
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../config.dart';
@@ -35,12 +34,11 @@ class CheckoutWebViewState extends State<CheckoutWebView> {
             .then((value) => paymentCtrl.onReady(context)),
         child: Scaffold(
             backgroundColor: appColor(context).appTheme.whiteColor,
-            appBar: AppBarCommon(
-              title:language(context, appFonts.payment)
-            ),
+            appBar:
+                AppBarCommon(title: language(context, translations!.payment)),
             body: Stack(children: [
-              if(paymentCtrl.controller != null)
-              WebViewWidget(controller: paymentCtrl.controller!),
+              if (paymentCtrl.controller != null)
+                WebViewWidget(controller: paymentCtrl.controller!),
               if (paymentCtrl.isLoading)
                 Container(
                     color: Colors.white,

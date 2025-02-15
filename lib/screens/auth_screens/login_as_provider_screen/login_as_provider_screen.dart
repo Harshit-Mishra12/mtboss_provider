@@ -27,7 +27,8 @@ class LoginAsProviderScreen extends StatelessWidget {
                               children: [
                                 const VSpace(Sizes.s35),
                                 Text(
-                                    language(context, appFonts.loginAsProvider)
+                                    language(context,
+                                            translations!.loginAsProvider)
                                         .toUpperCase(),
                                     style: appCss.dmDenseBold20.textColor(
                                         appColor(context).appTheme.darkText)),
@@ -44,7 +45,7 @@ class LoginAsProviderScreen extends StatelessWidget {
                     ButtonCommon(
                             onTap: () => route.popAndPushNamed(
                                 context, routeName.loginServiceman),
-                            title: appFonts.loginAsServiceman,
+                            title: translations!.loginAsServiceman,
                             borderColor: appColor(context).appTheme.primary,
                             color: appColor(context).appTheme.whiteBg,
                             style: appCss.dmDenseMedium16

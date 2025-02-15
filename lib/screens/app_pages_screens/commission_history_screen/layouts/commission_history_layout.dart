@@ -14,7 +14,7 @@ class CommissionHistoryLayout extends StatelessWidget {
       Column(children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(language(context, appFonts.bookingId),
+            Text(language(context, translations!.bookingId),
                 style: appCss.dmDenseMedium14
                     .textColor(appColor(context).appTheme.darkText)),
             const VSpace(Sizes.s6),
@@ -33,28 +33,29 @@ class CommissionHistoryLayout extends StatelessWidget {
         if (isServiceman == false)
           CommissionRowLayout(
               data: data!.booking!.total!,
-              title: appFonts.totalReceivedCommission,
+              title: translations!.totalReceivedCommission,
               style: appCss.dmDenseblack14
                   .textColor(appColor(context).appTheme.darkText)),
         if (isServiceman == false)
           CommissionRowLayout(
-              title: appFonts.adminCommission, data: data!.adminCommission!),
+              title: translations!.adminCommission,
+              data: data!.adminCommission!),
         CommissionRowLayout(
             title: isServiceman
-                ? appFonts.yourCommission
-                : appFonts.servicemenCommission,
+                ? translations!.yourCommission
+                : translations!.servicemenCommission,
             data: data!.serviceCommission!),
         CommissionRowLayout(
-            title: appFonts.platformFees, data: data!.adminCommission),
+            title: translations!.platformFees, data: data!.adminCommission),
         if (isServiceman == false)
           CommissionRowLayout(
-              title: appFonts.yourCommission,
+              title: translations!.yourCommission,
               color: appColor(context).appTheme.primary,
               data: data!.providerCommission!)
       ]).padding(horizontal: Insets.i15, top: Insets.i15),
       const DividerCommon().paddingOnly(bottom: Insets.i15),
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(language(context, appFonts.viewMore),
+        Text(language(context, translations!.viewMore),
             style: appCss.dmDenseMedium14
                 .textColor(appColor(context).appTheme.primary)),
         SizedBox(

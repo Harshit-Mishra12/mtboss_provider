@@ -6,13 +6,13 @@ class DateRangePickerLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AddPackageProvider>(builder: (context1, value, child) {
+    return Consumer2<LanguageProvider,AddPackageProvider>(builder: (context1, lang,value, child) {
       return SizedBox(
           height: MediaQuery.of(context).size.height * 0.57,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text(language(context, appFonts.selectDate),
+              Text(language(context, translations!.selectDate),
                   style: appCss.dmDenseMedium18
                       .textColor(appColor(context).appTheme.darkText)),
               const Icon(CupertinoIcons.multiply)
@@ -72,7 +72,7 @@ class DateRangePickerLayout extends StatelessWidget {
             const CustomTableDateRange(),
             const VSpace(Sizes.s15),
             ButtonCommon(
-                    title: appFonts.selectDate,
+                    title: translations!.selectDate,
                     onTap: () => value.onSelect(context))
                 .paddingSymmetric(horizontal: Insets.i20)
           ]));

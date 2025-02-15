@@ -19,7 +19,7 @@ class _LocationListScreenState extends State<LocationListScreen>
               child: Scaffold(
                   appBar: AppBar(
                       leadingWidth: 80,
-                      title: Text(language(context, appFonts.locationList),
+                      title: Text(language(context, translations!.locationList),
                           style: appCss.dmDenseBold18
                               .textColor(appColor(context).appTheme.darkText)),
                       centerTitle: true,
@@ -56,7 +56,7 @@ class _LocationListScreenState extends State<LocationListScreen>
                                   list: value.locationList))
                         ]),
                         ButtonCommon(
-                            title: appFonts.addSelectLocation,
+                            title: translations!.addSelectLocation,
                             onTap: () => value.onAddSelectLocation(context),
                             style: appCss.dmDenseRegular16.textColor(
                                 value.selectedLocation.isNotEmpty

@@ -32,7 +32,7 @@ class CurrencyBottomSheet extends StatelessWidget {
                 color: appColor(context).appTheme.whiteBg),
             child: Column(children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text(language(context, appFonts.changeCurrency),
+                Text(language(context, translations!.changeCurrency),
                     style: appCss.dmDenseMedium18
                         .textColor(appColor(context).appTheme.darkText)),
                 const Icon(CupertinoIcons.multiply)
@@ -55,7 +55,7 @@ class CurrencyBottomSheet extends StatelessWidget {
                 Expanded(
                     child: ButtonCommon(
                         onTap: () => route.pop(context),
-                        title: appFonts.cancel,
+                        title: translations!.cancel,
                         style: appCss.dmDenseSemiBold16
                             .textColor(appColor(context).appTheme.primary),
                         borderColor: appColor(context).appTheme.primary,
@@ -63,7 +63,7 @@ class CurrencyBottomSheet extends StatelessWidget {
                 const HSpace(Sizes.s15),
                 Expanded(
                     child: ButtonCommon(
-                        title: appFonts.update,
+                        title: translations!.update,
                         onTap: () => value.onUpdate(
                             context, currencyList[value.selectIndex])))
               ]).padding(horizontal: Insets.i20, bottom: Insets.i18)

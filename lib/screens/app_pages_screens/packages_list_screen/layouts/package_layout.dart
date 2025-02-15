@@ -7,8 +7,9 @@ import '../../../../config.dart';
 class PackageLayout extends StatelessWidget {
   final ServicePackageModel? data;
   final ValueChanged<bool>? onToggle;
-  final GestureTapCallback? onDelete,onEdit;
-  const PackageLayout({super.key,this.data,this.onToggle, this.onDelete, this.onEdit});
+  final GestureTapCallback? onDelete, onEdit;
+  const PackageLayout(
+      {super.key, this.data, this.onToggle, this.onDelete, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -18,23 +19,30 @@ class PackageLayout extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 SizedBox(
                     height: Sizes.s60,
                     width: Sizes.s60,
                     child: Image.asset(eImageAssets.package,
-                        height: Sizes.s60, width: Sizes.s60, fit: BoxFit.cover)),
+                        height: Sizes.s60,
+                        width: Sizes.s60,
+                        fit: BoxFit.cover)),
                 Expanded(
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text(language(context, data!.title!),
-                        overflow: TextOverflow.ellipsis,
-                        style: appCss.dmDenseMedium16
-                            .textColor(appColor(context).appTheme.darkText)),
-                    const VSpace(Sizes.s3),
-                    Text(language(context, "${getSymbol(context)}${currency(context).currencyVal * (data!.price!)}"),
-                        style: appCss.dmDenseblack16
-                            .textColor(appColor(context).appTheme.online)),
-                  ]).padding(top: Insets.i5, horizontal: Insets.i12),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(language(context, data!.title!),
+                            overflow: TextOverflow.ellipsis,
+                            style: appCss.dmDenseMedium16.textColor(
+                                appColor(context).appTheme.darkText)),
+                        const VSpace(Sizes.s3),
+                        Text(
+                            language(context,
+                                "${getSymbol(context)}${currency(context).currencyVal * (data!.price!)}"),
+                            style: appCss.dmDenseblack16
+                                .textColor(appColor(context).appTheme.online)),
+                      ]).padding(top: Insets.i5, horizontal: Insets.i12),
                 )
               ]),
             ),
@@ -53,22 +61,35 @@ class PackageLayout extends StatelessWidget {
       IntrinsicHeight(
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        PackageDetailRowLayout(title: appFonts.startDate, subtext: DateFormat("dd MMM, yyyy").format(DateTime.parse(data!.startedAt!))),
+        PackageDetailRowLayout(
+            title: translations!.startDate,
+            subtext: DateFormat("dd MMM, yyyy")
+                .format(DateTime.parse(data!.startedAt!))),
         const PackageVerticalDivider(),
-        PackageDetailRowLayout(title: appFonts.endDate, subtext: DateFormat("dd MMM, yyyy").format(DateTime.parse(data!.endedAt!))),
+        PackageDetailRowLayout(
+            title: translations!.endDate,
+            subtext: DateFormat("dd MMM, yyyy")
+                .format(DateTime.parse(data!.endedAt!))),
         const PackageVerticalDivider(),
-        PackageDetailRowLayout(title: appFonts.serviceIncluded, subtext: data!.services!.length.toString())
+        PackageDetailRowLayout(
+            title: translations!.serviceIncluded,
+            subtext: data!.services!.length.toString())
       ])),
       const DottedLines(),
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(language(context, appFonts.activeStatus),
+        Text(language(context, translations!.activeStatus),
             style: appCss.dmDenseMedium12
                 .textColor(appColor(context).appTheme.primary)),
-        FlutterSwitchCommon(value: data!.status == 1 ? true: false, onToggle: onToggle)
+        FlutterSwitchCommon(
+            value: data!.status == 1 ? true : false, onToggle: onToggle)
       ]).paddingOnly(top: Insets.i14, bottom: Insets.i17)
     ])
         .paddingSymmetric(horizontal: Insets.i15)
-        .boxBorderExtension(context, isShadow: true,bColor: appColor(context).appTheme.stroke)
-        .paddingOnly(bottom: Insets.i15).inkWell(onTap: ()=> route.pushNamed(context, routeName.packageDetails,arg: data));
+        .boxBorderExtension(context,
+            isShadow: true, bColor: appColor(context).appTheme.stroke)
+        .paddingOnly(bottom: Insets.i15)
+        .inkWell(
+            onTap: () =>
+                route.pushNamed(context, routeName.packageDetails, arg: data));
   }
 }

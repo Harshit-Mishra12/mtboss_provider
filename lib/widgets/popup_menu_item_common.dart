@@ -7,7 +7,7 @@ PopupMenuItem buildPopupMenuItem(context, list,
     onTap: () {
       if (icon) {
       } else {
-        if (data == appFonts.call) {}
+        if (data == translations!.call) {}
       }
     },
     padding:
@@ -37,10 +37,11 @@ PopupMenuItem buildPopupMenuItem(context, list,
                   ],
                 )
               : Text(language(context, data),
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: appCss.dmDenseMedium12
-                      .textColor(appColor(context).appTheme.darkText)).alignment(Alignment.centerLeft),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: appCss.dmDenseMedium12
+                          .textColor(appColor(context).appTheme.darkText))
+                  .alignment(Alignment.centerLeft),
           if (index != list.length - 1)
             Divider(
                     height: 1,

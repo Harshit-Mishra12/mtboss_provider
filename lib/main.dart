@@ -8,6 +8,8 @@ import 'package:fixit_provider/providers/app_pages_provider/job_request_provider
 import 'package:fixit_provider/providers/app_pages_provider/video_call_provider.dart';
 import 'package:fixit_provider/providers/common_providers/notification_provider.dart';
 import 'package:fixit_provider/screens/app_pages_screens/audio_call/audio_call.dart';
+import 'package:fixit_provider/services/environment.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -17,26 +19,31 @@ import 'config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
-        name: 'Mtboss',
+        name: 'Fixit',
         options: const FirebaseOptions(
-            apiKey: "Your Firebase Api Key",
-            projectId: "Your Firebase Project Id",
-            messagingSenderId: "Your Firebase Message Sender Id",
-            appId: "Your Firebase Android App Id"));
+            apiKey: "Your api key",
+            projectId: "Your project id",
+            messagingSenderId: "Your messaging sender id",
+            appId: "Your app id"));
   } else {
     await Firebase.initializeApp(
-        name: 'Mtboss',
+        name: 'Fixit',
         options: const FirebaseOptions(
-            storageBucket: "Your Firebase Storage Bucket Id",
-            apiKey: "Your Firebase Api Key",
-            projectId: "Your Firebase Project Id",
-            messagingSenderId: "Your Firebase Message Sender Id",
-            appId: "Your Firebase IOS App Id"));
+            storageBucket: "Your storage bucket",
+            apiKey: "Your api key",
+            projectId: "Your project id",
+            messagingSenderId: "Your messaging sender id",
+            appId: "Your app id"));
   }
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
+  await initializeAppSettings();
   cameras = await availableCameras();
   runApp(const MyApp());
 }
@@ -57,7 +64,8 @@ class MyApp extends StatelessWidget {
                   create: (_) => ThemeService(snapData.data!, context)),
               ChangeNotifierProvider(create: (_) => SplashProvider()),
               ChangeNotifierProvider(
-                  create: (_) => LanguageProvider(snapData.data!)),
+                  create: (_) =>
+                      LanguageProvider(snapData.data!)..getLanguageTranslate()),
               ChangeNotifierProvider(
                   create: (_) => CurrencyProvider(snapData.data!)),
               ChangeNotifierProvider(create: (_) => LoginAsProvider()),
@@ -161,6 +169,7 @@ class _RouteToPageState extends State<RouteToPage> {
   @override
   void initState() {
     // TODO: implement initState
+
     CustomNotificationController().initNotification(context);
 
     setState(() {});
@@ -171,25 +180,33 @@ class _RouteToPageState extends State<RouteToPage> {
   Widget build(BuildContext context) {
     return Consumer<ThemeService>(builder: (context, theme, child) {
       return Consumer<LanguageProvider>(builder: (context, lang, child) {
-        return Consumer<CurrencyProvider>(builder: (context, currency, child) {
-          return MaterialApp(
-              title: 'Mtboss Provider',
-              debugShowCheckedModeBanner: false,
-              theme: AppTheme.fromType(ThemeType.light).themeData,
-              darkTheme: AppTheme.fromType(ThemeType.dark).themeData,
-              locale: lang.locale,
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                AppLocalizationDelagate(),
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate
-              ],
-              supportedLocales: appArray.localList,
-              themeMode: theme.theme,
-              initialRoute: "/",
-              routes: appRoute.route);
-        });
+        final provider = Provider.of<LanguageProvider>(context, listen: true);
+
+        return MaterialApp(
+          title: 'Fixit Provider',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.fromType(ThemeType.light).themeData,
+          darkTheme: AppTheme.fromType(ThemeType.dark).themeData,
+          locale: provider.locale,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            AppLocalizationDelagate(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate
+          ],
+          themeMode: theme.theme,
+          initialRoute: "/",
+          routes: appRoute.route,
+          builder: (context, child) {
+            return Directionality(
+              textDirection: lang.locale?.languageCode == 'ar'
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
+              child: child!,
+            );
+          },
+        );
       });
     });
   }
@@ -201,10 +218,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp(
       options: const FirebaseOptions(
-          apiKey: "Your Firebase Api Key",
-          projectId: "Your Firebase Project Id",
-          messagingSenderId: "Your Firebase Message Sender Id",
-          appId: "Your Firebase Android App Id"));
+          apiKey: "Your api key",
+          projectId: "Your project id",
+          messagingSenderId: "Your messaging sender id",
+          appId: "Your app id"));
   AndroidNotificationChannel channel = AndroidNotificationChannel(
     'Astrologically Partner local notifications',
     'High Importance Notifications for Astrologically',

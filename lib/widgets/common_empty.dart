@@ -7,9 +7,9 @@ class CommonEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: EmptyLayout(
-          title: appFonts.noDataFound,
+          title: translations!.noDataFound,
           isButton: false,
-          subtitle: appFonts.noDataFoundDesc,
+          subtitle: translations!.noDataFoundDesc,
           widget: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Image.asset(eImageAssets.noSearch,

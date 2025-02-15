@@ -7,7 +7,7 @@ class StaticDetailChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(builder: (context, value, child) {
       return Column(children: [
-        Text(language(context, appFonts.staticsDetails),
+        Text(language(context, translations!.staticsDetails),
                 style: appCss.dmDenseBold18
                     .textColor(appColor(context).appTheme.darkText))
             .alignment(Alignment.centerLeft),

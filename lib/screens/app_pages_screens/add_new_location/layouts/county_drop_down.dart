@@ -10,9 +10,9 @@ class CountryDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer3<NewLocationProvider, SignUpCompanyProvider,
-            CompanyDetailProvider>(
-        builder: (context2, value, signup, company, child) {
+    return Consumer4<LanguageProvider, NewLocationProvider,
+            SignUpCompanyProvider, CompanyDetailProvider>(
+        builder: (context2, lang, value, signup, company, child) {
       return Consumer<LocationProvider>(
           builder: (context2, locationCtrl, child) {
         return Stack(alignment: Alignment.centerLeft, children: [
@@ -40,7 +40,7 @@ class CountryDropDown extends StatelessWidget {
                                       : appColor(context).appTheme.darkText,
                           BlendMode.srcIn))),
               //searchable IconStyle
-              hint: Text(language(context, appFonts.selectCountry),
+              hint: Text(language(context, translations!.selectCountry),
                   style: appCss.dmDenseMedium14
                       .textColor(appColor(context).appTheme.lightText)),
               //Searchable DropDown Title Text
@@ -127,7 +127,8 @@ class CountryDropDown extends StatelessWidget {
                               isDense: true,
                               contentPadding:
                                   const EdgeInsets.symmetric(horizontal: 15),
-                              hintText: language(context, appFonts.searchHere),
+                              hintText:
+                                  language(context, translations!.searchHere),
                               hintStyle: const TextStyle(fontSize: 12),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8)),
@@ -150,22 +151,27 @@ class CountryDropDown extends StatelessWidget {
                           : signup.countryCtrl.clear();
                 }
               }),
-          SvgPicture.asset(eSvgAssets.country,
-                  fit: BoxFit.scaleDown,
-                  colorFilter: ColorFilter.mode(
-                      isUpdate
-                          ? company.country == null
-                              ? appColor(context).appTheme.lightText
-                              : appColor(context).appTheme.darkText
-                          : !isAddLocation
-                              ? value.country == null
-                                  ? appColor(context).appTheme.lightText
-                                  : appColor(context).appTheme.darkText
-                              : signup.country == null
-                                  ? appColor(context).appTheme.lightText
-                                  : appColor(context).appTheme.darkText,
-                      BlendMode.srcIn))
-              .paddingSymmetric(horizontal: Insets.i15)
+          Align(
+            alignment: lang.getLocal() == "ar"
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
+            child: SvgPicture.asset(eSvgAssets.country,
+                    fit: BoxFit.scaleDown,
+                    colorFilter: ColorFilter.mode(
+                        isUpdate
+                            ? company.country == null
+                                ? appColor(context).appTheme.lightText
+                                : appColor(context).appTheme.darkText
+                            : !isAddLocation
+                                ? value.country == null
+                                    ? appColor(context).appTheme.lightText
+                                    : appColor(context).appTheme.darkText
+                                : signup.country == null
+                                    ? appColor(context).appTheme.lightText
+                                    : appColor(context).appTheme.darkText,
+                        BlendMode.srcIn))
+                .paddingSymmetric(horizontal: Insets.i15),
+          )
         ]);
       });
     });

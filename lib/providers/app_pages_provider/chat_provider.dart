@@ -17,7 +17,7 @@ class ChatProvider with ChangeNotifier {
   List<QueryDocumentSnapshot<Map<String, dynamic>>> allMessages = [];
   List<DateTimeChip> localMessage = [];
   String? userId;
-BookingModel? booking;
+  BookingModel? booking;
   String activeStatus = "Offline", bookingId = "";
   QuerySnapshot<Map<String, dynamic>>? agoraData;
   StreamSubscription? messageSub;
@@ -43,11 +43,10 @@ BookingModel? booking;
       } else {
         chatId = null;
       }
-      await Future.wait([getBookingDetailBy(context),getChatData(context) ]);
+      await Future.wait([getBookingDetailBy(context), getChatData(context)]);
 
       getActiveStatus();
     }
-
 
     await FirebaseFirestore.instance
         .collection(collectionName.agora)
@@ -72,12 +71,10 @@ BookingModel? booking;
         if (value.isSuccess!) {
           booking = BookingModel.fromJson(value.data);
           notifyListeners();
-
-
-
         }
-        int index = booking!.servicemen!.indexWhere((element) => element.id.toString() == userId.toString());
-        if(index >= 0){
+        int index = booking!.servicemen!.indexWhere(
+            (element) => element.id.toString() == userId.toString());
+        if (index >= 0) {
           phone = booking!.servicemen![index].phone.toString();
           token = booking!.servicemen![index].fcmToken;
           code = booking!.servicemen![index].code;
@@ -110,7 +107,6 @@ BookingModel? booking;
     try {
       log("bookingId:$bookingId");
       if (bookingId != "") {
-
         chatId = bookingId;
       }
 
@@ -341,33 +337,37 @@ BookingModel? booking;
               shape: const RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.all(Radius.circular(AppRadius.r12))),
-              content: Column(mainAxisSize: MainAxisSize.min, children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(language(context, appFonts.selectOne),
-                          style: appCss.dmDenseBold18
-                              .textColor(appColor(context).appTheme.darkText)),
-                      const Icon(CupertinoIcons.multiply)
-                          .inkWell(onTap: () => route.pop(context))
-                    ]),
-                const VSpace(Sizes.s20),
-                ...appArray.selectList
-                    .asMap()
-                    .entries
-                    .map((e) => SelectOptionLayout(
-                        data: e.value,
-                        index: e.key,
-                        list: appArray.selectList,
-                        onTap: () {
-                          log("dsf :${e.key}");
-                          if (e.key == 0) {
-                            getImage(context, ImageSource.gallery);
-                          } else {
-                            getImage(context, ImageSource.camera);
-                          }
-                        }))
-              ]));
+              content: Consumer<LanguageProvider>(
+                  builder: (context, value, child)  {
+                  return Column(mainAxisSize: MainAxisSize.min, children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(language(context, translations!.selectOne),
+                              style: appCss.dmDenseBold18
+                                  .textColor(appColor(context).appTheme.darkText)),
+                          const Icon(CupertinoIcons.multiply)
+                              .inkWell(onTap: () => route.pop(context))
+                        ]),
+                    const VSpace(Sizes.s20),
+                    ...appArray.selectList
+                        .asMap()
+                        .entries
+                        .map((e) => SelectOptionLayout(
+                            data: e.value,
+                            index: e.key,
+                            list: appArray.selectList,
+                            onTap: () {
+                              log("dsf :${e.key}");
+                              if (e.key == 0) {
+                                getImage(context, ImageSource.gallery);
+                              } else {
+                                getImage(context, ImageSource.camera);
+                              }
+                            }))
+                  ]);
+                }
+              ));
         });
   }
 
@@ -640,11 +640,14 @@ BookingModel? booking;
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
 
     value.onDeleteDialog(sync, context, eImageAssets.clearChat,
-        appFonts.clearChat, appFonts.areYouClearChat, () async {
+        translations!.clearChat, translations!.areYouClearChat, () async {
       route.pop(context);
       await FirebaseApi().clearChat(context);
-      value.onResetPass(context, language(context, appFonts.hurrayChatDelete),
-          language(context, appFonts.okay), () => Navigator.pop(context));
+      value.onResetPass(
+          context,
+          language(context, translations!.hurrayChatDelete),
+          language(context, translations!.okay),
+          () => Navigator.pop(context));
     });
     hideLoading(context);
     value.notifyListeners();

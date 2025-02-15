@@ -41,12 +41,13 @@ class PaymentHistoryLayout extends StatelessWidget {
                 child: Column(children: [
                   WalletRowLayout(
                       id: "#${data!.booking!.parentId}",
-                      title: appFonts.paymentId),
+                      title: translations!.paymentId),
                   WalletRowLayout(
                       id: data!.booking!.paymentMethod,
-                      title: appFonts.methodType),
+                      title: translations!.methodType),
                   WalletRowLayout(
-                      id: data!.booking!.paymentStatus, title: appFonts.status)
+                      id: data!.booking!.paymentStatus,
+                      title: translations!.status)
                 ]).padding(horizontal: Insets.i15, top: Insets.i15)),
             const VSpace(Sizes.s10),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -62,7 +63,7 @@ class PaymentHistoryLayout extends StatelessWidget {
                                 .booking!.consumer!.media![0].originalUrl!)))),
                 const HSpace(Sizes.s12),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(language(context, appFonts.customer),
+                  Text(language(context, translations!.customer),
                       style: appCss.dmDenseRegular12
                           .textColor(appColor(context).appTheme.lightText)),
                   Text(data!.booking!.consumer!.name!,

@@ -9,7 +9,7 @@ class ChatAppBarLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ChatProvider>(builder: (context1, value, child) {
+    return Consumer2<LanguageProvider,ChatProvider>(builder: (context1, lang,value, child) {
       return Container(
           height: Sizes.s108,
           decoration: ShapeDecoration(
@@ -47,8 +47,6 @@ class ChatAppBarLayout extends StatelessWidget {
                                   .textColor( value.activeStatus == "Online" ? appColor(context).appTheme.online:appColor(context).appTheme.red))
                       ])
                 ]),
-
-
                 SizedBox(
                     height: Sizes.s40,
                     width: Sizes.s40,

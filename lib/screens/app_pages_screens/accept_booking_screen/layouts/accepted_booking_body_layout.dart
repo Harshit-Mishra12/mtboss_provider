@@ -19,7 +19,7 @@ class AcceptedBookingBodyLayout extends StatelessWidget {
                   showBookingStatus(context, value.bookingModel)),
           if (isFreelancer != true && value.amount != "0")
             ServicemenPayableLayout(amount: value.amount),
-          Text(language(context, appFonts.billSummary),
+          Text(language(context, translations!.billSummary),
                   style: appCss.dmDenseMedium14
                       .textColor(appColor(context).appTheme.darkText))
               .paddingOnly(top: Insets.i25, bottom: Insets.i10),
@@ -31,8 +31,8 @@ class AcceptedBookingBodyLayout extends StatelessWidget {
                     horizontal: Insets.i20,
                     top: Insets.i20,
                     bottom: Insets.i100)),
-        if (value.bookingModel!.bookingStatus!.slug == appFonts.pending ||
-            value.bookingModel!.bookingStatus!.slug == appFonts.accepted)
+        if (value.bookingModel!.bookingStatus!.slug == translations!.pending ||
+            value.bookingModel!.bookingStatus!.slug == translations!.accepted)
           value.bookingModel!.servicemen != null &&
                   value.bookingModel!.servicemen!.isNotEmpty
               ? Container()
@@ -40,14 +40,14 @@ class AcceptedBookingBodyLayout extends StatelessWidget {
                   elevation: 20,
                   child: isFreelancer
                       ? BottomSheetButtonCommon(
-                              textOne: appFonts.cancelService,
-                              textTwo: appFonts.startService,
+                              textOne: translations!.cancelService,
+                              textTwo: translations!.startService,
                               clearTap: () => assignValue.onCancel(context),
                               applyTap: () =>
                                   assignValue.onStartServicePass(context))
                           .paddingAll(Insets.i20)
                       : ButtonCommon(
-                              title: appFonts.assignNow,
+                              title: translations!.assignNow,
                               onTap: () => value.onAssignTap(context))
                           .paddingAll(Insets.i20))
       ]);

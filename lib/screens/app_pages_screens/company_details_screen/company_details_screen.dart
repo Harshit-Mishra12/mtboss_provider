@@ -18,7 +18,6 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen>
     return Consumer3<CompanyDetailProvider, NewLocationProvider,
             UserDataApiProvider>(
         builder: (context2, value, locationVal, api, child) {
-
       return StatefulWrapper(
         onInit: () => Future.delayed(
             const Duration(milliseconds: 50), () => value.onReady()),
@@ -30,8 +29,8 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen>
                       language(
                           context,
                           isFreelancer
-                              ? appFonts.serviceLocation
-                              : appFonts.companyDetails),
+                              ? translations!.serviceLocation
+                              : translations!.companyDetails),
                       style: appCss.dmDenseBold18
                           .textColor(appColor(context).appTheme.darkText)),
                   centerTitle: true,
@@ -54,14 +53,14 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen>
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(language(context, appFonts.serviceAvailability),
+                      Text(language(context, translations!.serviceAvailability),
                           overflow: TextOverflow.ellipsis,
                           style: appCss.dmDenseMedium16
                               .textColor(appColor(context).appTheme.darkText)),
                       if (!isServiceman)
                         Text(
                                 language(context,
-                                    "+ ${language(context, appFonts.add)}"),
+                                    "+ ${language(context, translations!.add)}"),
                                 style: appCss.dmDenseBold16.textColor(
                                     appColor(context).appTheme.primary))
                             .inkWell(onTap: () => value.zoneAddHideShow())
@@ -72,7 +71,7 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen>
                       const ZoneDropDown(isAddLocation: true),
                       const VSpace(Sizes.s20),
                       ButtonCommon(
-                        title: language(context, appFonts.add),
+                        title: language(context, translations!.add),
                         onTap: () => value.zoneUpdateAddress(context),
                       )
                     ],
@@ -145,42 +144,41 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen>
                         if (provider!.zones!.isNotEmpty)
                           const VSpace(Sizes.s15),
                         if (provider!.zones!.isNotEmpty)
-                          ...provider!.zones!.asMap().entries.map(
-                              (e) => Column(children: [
-                                    ListTile(
-                                        contentPadding: EdgeInsets.zero,
-                                        dense: true,
-                                        leading: SvgPicture.asset(
-                                                eSvgAssets.location,
-                                                colorFilter: ColorFilter.mode(
-                                                    appColor(context)
-                                                        .appTheme
-                                                        .primary,
-                                                    BlendMode.srcIn))
-                                            .paddingAll(Insets.i7)
-                                            .decorated(
-                                                shape: BoxShape.circle,
-                                                color: appColor(context)
-                                                    .appTheme
-                                                    .primary
-                                                    .withOpacity(0.1)),
-                                        title: Text(e.value.name!,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: appCss.dmDenseMedium12
-                                                    .textColor(appColor(context)
-                                                        .appTheme
-                                                        .darkText))
-                                            .width(Sizes.s110),
-                                        ).padding(vertical: Insets.i10)
-                                  ])
-                                      .paddingSymmetric(horizontal: Insets.i15)
-                                      .boxShapeExtension(
+                          ...provider!.zones!.asMap().entries.map((e) =>
+                              Column(children: [
+                                ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  dense: true,
+                                  leading: SvgPicture.asset(eSvgAssets.location,
+                                          colorFilter: ColorFilter.mode(
+                                              appColor(context)
+                                                  .appTheme
+                                                  .primary,
+                                              BlendMode.srcIn))
+                                      .paddingAll(Insets.i7)
+                                      .decorated(
+                                          shape: BoxShape.circle,
                                           color: appColor(context)
                                               .appTheme
-                                              .fieldCardBg)
-                                      .marginOnly(
-                                          bottom: e.key !=
-                                                  provider!.zones!.length - 1
+                                              .primary
+                                              .withOpacity(0.1)),
+                                  title: Text(e.value.name!,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: appCss.dmDenseMedium12
+                                              .textColor(appColor(context)
+                                                  .appTheme
+                                                  .darkText))
+                                      .width(Sizes.s110),
+                                ).padding(vertical: Insets.i10)
+                              ])
+                                  .paddingSymmetric(horizontal: Insets.i15)
+                                  .boxShapeExtension(
+                                      color: appColor(context)
+                                          .appTheme
+                                          .fieldCardBg)
+                                  .marginOnly(
+                                      bottom:
+                                          e.key != provider!.zones!.length - 1
                                               ? Insets.i15
                                               : 0))
                       ])

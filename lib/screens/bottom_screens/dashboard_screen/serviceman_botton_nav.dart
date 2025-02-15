@@ -11,7 +11,7 @@ class ServicemanBottomNav extends StatelessWidget {
             child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: appArray.dashboardList
+            children: value.dashboardList(context)
                 .asMap()
             .entries
             .map((e) => Expanded(
@@ -34,10 +34,8 @@ class ServicemanBottomNav extends StatelessWidget {
                   child: SvgPicture.asset(
                       value.selectIndex ==
                           e.key
-                          ? e.value[
-                      "icon2"]!
-                          : e.value[
-                      "icon"]!,
+                          ? e.value.icon2
+                          : e.value.icon,
                       height: Sizes.s24,
                       width: Sizes.s24,
                       colorFilter: ColorFilter.mode(
@@ -68,10 +66,8 @@ class ServicemanBottomNav extends StatelessWidget {
                   child: SvgPicture.asset(
                       value.selectIndex ==
                           e.key
-                          ? e.value[
-                      "icon2"]!
-                          : e.value[
-                      "icon"]!,
+                          ? e.value.icon2
+                          : e.value.icon,
                       height: Sizes.s24,
                       colorFilter: ColorFilter.mode(
                           value.selectIndex ==
@@ -92,7 +88,7 @@ class ServicemanBottomNav extends StatelessWidget {
                 const VSpace(Sizes.s5),
                 Text(
                     language(context,
-                        e.value["title"]!),
+                        e.value.title),
                     overflow:
                     TextOverflow.ellipsis,
                     style: value.selectIndex ==

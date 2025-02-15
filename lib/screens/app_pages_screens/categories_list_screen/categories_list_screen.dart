@@ -9,7 +9,7 @@ class CategoriesListScreen extends StatelessWidget {
       return Scaffold(
           appBar: AppBar(
               leadingWidth: 80,
-              title: Text(language(context, appFonts.categories),
+              title: Text(language(context, translations!.categories),
                   style: appCss.dmDenseBold18
                       .textColor(appColor(context).appTheme.darkText)),
               centerTitle: true,

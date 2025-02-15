@@ -5,14 +5,14 @@ class EarningHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EarningHistoryProvider>(builder: (context, value, child) {
+    return Consumer2<LanguageProvider,EarningHistoryProvider>(builder: (context, lang,value, child) {
       return StatefulWrapper(
           onInit: () => Future.delayed(
               const Duration(milliseconds: 100), () => value.onInit()),
           child: Scaffold(
               appBar: AppBar(
                   leadingWidth: 80,
-                  title: Text(language(context, appFonts.earningHistory),
+                  title: Text(language(context, translations!.earningHistory),
                       style: appCss.dmDenseBold18
                           .textColor(appColor(context).appTheme.darkText)),
                   centerTitle: true,
@@ -32,7 +32,8 @@ class EarningHistoryScreen extends StatelessWidget {
                 Row(children: [
                   Expanded(
                       flex: 4,
-                      child: Text(language(context, appFonts.sortByCategories),
+                      child: Text(
+                          language(context, translations!.sortByCategories),
                           style: appCss.dmDenseMedium14.textColor(
                               appColor(context).appTheme.lightText))),
                   Expanded(
@@ -50,7 +51,6 @@ class EarningHistoryScreen extends StatelessWidget {
                     .asMap()
                     .entries
                     .map((e) => HistoryLayout(data: e.value))
-
               ]).paddingSymmetric(horizontal: Insets.i20))));
     });
   }

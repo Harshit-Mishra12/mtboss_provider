@@ -9,8 +9,8 @@ class ServicemanStatistics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeProvider>(
-        builder: (context1, value, child) {
+    return Consumer2<LanguageProvider,HomeProvider>(
+        builder: (context1,lang, value, child) {
         return SingleChildScrollView(scrollDirection: Axis.horizontal,
           child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             ...appArray.serviceManEarningList

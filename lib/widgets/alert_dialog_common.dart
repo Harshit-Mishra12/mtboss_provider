@@ -28,47 +28,51 @@ class AlertDialogCommon extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         shape: const SmoothRectangleBorder(borderRadius: SmoothBorderRadius.all(SmoothRadius(cornerRadius: AppRadius.r14, cornerSmoothing: 1))),
         backgroundColor: appColor(context).appTheme.whiteBg,
-        content: Stack(alignment: Alignment.topRight, children: [
-          Column(
-              mainAxisSize: MainAxisSize.min, children: [
-            // Gif
-          isBooked == true ? widget! : SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Image.asset(image!, height: height ?? Sizes.s190))
-                .paddingSymmetric(vertical: Insets.i20)
-                .decorated(
-                    color: appColor(context).appTheme.fieldCardBg,
-                    borderRadius: BorderRadius.circular(AppRadius.r10)),
-            // Sub text
-            const VSpace(Sizes.s15),
-            Text(language(context, subtext!),
-                textAlign: TextAlign.center,
-                style: appCss.dmDenseRegular14
-                    .textColor(appColor(context).appTheme.lightText)
-                    .textHeight(1.4)),
-            const VSpace(Sizes.s20),
-            if(isTwoButton != true)
-            ButtonCommon(onTap: b1OnTap, title: bText1!),
-            if(isTwoButton == true)
-            BottomSheetButtonCommon(
-                clearTap: firstBTap,
-                applyTap: secondBTap,
-                textTwo: secondBText,
-                textOne: firstBText)
-          ]).padding(
-              horizontal: Insets.i20, top: Insets.i60, bottom: Insets.i20),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            // Title
-            Expanded(
-              child: Text(language(context, title!),
-                  overflow: TextOverflow.ellipsis,
-                  style: appCss.dmDenseMedium18
-                      .textColor(appColor(context).appTheme.darkText)),
-            ),
-            Icon(CupertinoIcons.multiply,
-                    size: Sizes.s20, color: appColor(context).appTheme.darkText)
-                .inkWell(onTap: () => route.pop(context))
-          ]).paddingAll(Insets.i20)
-        ]));
+        content: Consumer<LanguageProvider>(
+          builder: (context, lang, child)  {
+            return Stack(alignment: Alignment.topRight, children: [
+              Column(
+                  mainAxisSize: MainAxisSize.min, children: [
+                // Gif
+              isBooked == true ? widget! : SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.asset(image!, height: height ?? Sizes.s190))
+                    .paddingSymmetric(vertical: Insets.i20)
+                    .decorated(
+                        color: appColor(context).appTheme.fieldCardBg,
+                        borderRadius: BorderRadius.circular(AppRadius.r10)),
+                // Sub text
+                const VSpace(Sizes.s15),
+                Text(language(context, subtext!),
+                    textAlign: TextAlign.center,
+                    style: appCss.dmDenseRegular14
+                        .textColor(appColor(context).appTheme.lightText)
+                        .textHeight(1.4)),
+                const VSpace(Sizes.s20),
+                if(isTwoButton != true)
+                ButtonCommon(onTap: b1OnTap, title: bText1!),
+                if(isTwoButton == true)
+                BottomSheetButtonCommon(
+                    clearTap: firstBTap,
+                    applyTap: secondBTap,
+                    textTwo: secondBText,
+                    textOne: firstBText)
+              ]).padding(
+                  horizontal: Insets.i20, top: Insets.i60, bottom: Insets.i20),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                // Title
+                Expanded(
+                  child: Text(language(context, title!),
+                      overflow: TextOverflow.ellipsis,
+                      style: appCss.dmDenseMedium18
+                          .textColor(appColor(context).appTheme.darkText)),
+                ),
+                Icon(CupertinoIcons.multiply,
+                        size: Sizes.s20, color: appColor(context).appTheme.darkText)
+                    .inkWell(onTap: () => route.pop(context))
+              ]).paddingAll(Insets.i20)
+            ]);
+          }
+        ));
   }
 }

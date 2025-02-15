@@ -17,24 +17,25 @@ class AddProofBodyWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ContainerWithTextLayout(
-                        title: language(context, appFonts.title)),
+                        title: language(context, translations!.title)),
                     const VSpace(Sizes.s8),
                     TextFieldCommon(
                             focusNode: value.titleFocus,
-                            hintText: language(context, appFonts.enterTitle),
+                            hintText:
+                                language(context, translations!.enterTitle),
                             controller: value.titleCtrl,
                             prefixIcon: eSvgAssets.buildings)
                         .paddingSymmetric(horizontal: Insets.i20),
                     const VSpace(Sizes.s15),
                     ContainerWithTextLayout(
-                        title: language(context, appFonts.description)),
+                        title: language(context, translations!.description)),
                     const VSpace(Sizes.s8),
                     Stack(children: [
                       TextFieldCommon(
                               focusNode: value.descriptionFocus,
                               isNumber: true,
                               controller: value.descriptionCtrl,
-                              hintText: appFonts.enterDetails,
+                              hintText: translations!.enterDetails!,
                               maxLines: 3,
                               minLines: 3,
                               isMaxLine: true)
@@ -55,12 +56,12 @@ class AddProofBodyWidget extends StatelessWidget {
                     ]),
                     const VSpace(Sizes.s15),
                     ContainerWithTextLayout(
-                        title: language(context, appFonts.serviceImage)),
+                        title: language(context, translations!.serviceImage)),
                     const VSpace(Sizes.s8),
                     const ProofImageList(),
                     const VSpace(Sizes.s40),
                     ButtonCommon(
-                            title: appFonts.submit,
+                            title: translations!.submit,
                             onTap: () => value.onSubmit(context))
                         .paddingSymmetric(horizontal: Insets.i20)
                   ]).paddingSymmetric(vertical: Insets.i20))

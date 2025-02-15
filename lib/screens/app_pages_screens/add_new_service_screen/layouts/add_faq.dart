@@ -21,24 +21,23 @@ class _AddFaqState extends State<AddFaq> {
     super.initState();
     log("DATA :4${widget.faqList}");
     // Initialize with one row of two default text boxes
-    if(widget.faqList!.isNotEmpty){
-      for(var d in widget.faqList!){
-        controllers.add([TextEditingController(text: d['question']), TextEditingController(text: d['answer'])]);
+    if (widget.faqList!.isNotEmpty) {
+      for (var d in widget.faqList!) {
+        controllers.add([
+          TextEditingController(text: d['question']),
+          TextEditingController(text: d['answer'])
+        ]);
       }
-    }else {
+    } else {
       log("HADGH");
       controllers.add([TextEditingController(), TextEditingController()]);
     }
-    setState(() {
-
-    });
-
+    setState(() {});
   }
 
   void _addTextBoxRow() {
     setState(() {
       controllers.add([TextEditingController(), TextEditingController()]);
-
     });
   }
 
@@ -54,7 +53,7 @@ class _AddFaqState extends State<AddFaq> {
       faqList.add(d);
     });
     setState(() {});
-    route.pop(context,arg: faqList);
+    route.pop(context, arg: faqList);
     controllers = [];
   }
 
@@ -68,11 +67,10 @@ class _AddFaqState extends State<AddFaq> {
     return Scaffold(
       appBar: AppBar(
           leadingWidth: 80,
-          title: Text(language(context, appFonts.addFaq),
+          title: Text(language(context, translations!.addFaq),
               style: appCss.dmDenseBold18
                   .textColor(appColor(context).appTheme.darkText)),
           centerTitle: true,
-
           leading: CommonArrow(
               arrow:
                   rtl(context) ? eSvgAssets.arrowRight : eSvgAssets.arrowLeft,
@@ -82,17 +80,16 @@ class _AddFaqState extends State<AddFaq> {
         children: [
           const VSpace(Sizes.s20),
           ...controllers.asMap().entries.map((e) => Stack(
-            alignment: Alignment.topRight,
-            children: [
-              Column(
+                alignment: Alignment.topRight,
+                children: [
+                  Column(
                     children: [
                       TextFormField(
                           controller: e.value[0],
-                          style: appCss.dmDenseMedium14.textColor(
-                              appColor(context).appTheme.darkText),
+                          style: appCss.dmDenseMedium14
+                              .textColor(appColor(context).appTheme.darkText),
                           decoration: InputDecoration(
-                              fillColor:
-                                  appColor(context).appTheme.fieldCardBg,
+                              fillColor: appColor(context).appTheme.fieldCardBg,
                               filled: true,
                               isDense: true,
                               disabledBorder: const OutlineInputBorder(
@@ -108,65 +105,67 @@ class _AddFaqState extends State<AddFaq> {
                                       Radius.circular(AppRadius.r8)),
                                   borderSide: BorderSide.none),
                               border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(AppRadius.r8)),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(AppRadius.r8)),
                                   borderSide: BorderSide.none),
-                              contentPadding: const EdgeInsets.symmetric(horizontal: Insets.i15, vertical: Insets.i15),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: Insets.i15, vertical: Insets.i15),
                               hintStyle: appCss.dmDenseMedium14.textColor(appColor(context).appTheme.lightText),
                               hintText: language(context, "Enter Question"),
                               errorMaxLines: 2)),
                       const HSpace(Sizes.s10),
                       const VSpace(Sizes.s15),
                       TextFormField(
-                              controller: e.value[1],
-                              style: appCss.dmDenseMedium14
-                                  .textColor(appColor(context).appTheme.darkText),
-                              maxLines: 3,
-                              decoration: InputDecoration(
-                                  fillColor: appColor(context).appTheme.fieldCardBg,
-                                  filled: true,
-                                  isDense: true,
-                                  disabledBorder: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(AppRadius.r8)),
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(AppRadius.r8)),
-                                      borderSide: BorderSide.none),
-                                  enabledBorder: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(AppRadius.r8)),
-                                      borderSide: BorderSide.none),
-                                  border: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(AppRadius.r8)),
-                                      borderSide: BorderSide.none),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: Insets.i15, vertical: Insets.i15),
-                                  hintStyle: appCss.dmDenseMedium14.textColor(appColor(context).appTheme.lightText),
-                                  hintText: language(context, "Enter Anser"),
-                                  errorMaxLines: 2))
-
+                          controller: e.value[1],
+                          style: appCss.dmDenseMedium14
+                              .textColor(appColor(context).appTheme.darkText),
+                          maxLines: 3,
+                          decoration: InputDecoration(
+                              fillColor: appColor(context).appTheme.fieldCardBg,
+                              filled: true,
+                              isDense: true,
+                              disabledBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(AppRadius.r8)),
+                                  borderSide: BorderSide.none),
+                              focusedBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(AppRadius.r8)),
+                                  borderSide: BorderSide.none),
+                              enabledBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(AppRadius.r8)),
+                                  borderSide: BorderSide.none),
+                              border: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(AppRadius.r8)),
+                                  borderSide: BorderSide.none),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: Insets.i15, vertical: Insets.i15),
+                              hintStyle: appCss.dmDenseMedium14.textColor(appColor(context).appTheme.lightText),
+                              hintText: language(context, "Enter Anser"),
+                              errorMaxLines: 2))
                     ],
-                  ).paddingAll(Sizes.s20).boxBorderExtension(context,isShadow: true).paddingOnly(bottom: Sizes.s20,top: 10),
-              Icon(CupertinoIcons.minus_circle_fill,size: 26,
-                  color: appColor(context).appTheme.darkText)
-                  .inkWell(onTap: () => removeRow(e.key))
-            ],
-          )),
+                  )
+                      .paddingAll(Sizes.s20)
+                      .boxBorderExtension(context, isShadow: true)
+                      .paddingOnly(bottom: Sizes.s20, top: 10),
+                  Icon(CupertinoIcons.minus_circle_fill,
+                          size: 26, color: appColor(context).appTheme.darkText)
+                      .inkWell(onTap: () => removeRow(e.key))
+                ],
+              )),
           Row(
             children: [
               Expanded(
                 child: ButtonCommon(
-                    title: language(context, appFonts.save),
-
+                    title: language(context, translations!.save),
                     onTap: () => onAddTap(context)),
               ),
               const HSpace(Sizes.s10),
               Expanded(
                 child: ButtonCommon(
-                    title: language(context, appFonts.addFaq),
-
+                    title: language(context, translations!.addFaq),
                     onTap: _addTextBoxRow),
               ),
             ],

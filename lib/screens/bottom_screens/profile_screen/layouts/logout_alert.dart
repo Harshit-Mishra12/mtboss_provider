@@ -12,8 +12,8 @@ class LogoutAlert extends StatelessWidget {
       insetPadding: const EdgeInsets.symmetric(horizontal: Insets.i20),
       contentPadding: EdgeInsets.zero,
       shape: const SmoothRectangleBorder(
-          borderRadius: SmoothBorderRadius.all(SmoothRadius(
-              cornerRadius: AppRadius.r14, cornerSmoothing: 1))),
+          borderRadius: SmoothBorderRadius.all(
+              SmoothRadius(cornerRadius: AppRadius.r14, cornerSmoothing: 1))),
       backgroundColor: appColor(context).appTheme.whiteBg,
       content: Stack(
         children: [
@@ -29,7 +29,7 @@ class LogoutAlert extends StatelessWidget {
                 Expanded(
                     child: ButtonCommon(
                         onTap: () => route.pop(context),
-                        title: appFonts.cancel,
+                        title: translations!.cancel,
                         borderColor: appColor(context).appTheme.red,
                         color: appColor(context).appTheme.whiteBg,
                         style: appCss.dmDenseSemiBold16
@@ -38,20 +38,19 @@ class LogoutAlert extends StatelessWidget {
                 Expanded(
                     child: ButtonCommon(
                         color: appColor(context).appTheme.red,
-                        onTap:onTap,
-                        title: appFonts.yes))
+                        onTap: onTap,
+                        title: translations!.yes))
               ])
             ],
           ).padding(
               horizontal: Insets.i20, top: Insets.i60, bottom: Insets.i20),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             // Title
-            Text(language(context, appFonts.logOut),
+            Text(language(context, translations!.logOut),
                 style: appCss.dmDenseExtraBold18
                     .textColor(appColor(context).appTheme.darkText)),
             Icon(CupertinoIcons.multiply,
-                size: Sizes.s20,
-                color: appColor(context).appTheme.darkText)
+                    size: Sizes.s20, color: appColor(context).appTheme.darkText)
                 .inkWell(onTap: () => route.pop(context))
           ]).paddingAll(Insets.i20)
         ],

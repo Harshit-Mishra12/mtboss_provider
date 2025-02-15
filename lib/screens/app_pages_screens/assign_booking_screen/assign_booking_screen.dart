@@ -23,8 +23,8 @@ class AssignBookingScreen extends StatelessWidget {
                         appBar: AppBarCommon(
                             onTap: () => value.onBack(context, true),
                             title: isFreelancer
-                                ? appFonts.acceptedBooking
-                                : appFonts.assignBooking),
+                                ? translations!.acceptedBooking
+                                : translations!.assignBooking),
                         body: RefreshIndicator(
                             onRefresh: () async {
                               value.onRefresh(context);

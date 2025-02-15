@@ -41,28 +41,28 @@ class BookingServicemenListLayout extends StatelessWidget {
               Text(language(context, data!.name),
                   style: appCss.dmDenseMedium14
                       .textColor(appColor(context).appTheme.darkText)),
-              if(data!.reviewRatings != null)
-              VerticalDivider(
-                      width: 1,
-                      thickness: 1,
-                      color: appColor(context).appTheme.stroke,
-                      indent: 6,
-                      endIndent: 6)
-                  .paddingSymmetric(horizontal: Insets.i6),
-              if(data!.reviewRatings != null)
-              Row(children: [
-                SvgPicture.asset(eSvgAssets.star),
-                const HSpace(Sizes.s4),
-                Text(data!.reviewRatings ?? "0",
-                    style: appCss.dmDenseMedium13
-                        .textColor(appColor(context).appTheme.darkText))
-              ])
+              if (data!.reviewRatings != null)
+                VerticalDivider(
+                        width: 1,
+                        thickness: 1,
+                        color: appColor(context).appTheme.stroke,
+                        indent: 6,
+                        endIndent: 6)
+                    .paddingSymmetric(horizontal: Insets.i6),
+              if (data!.reviewRatings != null)
+                Row(children: [
+                  SvgPicture.asset(eSvgAssets.star),
+                  const HSpace(Sizes.s4),
+                  Text(data!.reviewRatings ?? "0",
+                      style: appCss.dmDenseMedium13
+                          .textColor(appColor(context).appTheme.darkText))
+                ])
             ]),
           ),
           const VSpace(Sizes.s4),
           Text(
               language(context,
-                  "${language(context, appFonts.memberSince)} ${DateFormat("yyyy").format(DateTime.parse(data!.createdAt!))}"),
+                  "${language(context, translations!.memberSince)} ${DateFormat("yyyy").format(DateTime.parse(data!.createdAt!))}"),
               style: appCss.dmDenseMedium12
                   .textColor(appColor(context).appTheme.lightText))
         ])

@@ -16,7 +16,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   leading: CommonArrow(
                       arrow: eSvgAssets.arrowLeft,
                       onTap: () => route.pop(context)).paddingAll(Insets.i8),
-                  title: Text(language(context, appFonts.changePassword),
+                  title: Text(language(context, translations!.changePassword),
                       style: appCss.dmDenseBold18
                           .textColor(appColor(context).appTheme.darkText))),
               body: SafeArea(
@@ -25,10 +25,12 @@ class ChangePasswordScreen extends StatelessWidget {
                 Form(
                     key: resetPass.resetFormKey,
                     child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [VSpace(Sizes.s30), ChangePasswordLayout()])
-                        .alignment(Alignment.centerLeft))
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          VSpace(Sizes.s30),
+                          ChangePasswordLayout()
+                        ]).alignment(Alignment.centerLeft))
               ]).paddingSymmetric(horizontal: Insets.i20)))));
     });
   }

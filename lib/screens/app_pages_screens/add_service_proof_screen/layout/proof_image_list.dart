@@ -42,7 +42,7 @@ class ProofImageList extends StatelessWidget {
                         right: rtl(context) ? Insets.i20 : 0)
                 : Container(),
             AddNewBoxLayout(
-                    title: appFonts.addNew, onAdd: () => value.onImagePick(context))
+                    title: translations!.addNew, onAdd: () => value.onImagePick(context))
                 .paddingSymmetric(
                     horizontal: value.serviceProofs != null &&
                             value.serviceProofs!.media!.isNotEmpty

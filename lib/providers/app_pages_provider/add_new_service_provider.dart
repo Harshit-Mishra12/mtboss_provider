@@ -1,13 +1,13 @@
 import 'dart:developer';
 import 'package:fixit_provider/screens/app_pages_screens/add_new_service_screen/layouts/add_faq.dart';
-import 'package:http_parser/http_parser.dart' as http;
-import 'package:http/http.dart' as https;
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:fixit_provider/config.dart';
 import 'package:fixit_provider/screens/app_pages_screens/add_new_service_screen/layouts/category_bottom_sheet.dart';
+import 'package:fixit_provider/services/environment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 
@@ -22,19 +22,19 @@ class AddNewServiceProvider with ChangeNotifier {
   List<CategoryModel> newCategoryList = [];
 
   List<CategoryModel> categories = [], newCatList = [];
-  String? durationValue, serviceOption;
+  String? durationValue, serviceOption, perServiceman;
   int selectIndex = 0, selected = -1;
   int? taxIndex;
   bool isSwitch = true, isEdit = false;
   final multiSelectKey = GlobalKey<FormFieldState>();
   TextEditingController filterSearchCtrl = TextEditingController();
   final FocusNode filterSearchFocus = FocusNode();
-
+  final dioo = Dio();
   String argData = 'NULL';
   List<CategoryModel> subCategory = [];
   String commission = "";
   dynamic areaData;
-  String? street,area,latitude,longitude,city,zipCode;
+  String? street, area, latitude, longitude, city, zipCode;
   List<CountryStateModel> countryList = [];
   List<ZoneModel> zonesList = [];
   List<StateModel> statesList = [];
@@ -43,8 +43,6 @@ class AddNewServiceProvider with ChangeNotifier {
   CountryStateModel? country;
   ZoneModel? zone;
   StateModel? state;
-
-
 
   TextEditingController serviceName = TextEditingController();
   TextEditingController description = TextEditingController();
@@ -81,7 +79,6 @@ class AddNewServiceProvider with ChangeNotifier {
     all.commonApi(context);
     dynamic data = ModalRoute.of(context)!.settings.arguments ?? "";
     newCatList = allCategoryList;
-
     descriptionFocus.addListener(() {
       notifyListeners();
     });
@@ -145,10 +142,11 @@ class AddNewServiceProvider with ChangeNotifier {
       discount.text = (services!.discount!).toStringAsFixed(0).toString();
       duration.text = services!.duration!;
       log("services!.durationUnit! :${services!.durationUnit!}");
-      if (services!.durationUnit == "hour") {
-        durationValue = capitalizeFirstLetter(services!.durationUnit == "hour"
-            ? "hours"
-            : services!.durationUnit!);
+      if (services!.durationUnit == translations?.hour) {
+        durationValue = capitalizeFirstLetter(
+            services!.durationUnit == translations?.hour
+                ? "hours"
+                : services!.durationUnit!);
       } else {
         durationValue = capitalizeFirstLetter(services!.durationUnit == "minute"
             ? "minutes"
@@ -164,7 +162,7 @@ class AddNewServiceProvider with ChangeNotifier {
       if (taxVal >= 0) {
         taxIndex = int.parse(services!.taxId!.toString());
       }
-      isSwitch = services!.status == "1" ? true : false;
+      isSwitch = services!.status == 1 ? true : false;
 
       if (services!.media != null && services!.media!.isNotEmpty) {
         for (var d in services!.media!) {
@@ -179,8 +177,35 @@ class AddNewServiceProvider with ChangeNotifier {
       taxIndex = null;
       faqList = [];
     }
+    addressList = [];
   }
 
+  Future<void> getServiceDetails(BuildContext context, int serviceId) async {
+    final lang = Provider.of<LanguageProvider>(context, listen: false);
+    String selectedLocale =
+        lang.selectedLocaleService; // Get the selected language
+
+    log("Fetching service details for locale: $selectedLocale");
+
+    final response = await apiServices.getApi(
+        '${api.providerServices}?service_id=$serviceId?lang=$selectedLocale',
+        [],
+        isData: true,
+        isToken: false);
+
+    if (response.isSuccess!) {
+      services = Services.fromJson(response.data);
+      log("Service Data: ${services!.title} (${selectedLocale})");
+
+      // Update only localized fields
+      serviceName.text = services!.title ?? "";
+      description.text = services!.description ?? "";
+
+      notifyListeners();
+    } else {
+      log("Failed to fetch service details: ${response.message}");
+    }
+  }
 
   //country selection function
   onChangeCountryCompany(context, val, CountryStateModel c) {
@@ -189,7 +214,7 @@ class AddNewServiceProvider with ChangeNotifier {
     country = c;
 
     int index = countryList.indexWhere((element) => element.id == c.id);
-    log("countryList :${index}");
+    log("countryList :$index");
     if (index >= 0) {
       state = null;
       statesList = countryList[index].state!;
@@ -207,16 +232,50 @@ class AddNewServiceProvider with ChangeNotifier {
     state = c;
     notifyListeners();
   }
+/*
+  Future<void> getLocation(BuildContext context) async {
+    final loc = Provider.of<LocationProvider>(context, listen: false);
+
+    // Request location permission
+    LocationPermission permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+      log("Location permission denied");
+      return;
+    }
+
+    // Get current location
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+
+    // Reverse geocode to get address
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      position.latitude, position.longitude,
+    );
+
+    if (placemarks.isNotEmpty) {
+      Placemark place = placemarks.first;
+      areaData = "${place.street}, ${place.locality}, ${place.country}";
+
+      // Update location fields
+      latitude = position.latitude.toString();
+      longitude = position.longitude.toString();
+      city = place.locality ?? "";
+      zipCode = place.postalCode ?? "";
+    }
+
+    notifyListeners();
+  }
+*/
 
   getLocation(context) async {
     route.pushNamed(context, routeName.location, arg: {"isService": true}).then(
-            (e) {
-          log("EEEE :$e");
-
-        });
-    /* showLoading(context);
+        (e) {
+      log("EEEE :$e");
+    });
+    // showLoading(context);
     notifyListeners();
-    final loc = Provider.of<LocationProvider>(context, listen: false);
+    /* final loc = Provider.of<LocationProvider>(context, listen: false);
 
     await loc.getUserCurrentLocation(context);
     await Future.delayed(Durations.short4);
@@ -329,7 +388,6 @@ class AddNewServiceProvider with ChangeNotifier {
     serviceFaq = [];
     services = null;
     thumbImage = null;
-
     categories = [];
     filterSearchCtrl.text = "";
     appArray.serviceImageList = [];
@@ -533,7 +591,9 @@ class AddNewServiceProvider with ChangeNotifier {
   addData(context) async {
     FocusScope.of(context).requestFocus(FocusNode());
     if (addServiceFormKey.currentState!.validate()) {
+      log("thumbFile:::$thumbFile");
       if (appArray.serviceImageList.isNotEmpty) {
+        log("thumbFile:::$thumbFile");
         if (thumbFile != null) {
           if (categories.isNotEmpty) {
             if (durationValue != null) {
@@ -576,42 +636,47 @@ class AddNewServiceProvider with ChangeNotifier {
                 }
               } else {
                 snackBarMessengers(context,
-                    message: language(context, appFonts.pleaseSelectTax));
+                    message: language(context, translations!.pleaseSelectTax));
               }
             } else {
               snackBarMessengers(context,
-                  message:
-                      language(context, appFonts.pleaseSelectDurationUnit));
+                  message: language(
+                      context, translations!.pleaseSelectDurationUnit));
             }
           } else {
             snackBarMessengers(context,
-                message: language(context, appFonts.pleaseSelectCategory));
+                message: language(context, translations!.pleaseSelectCategory));
           }
         } else {
           snackBarMessengers(context,
-              message: language(context, appFonts.pleaseUploadThumbPhoto));
+              message: language(context, translations!.pleaseUploadThumbPhoto));
         }
       } else {
         snackBarMessengers(context,
-            message: language(context, appFonts.pleaseUploadServiceImages));
+            message:
+                language(context, translations!.pleaseUploadServiceImages));
       }
     }
   }
 
   //edit data validation
   editData(context) {
-    log("message :${userModel!.media}");
+    log("message :${userModel!.media![0].originalUrl}");
     FocusScope.of(context).requestFocus(FocusNode());
+    editServiceApi(context);
     if (addServiceFormKey.currentState!.validate()) {
-      if (services!.media != null && services!.media!.isNotEmpty) {
+      if (services!.media != null &&
+          services!.media!.isNotEmpty &&
+          services!.categories != []) {
         editServiceApi(context);
       } else {
         snackBarMessengers(context,
-            message: language(context, appFonts.pleaseUploadProfilePhoto));
+            message: language(context, translations!.pleaseUploadProfilePhoto));
       }
     }
   }
 
+  List<ZoneModel> zoneSelect = [];
 //add service
   addServiceApi(context) async {
     showLoading(context);
@@ -626,6 +691,11 @@ class AddNewServiceProvider with ChangeNotifier {
       }
       log("thumbFile:4$thumbFile");
       log("thumbFile:4${thumbFile!.path} //z${thumbFile!.name}");
+
+      final locationVal =
+          Provider.of<NewLocationProvider>(context, listen: false);
+      log("aessdadasd:::${locationVal.latitudeCtrl.text}//${locationVal.longitudeCtrl.text}///}");
+
       var body = {
         'type': serviceOption,
         "title": serviceName.text,
@@ -645,14 +715,14 @@ class AddNewServiceProvider with ChangeNotifier {
         "is_featured": "1",
         "per_serviceman_commission": perServicemanCommission.text,
         "destination_location": {
-          "lat": latitude,
-          "lng": longitude,
-          "area": area,
-          "address": areaData,
-          "state_id": state!.id,
-          "country_id":country!.id,
-          "postal_code": zipCode,
-          "city": city
+          "lat": addressList.last.latitude,
+          "lng": addressList.last.longitude,
+          "area": addressList.last.area,
+          "address": addressList.last.address,
+          "state_id": addressList.last.stateId,
+          "country_id": addressList.last.countryId,
+          "postal_code": addressList.last.postalCode,
+          "city": addressList.last.city
         },
         "faqs": faqList,
         "isMultipleServiceman": minRequired.length > 1 ? "1" : 0,
@@ -661,7 +731,9 @@ class AddNewServiceProvider with ChangeNotifier {
           "category_id[$i]": categories[i].id,
       };
       dio.FormData formData = dio.FormData.fromMap(body);
+      final lang = Provider.of<LanguageProvider>(context, listen: false);
 
+      log("lang:::${lang.currentLanguage}");
       for (var file in appArray.serviceImageList) {
         log("FILE :$file");
         formData.files.addAll([
@@ -673,15 +745,30 @@ class AddNewServiceProvider with ChangeNotifier {
               )),
         ]);
       }
-      log("BODU :$body");
-      log("BODU :${formData.files}");
-      await apiServices
-          .postApi(api.service, formData, isToken: true)
+      log("BODY :$body");
+
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      String? token = pref.getString(session.accessToken);
+
+      await dioo
+          .post(api.service,
+              data: formData,
+              options: Options(
+                  headers: headersToken(
+                token,
+                localLang: lang.selectedLocaleService,
+                isLang: true,
+              )))
           .then((value) async {
         hideLoading(context);
         notifyListeners();
 
-        if (value.isSuccess!) {
+        log("Response Data: ${value.statusCode}");
+        log("Response Type: ${value.data.runtimeType}");
+
+        // Check if value.data contains 'success' instead of assuming it's a bool
+        if (value.data is Map<String, dynamic> ||
+            value.data["success"] == true) {
           final userApi =
               Provider.of<UserDataApiProvider>(context, listen: false);
           await userApi.getAllServiceList();
@@ -689,17 +776,14 @@ class AddNewServiceProvider with ChangeNotifier {
           await userApi.getCategory();
           onBack(false);
           snackBarMessengers(context,
-              message: value.message,
+              message: value.data["message"] ?? "Success",
               color: appColor(context).appTheme.primary);
-
-          notifyListeners();
-
           route.pop(context);
+          route.pop(context);
+          notifyListeners();
         } else {
-          final userApi =
-              Provider.of<UserDataApiProvider>(context, listen: false);
-          await userApi.getAllServiceList();
-          Fluttertoast.showToast(msg: value.message);
+          Fluttertoast.showToast(
+              msg: value.data["message"] ?? "Something went wrong");
         }
       });
     } catch (e) {
@@ -710,9 +794,136 @@ class AddNewServiceProvider with ChangeNotifier {
     }
   }
 
+  // addServiceApi(context) async {
+  //   showLoading(context);
+  //   notifyListeners();
+
+  //   try {
+  //     dynamic mimeTypeData;
+
+  //     if (thumbFile != null) {
+  //       mimeTypeData =
+  //           lookupMimeType(thumbFile!.path, headerBytes: [0xFF, 0xD8])!
+  //               .split('/');
+  //     }
+  //     log("thumbFile:4$thumbFile");
+  //     log("thumbFile:4${thumbFile!.path} //z${thumbFile!.name}");
+  //     // log("thumbFile:state${state!.id} //${country!.id}//${latitude}//${longitude}//${area}//$zipCode");
+  //     // log("thumbFile:4${thumbFile!.path} //z${thumbFile!.name}");
+  //     final locationVal =
+  //     Provider.of<NewLocationProvider>(context, listen: false);
+  //     log("locationVal:::${locationVal.latitudeCtrl.text}//${locationVal.longitudeCtrl.text}///}");
+  //     var body = {
+  //       'type': serviceOption,
+  //       "title": serviceName.text,
+  //       if (thumbFile != null)
+  //         'thumbnail': await dio.MultipartFile.fromFile(
+  //             thumbFile!.path.toString(),
+  //             filename: thumbFile!.name.toString(),
+  //             contentType: MediaType(mimeTypeData[0], mimeTypeData[1])),
+  //       "provider_id": userModel!.id,
+  //       "price": amount.text,
+  //       "discount": discount.text.isNotEmpty ? discount.text : 0,
+  //       "tax_id": taxIndex,
+  //       "duration": duration.text,
+  //       "duration_unit": durationValue!.toLowerCase(),
+  //       "description": description.text,
+  //       "required_servicemen": minRequired.text,
+  //       "is_featured": "1",
+  //       "per_serviceman_commission": perServicemanCommission.text,
+  //       "destination_location": {
+  //         "lat": addressList.last.latitude,
+  //         "lng": addressList.last.longitude,
+  //         "area":addressList.last.area,
+  //         "address": addressList.last.address,
+  //         "state_id": addressList.last.stateId,
+  //         "country_id": addressList.last.countryId,
+  //         "postal_code":addressList.last.postalCode,
+  //         "city": addressList.last.city
+  //       },
+  //       "faqs": faqList,
+  //       "isMultipleServiceman": minRequired.length > 1 ? "1" : 0,
+  //       "status": isSwitch == true ? "1" : 0,
+  //       for (var i = 0; i < categories.length; i++)
+  //         "category_id[$i]": categories[i].id,
+  //     };
+  //     dio.FormData formData = dio.FormData.fromMap(body);
+  //     final lang = Provider.of<LanguageProvider>(context, listen: false);
+
+  //     log("lang:::${lang.currentLanguage}");
+  //     for (var file in appArray.serviceImageList) {
+  //       log("FILE :$file");
+  //       formData.files.addAll([
+  //         MapEntry(
+  //             "image[]",
+  //             await dio.MultipartFile.fromFile(
+  //               file.path.toString(),
+  //               filename: file.name.toString(),
+  //             )),
+  //       ]);
+  //     }
+  //     log("BODU :$body");
+  //     // log("BODU :${locationVal.address!}");
+  //     // log("BODU :${formData.files}");
+  //     SharedPreferences pref = await SharedPreferences.getInstance();
+
+  //     String? token = pref.getString(session.accessToken);
+
+  //     //  var header= headersToken(
+  //     //   token,localLang:lang.selectedLocaleService ,
+  //     //   isLang: true,
+  //     // );
+
+  //     // log("lang.selectedLocaleService::${header}");
+  //     // // log("lang.selectedLocaleService::$header");
+
+  //     await dioo
+  //         .post(api.service,
+  //             data: formData,
+  //             options: Options(
+  //                 headers: headersToken(
+  //       token,localLang:lang.selectedLocaleService ,
+  //       isLang: true,
+  //     )))
+  //     //  await apiServices
+  //     //     .postApi(api.service, formData, isToken: true,isData: true)
+  //         .then((value) async {
+  //       hideLoading(context);
+  //       notifyListeners();
+
+  //       if (value.data!) {
+  //         final userApi =
+  //             Provider.of<UserDataApiProvider>(context, listen: false);
+  //         await userApi.getAllServiceList();
+  //         await userApi.homeStatisticApi();
+  //         await userApi.getCategory();
+  //         onBack(false);
+  //         snackBarMessengers(context,
+  //             message: value.statusMessage,
+  //             color: appColor(context).appTheme.primary);
+
+  //         notifyListeners();
+
+  //         route.pop(context);
+  //       } else {
+  //         final userApi =
+  //             Provider.of<UserDataApiProvider>(context, listen: false);
+  //         await userApi.getAllServiceList();
+  //         Fluttertoast.showToast(msg: value.statusMessage!);
+  //       }
+  //     });
+  //   } catch (e) {
+  //     hideLoading(context);
+  //     notifyListeners();
+  //     Fluttertoast.showToast(msg: e.toString());
+  //     log("EEEE addServiceman : $e");
+  //   }
+  // }
+
 //edit service
   editServiceApi(context) async {
     try {
+      log("thumbFile: ${thumbFile!.path}");
       dynamic mimeTypeData;
       if (thumbFile != null) {
         mimeTypeData = mime.lookupMimeType(thumbFile!.path,
@@ -721,7 +932,6 @@ class AddNewServiceProvider with ChangeNotifier {
 
       showLoading(context);
       notifyListeners();
-
       var body = {
         'type': serviceOption,
         "title": serviceName.text,
@@ -738,17 +948,17 @@ class AddNewServiceProvider with ChangeNotifier {
         "duration_unit": durationValue!.toLowerCase(),
         "description": description.text,
         "required_servicemen": minRequired.text,
+        "per_serviceman_commission": perServicemanCommission.text,
         "faqs": faqList,
         "is_featured": services!.isFeatured,
         "isMultipleServiceman": minRequired.length > 1 ? "1" : 0,
-        "per_serviceman_commission": perServicemanCommission.text,
         "status": isSwitch == true ? "1" : 0,
         for (var i = 0; i < categories.length; i++)
           "category_id[$i]": categories[i].id,
         "_method": "PUT"
       };
       dio.FormData formData = dio.FormData.fromMap(body);
-
+      log("body:::$body");
       for (var file in appArray.serviceImageList) {
         formData.files.addAll([
           MapEntry(

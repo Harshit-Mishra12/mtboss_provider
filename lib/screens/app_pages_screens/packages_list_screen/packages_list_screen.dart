@@ -15,10 +15,9 @@ class _PackagesListScreenState extends State<PackagesListScreen>
         builder: (context, value, deleteVal, child) {
       return StatefulWrapper(
         onInit: () {},
-
         child: LoadingComponent(
           child: Scaffold(
-              appBar: ActionAppBar(title: appFonts.packages, actions: [
+              appBar: ActionAppBar(title: translations!.packages, actions: [
                 CommonArrow(
                         arrow: eSvgAssets.add,
                         onTap: () => route
@@ -26,24 +25,28 @@ class _PackagesListScreenState extends State<PackagesListScreen>
                             .then((e) => value.notifyListeners()))
                     .paddingSymmetric(horizontal: Insets.i20)
               ]),
-              body: servicePackageList.isEmpty?  const CommonEmpty(): SingleChildScrollView(
-                  child: Column(
-                          children: servicePackageList
-                              .asMap()
-                              .entries
-                              .map((e) => PackageLayout(
-                                  onEdit: () => route.pushNamed(
-                                          context, routeName.appPackage, arg: {
-                                        'isEdit': true,
-                                        "data": e.value
-                                      }).then((e) => value.notifyListeners()),
-                                  onDelete: () => value.onPackageDelete(
-                                      context, this, e.value.id),
-                                  data: e.value,
-                                  onToggle: (val) =>
-                                      value.onToggle(e.key, val,context,e.value.id)))
-                              .toList())
-                      .paddingSymmetric(horizontal: Insets.i20))),
+              body: servicePackageList.isEmpty
+                  ? const CommonEmpty()
+                  : SingleChildScrollView(
+                      child: Column(
+                              children: servicePackageList
+                                  .asMap()
+                                  .entries
+                                  .map((e) => PackageLayout(
+                                      onEdit: () => route.pushNamed(
+                                              context, routeName.appPackage,
+                                              arg: {
+                                                'isEdit': true,
+                                                "data": e.value
+                                              }).then(
+                                              (e) => value.notifyListeners()),
+                                      onDelete: () => value.onPackageDelete(
+                                          context, this, e.value.id),
+                                      data: e.value,
+                                      onToggle: (val) =>
+                                          value.onToggle(e.key, val, context, e.value.id)))
+                                  .toList())
+                          .paddingSymmetric(horizontal: Insets.i20))),
         ),
       );
     });

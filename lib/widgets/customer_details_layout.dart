@@ -28,7 +28,7 @@ class CustomerDetailsLayout extends StatelessWidget {
                 .textColor(appColor(context).appTheme.lightText)),
         if (isMore == true)
           Row(children: [
-            Text(language(context, appFonts.view),
+            Text(language(context, translations!.view),
                 style: appCss.dmDenseRegular12
                     .textColor(appColor(context).appTheme.primary)),
             const HSpace(Sizes.s5),

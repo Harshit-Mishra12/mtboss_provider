@@ -11,7 +11,7 @@ class CommissionInfoScreen extends StatelessWidget {
               const Duration(milliseconds: 50), () => value.onReady()),
           child: LoadingComponent(
             child: Scaffold(
-                appBar: AppBarCommon(title: appFonts.commissionInfo),
+                appBar: AppBarCommon(title: translations!.commissionInfo),
                 body: SingleChildScrollView(
                   child: Column(children: [
                     SearchTextFieldCommon(
@@ -33,9 +33,8 @@ class CommissionInfoScreen extends StatelessWidget {
                               onTap: () => route.pushNamed(
                                   context, routeName.commissionDetail))),
                     if (value.searchCtrl.text.isEmpty)
-                      if(categoryList.isEmpty)
-                        const CommonEmpty(),
-                      if(categoryList.isNotEmpty)
+                      if (categoryList.isEmpty) const CommonEmpty(),
+                    if (categoryList.isNotEmpty)
                       ...categoryList
                           .asMap()
                           .entries

@@ -11,7 +11,7 @@ class BankDetailBodyWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ContainerWithTextLayout(
-                title: language(context, appFonts.bankName)),
+                title: language(context, translations!.bankName)),
             const VSpace(Sizes.s8),
             TextFieldCommon(
                     focusNode: value.bankNameFocus,
@@ -19,10 +19,10 @@ class BankDetailBodyWidget extends StatelessWidget {
                         context, value.bankNameFocus, value.holdNameFocus),
                     textCapitalization: TextCapitalization.characters,
                     controller: value.bankNameCtrl,
-                    hintText: appFonts.bankName,
+                    hintText: translations!.bankName!,
                     prefixIcon: eSvgAssets.bank)
                 .paddingSymmetric(horizontal: Insets.i20),
-            ContainerWithTextLayout(title: appFonts.holderName)
+            ContainerWithTextLayout(title: translations!.holderName)
                 .paddingOnly(top: Insets.i10, bottom: Insets.i5),
             TextFieldCommon(
                     focusNode: value.holdNameFocus,
@@ -30,20 +30,20 @@ class BankDetailBodyWidget extends StatelessWidget {
                     onFieldSubmitted: (v) => validation.fieldFocusChange(
                         context, value.holdNameFocus, value.accountFocus),
                     textCapitalization: TextCapitalization.characters,
-                    hintText: appFonts.holderName,
+                    hintText: translations!.holderName!,
                     prefixIcon: eSvgAssets.profile)
                 .paddingSymmetric(horizontal: Insets.i20),
-            ContainerWithTextLayout(title: appFonts.accountNo)
+            ContainerWithTextLayout(title: translations!.accountNo)
                 .paddingOnly(top: Insets.i10, bottom: Insets.i5),
             TextFieldCommon(
                     focusNode: value.accountFocus,
                     onFieldSubmitted: (v) => validation.fieldFocusChange(
                         context, value.accountFocus, value.branchFocus),
                     controller: value.accountCtrl,
-                    hintText: appFonts.accountNo,
+                    hintText: translations!.accountNo!,
                     prefixIcon: eSvgAssets.account)
                 .paddingSymmetric(horizontal: Insets.i20),
-            ContainerWithTextLayout(title: appFonts.branchName)
+            ContainerWithTextLayout(title: translations!.branchName)
                 .paddingOnly(top: Insets.i10, bottom: Insets.i5),
             TextFieldCommon(
                     focusNode: value.branchFocus,
@@ -51,10 +51,10 @@ class BankDetailBodyWidget extends StatelessWidget {
                         context, value.branchFocus, value.ifscFocus),
                     controller: value.branchCtrl,
                     textCapitalization: TextCapitalization.characters,
-                    hintText: appFonts.branchName,
+                    hintText: translations!.branchName!,
                     prefixIcon: eSvgAssets.bank)
                 .paddingSymmetric(horizontal: Insets.i20),
-            ContainerWithTextLayout(title: appFonts.ifscCode)
+            ContainerWithTextLayout(title: translations!.ifscCode)
                 .paddingOnly(top: Insets.i10, bottom: Insets.i5),
             TextFieldCommon(
                     focusNode: value.ifscFocus,
@@ -62,10 +62,10 @@ class BankDetailBodyWidget extends StatelessWidget {
                         context, value.ifscFocus, value.swiftFocus),
                     controller: value.ifscCtrl,
                     textCapitalization: TextCapitalization.characters,
-                    hintText: appFonts.ifscCode,
+                    hintText: translations!.ifscCode!,
                     prefixIcon: eSvgAssets.identity)
                 .paddingSymmetric(horizontal: Insets.i20),
-            ContainerWithTextLayout(title: appFonts.swiftCode)
+            ContainerWithTextLayout(title: translations!.swiftCode)
                 .paddingOnly(top: Insets.i10, bottom: Insets.i5),
             TextFieldCommon(
                     focusNode: value.swiftFocus,
@@ -73,7 +73,7 @@ class BankDetailBodyWidget extends StatelessWidget {
                         FocusManager.instance.primaryFocus?.unfocus(),
                     controller: value.swiftCtrl,
                     textCapitalization: TextCapitalization.characters,
-                    hintText: appFonts.swiftCode,
+                    hintText: translations!.swiftCode!,
                     prefixIcon: eSvgAssets.identity)
                 .paddingSymmetric(horizontal: Insets.i20),
           ]).paddingSymmetric(vertical: Insets.i20);

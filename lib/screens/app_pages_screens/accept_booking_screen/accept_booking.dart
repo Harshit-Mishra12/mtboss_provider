@@ -22,7 +22,7 @@ class AcceptBookingScreen extends StatelessWidget {
                       ? const BookingDetailShimmer()
                       : Scaffold(
                           appBar: AppBarCommon(
-                              title: appFonts.acceptedBooking,
+                              title: translations!.acceptedBooking,
                               onTap: () => value.onBack(context, true)),
                           body: RefreshIndicator(
                               onRefresh: () async {

@@ -48,7 +48,7 @@ class AppAlertDialogCommon extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(language(context, appFonts.reason),
+                          Text(language(context, translations!.reason),
                               style: appCss.dmDenseMedium15.textColor(
                                   appColor(context).appTheme.darkText)),
                           const VSpace(Sizes.s8),
@@ -57,7 +57,7 @@ class AppAlertDialogCommon extends StatelessWidget {
                               validator: validator,
                               fillColor: appColor(context).appTheme.fieldCardBg,
                               controller: controller,
-                              hintText: appFonts.writeANote,
+                              hintText: translations!.writeANote!,
                               maxLines: 3,
                               minLines: 3,
                               isNumber: true)

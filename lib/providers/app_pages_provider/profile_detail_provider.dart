@@ -190,7 +190,7 @@ class ProfileDetailProvider with ChangeNotifier {
                 borderRadius: BorderRadius.all(Radius.circular(AppRadius.r12))),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text(language(context, appFonts.selectOne),
+                Text(language(context, translations!.selectOne),
                     style: appCss.dmDenseBold18
                         .textColor(appColor(context).appTheme.darkText)),
                 const Icon(CupertinoIcons.multiply)
@@ -260,11 +260,11 @@ class ProfileDetailProvider with ChangeNotifier {
           showDialog(
               context: context,
               builder: (context) => AlertDialogCommon(
-                  title: appFonts.updateSuccessfully,
+                  title: translations!.updateSuccessfully,
                   height: Sizes.s140,
                   image: eGifAssets.successGif,
-                  subtext: language(context, appFonts.hurrayUpdateProfile),
-                  bText1: language(context, appFonts.okay),
+                  subtext: language(context, translations!.hurrayUpdateProfile),
+                  bText1: language(context, translations!.okay),
                   b1OnTap: () => route.pop(context)));
         } else {
           hideLoading(context);

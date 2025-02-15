@@ -25,7 +25,7 @@ class CompletedBookingScreen extends StatelessWidget {
                   ? const BookingDetailShimmer()
                   : Scaffold(
                       appBar: AppBarCommon(
-                        title: appFonts.completedBookings,
+                        title: translations!.completedBookings,
                         onTap: () => value.onBack(context, true),
                       ),
                       body: RefreshIndicator(
@@ -43,7 +43,9 @@ class CompletedBookingScreen extends StatelessWidget {
                                       data: value.bookingModel,
                                       onTapStatus: () => showBookingStatus(
                                           context, value.bookingModel)),
-                                  Text(language(context, appFonts.billSummary),
+                                  Text(
+                                          language(context,
+                                              translations!.billSummary),
                                           style: appCss.dmDenseMedium14
                                               .textColor(appColor(context)
                                                   .appTheme
@@ -54,8 +56,8 @@ class CompletedBookingScreen extends StatelessWidget {
                                       bookingModel: value.bookingModel),
                                   const VSpace(Sizes.s20),
                                   Text(
-                                      language(
-                                          context, appFonts.paymentSummary),
+                                      language(context,
+                                          translations!.paymentSummary),
                                       style: appCss.dmDenseMedium14.textColor(
                                           appColor(context).appTheme.darkText)),
                                   const VSpace(Sizes.s10),
@@ -65,8 +67,8 @@ class CompletedBookingScreen extends StatelessWidget {
                                   if (value
                                       .bookingModel!.serviceProofs!.isNotEmpty)
                                     Text(
-                                            language(
-                                                context, appFonts.serviceProof),
+                                            language(context,
+                                                translations!.serviceProof),
                                             overflow: TextOverflow.ellipsis,
                                             style: appCss.dmDenseBold18
                                                 .textColor(appColor(context)
@@ -95,19 +97,19 @@ class CompletedBookingScreen extends StatelessWidget {
                                             .bookingModel!.service!.reviews!)
                                 ]).paddingAll(Insets.i20)
                           ]).paddingOnly(bottom: Insets.i100)),
-                          if (value.bookingModel!.servicemen!
-                              .where((element) => element.id == userModel!.id)
-                              .isNotEmpty)
+                          if (value.bookingModel!.servicemen!.where((element) => element.id == userModel!.id).isNotEmpty)
                             Material(
                                 elevation: 20,
                                 child: value.bookingModel!.serviceProofs!.isNotEmpty
                                     ? ButtonCommon(
                                             onTap: () =>
                                                 value.addProofTap(context),
-                                            title: appFonts.addServiceProof,
-                                            style: appCss.dmDenseRegular16.textColor(appColor(context)
-                                                .appTheme
-                                                .primary),
+                                            title:
+                                                translations!.addServiceProof,
+                                            style: appCss.dmDenseRegular16
+                                                .textColor(appColor(context)
+                                                    .appTheme
+                                                    .primary),
                                             color: appColor(context)
                                                 .appTheme
                                                 .trans,
@@ -119,7 +121,7 @@ class CompletedBookingScreen extends StatelessWidget {
                                             color: appColor(context)
                                                 .appTheme
                                                 .whiteBg)
-                                    : ButtonCommon(onTap: () => value.addProofTap(context), title: appFonts.addServiceProof)
+                                    : ButtonCommon(onTap: () => value.addProofTap(context), title: translations!.addServiceProof)
                                         .paddingAll(Insets.i20)
                                         .decorated(color: appColor(context).appTheme.whiteBg))
                         ]),

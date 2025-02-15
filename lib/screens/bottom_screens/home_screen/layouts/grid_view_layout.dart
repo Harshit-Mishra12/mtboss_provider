@@ -41,7 +41,7 @@ class GridViewLayout extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                            "${data["title"] == appFonts.totalEarning ? "${getSymbol(context)}" : ""}${data["price"]}",
+                            "${data["title"] == translations!.totalEarning ? "${getSymbol(context)}" : ""}${data["price"]}",
                             style: appCss.dmDenseBold16
                                 .textColor(appColor(context).appTheme.primary)),
                         SvgPicture.asset(eSvgAssets.anchorArrowRight,

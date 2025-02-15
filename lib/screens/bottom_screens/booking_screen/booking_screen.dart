@@ -24,7 +24,7 @@ class BookingScreen extends StatelessWidget {
                     appBar: AppBar(
                         leadingWidth: 0,
                         centerTitle: false,
-                        title: Text(language(context, appFonts.bookings),
+                        title: Text(language(context, translations!.bookings),
                             style: appCss.dmDenseBold18.textColor(
                                 appColor(context).appTheme.darkText)),
                         actions: [
@@ -67,15 +67,15 @@ class BookingScreen extends StatelessWidget {
                         },
                         child: value.isSearchData
                             ? EmptyLayout(
-                                title: appFonts.noMatching,
-                                subtitle: appFonts.attemptYourSearch,
-                                buttonText: appFonts.refresh,
+                                title: translations!.noMatching,
+                                subtitle: translations!.attemptYourSearch,
+                                buttonText: translations!.refresh,
                                 isButton: true,
                                 isBooking: true,
                                 bTap: () {
                                   Fluttertoast.showToast(
                                       msg:
-                                          "${language(context, appFonts.refresh)}...");
+                                          "${language(context, translations!.refresh)}...");
                                   userApi.getBookingHistory(context);
                                 },
                                 widget: Stack(children: [
@@ -91,7 +91,7 @@ class BookingScreen extends StatelessWidget {
                                     SearchTextFieldCommon(
                                         focusNode: value.searchFocus,
                                         hinText: language(context,
-                                            appFonts.searchWithBookingId),
+                                            translations!.searchWithBookingId),
                                         controller: value.searchCtrl,
                                         onChanged: (v) {
                                           if (v.isEmpty) {
@@ -106,7 +106,9 @@ class BookingScreen extends StatelessWidget {
                                         onFieldSubmitted: (v) =>
                                             userApi.getBookingHistory(context,
                                                 search: v)),
-                                    Text(language(context, appFonts.allBooking),
+                                    Text(
+                                            language(context,
+                                                translations!.allBooking),
                                             style: appCss.dmDenseMedium18
                                                 .textColor(appColor(context)
                                                     .appTheme
@@ -125,7 +127,7 @@ class BookingScreen extends StatelessWidget {
                                                 child: Text(
                                                     language(
                                                         context,
-                                                        appFonts
+                                                        translations!
                                                             .onlyViewBookings),
                                                     style: appCss
                                                         .dmDenseMedium12
@@ -169,9 +171,10 @@ class BookingScreen extends StatelessWidget {
                                             ])
                                           : EmptyLayout(
                                               isButton: false,
-                                              title: appFonts.ohhNoListEmpty,
+                                              title:
+                                                  translations!.ohhNoListEmpty,
                                               subtitle:
-                                                  appFonts.yourBookingList,
+                                                  translations!.yourBookingList,
                                               widget: Stack(children: [
                                                 Image.asset(
                                                     isFreelancer
@@ -201,9 +204,10 @@ class BookingScreen extends StatelessWidget {
                                             )
                                           : EmptyLayout(
                                               isButton: false,
-                                              title: appFonts.ohhNoListEmpty,
+                                              title:
+                                                  translations!.ohhNoListEmpty,
                                               subtitle:
-                                                  appFonts.yourBookingList,
+                                                  translations!.yourBookingList,
                                               widget: Stack(children: [
                                                 Image.asset(
                                                     isFreelancer
@@ -219,8 +223,8 @@ class BookingScreen extends StatelessWidget {
                                     bottom: Insets.i100))
                         /*  : EmptyLayout(
                               isButton: false,
-                              title: appFonts.ohhNoListEmpty,
-                              subtitle: appFonts.yourBookingList,
+                              title: translations!.ohhNoListEmpty,
+                              subtitle: translations!.yourBookingList,
                               widget: Stack(children: [
                                 Image.asset(
                                     isFreelancer

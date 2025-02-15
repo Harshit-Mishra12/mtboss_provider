@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 
 import '../../../config.dart';
@@ -7,7 +9,8 @@ class IntroScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<IntroProvider>(builder: (context, value, child) {
+    return Consumer2<IntroProvider,LanguageProvider>(builder: (context, value,lang, child) {
+log(translations!.getPaidBy!.toString());
       return PopScope(
           canPop: false,
           child: Scaffold(
@@ -26,22 +29,22 @@ class IntroScreen extends StatelessWidget {
                   borderRadius:
                       const BorderRadius.all(Radius.circular(AppRadius.r10))),
               const VSpace(Sizes.s13),
-              Text(language(context, appFonts.getPaidBy).toUpperCase(),
+              Text(translations!.getPaidBy!.toString().toUpperCase(),
                   style: appCss.dmDenseBold15
                       .textColor(appColor(context).appTheme.darkText)),
               const VSpace(Sizes.s13),
-              Text(language(context, appFonts.nowManageAll),
+              Text(language(context, translations?.nowManageAll),
                   textAlign: TextAlign.center,
                   style: appCss.dmDenseMedium14
                       .textColor(appColor(context).appTheme.lightText)),
               const VSpace(Sizes.s25),
               ButtonCommon(
-                  title: appFonts.loginAsProvider,
+                title: translations!.loginAsProvider ,
                   onTap: () =>
                       route.pushNamed(context, routeName.loginProvider)),
               const VSpace(Sizes.s18),
               ButtonCommon(
-                  title: appFonts.loginAsServiceman,
+                  title: translations!.loginAsServiceman ?? '',
                   onTap: () =>
                       route.pushNamed(context, routeName.loginServiceman)),
             ])
@@ -54,14 +57,14 @@ class IntroScreen extends StatelessWidget {
             Consumer<IntroProvider>(builder: (context, value, child) {
               return RichText(
                   text: TextSpan(
-                      text: language(context, appFonts.donHaveAccount),
+                      text: language(context, translations!.donHaveAccount),
                       style: appCss.dmDenseMedium14
                           .textColor(appColor(context).appTheme.darkText),
                       children: [
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => value.onSignUp(context),
-                        text: language(context, appFonts.signUp),
+                        text: language(context, translations!.signUp),
                         style: appCss.dmDenseMedium16
                             .textColor(appColor(context).appTheme.primary))
                   ])).center();

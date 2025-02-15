@@ -5,19 +5,20 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ForgetPasswordProvider>(builder: (forgotCtrl, value, child) {
+    return Consumer<ForgetPasswordProvider>(
+        builder: (forgotCtrl, value, child) {
       return LoadingComponent(
           child: Scaffold(
-            appBar: const AppBarCommon(title: ""),
+              appBar: const AppBarCommon(title: ""),
               body: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       AuthTopLayout(
                           image: eImageAssets.forget,
-                          title: appFonts.forgetPass,
-                          subTitle: appFonts.enterYourRegisterMail,
+                          title: translations!.forgetPass,
+                          subTitle: translations!.enterYourRegisterMail,
                           isNumber: false),
                       Stack(children: [
                         const FieldsBackground(),
@@ -30,25 +31,30 @@ class ForgotPasswordScreen extends StatelessWidget {
                                   Row(children: [
                                     const SmallContainer(),
                                     const HSpace(Sizes.s20),
-                                    Text(language(context, appFonts.emailPhone),
-                                        style: appCss.dmDenseSemiBold14.textColor(
-                                            appColor(context).appTheme.darkText))
+                                    Text(
+                                        language(
+                                            context, translations!.emailPhone),
+                                        style: appCss.dmDenseSemiBold14
+                                            .textColor(appColor(context)
+                                                .appTheme
+                                                .darkText))
                                   ]),
                                   const VSpace(Sizes.s8),
                                   TextFieldCommon(
-                                      validator: (pass) =>
-                                          Validation().emailValidation(context,pass),
-                                      controller: value.forgetController,
-                                      hintText:
-                                      language(context, appFonts.enterEmailPhone),
-                                      focusNode: value.emailFocus,
-                                      prefixIcon: eSvgAssets.lock)
+                                          validator: (pass) => Validation()
+                                              .emailValidation(context, pass),
+                                          controller: value.forgetController,
+                                          hintText: language(context,
+                                              translations!.enterEmailPhone),
+                                          focusNode: value.emailFocus,
+                                          prefixIcon: eSvgAssets.lock)
                                       .paddingSymmetric(horizontal: Insets.i20),
                                   const VSpace(Sizes.s40),
                                   ButtonCommon(
-                                      title: appFonts.sendOtp,
+                                      title: translations!.sendOtp,
                                       margin: Insets.i20,
-                                      onTap: ()=> route.pushNamed(context, routeName.verifyOtp))
+                                      onTap: () => route.pushNamed(
+                                          context, routeName.verifyOtp))
                                 ]).paddingSymmetric(vertical: Insets.i20))
                       ]).paddingSymmetric(horizontal: Insets.i20)
                     ]),
@@ -56,4 +62,3 @@ class ForgotPasswordScreen extends StatelessWidget {
     });
   }
 }
-

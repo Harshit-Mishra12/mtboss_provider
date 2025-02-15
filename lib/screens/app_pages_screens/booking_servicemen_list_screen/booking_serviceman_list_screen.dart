@@ -12,26 +12,23 @@ class BookingServicemenListScreen extends StatelessWidget {
               const Duration(milliseconds: 20), () => value.onReady(context)),
           child: LoadingComponent(
               child: Scaffold(
-                  appBar: AppBarCommon(title: appFonts.servicemanList),
-                  body: Stack( children: [
+                  appBar: AppBarCommon(title: translations!.servicemanList),
+                  body: Stack(children: [
                     SingleChildScrollView(
                             child: Column(children: [
                       SearchTextFieldCommon(
                           focusNode: value.searchFocus,
                           controller: value.searchCtrl,
-                          onTap: (){
+                          onTap: () {
                             value.isTap = true;
                             value.notifyListeners();
                           },
-
                           suffixIcon: FilterIconCommon(
                               onTap: () => value.onTapFilter(context),
                               selectedFilter: "0"),
-                          onChanged: (v) =>
-                              value.onSearchSubmit(context, v),
-                          onFieldSubmitted: (v) =>
-                              value.getServicemenByProviderId(context,
-                                  search: v)),
+                          onChanged: (v) => value.onSearchSubmit(context, v),
+                          onFieldSubmitted: (v) => value
+                              .getServicemenByProviderId(context, search: v)),
                       const VSpace(Sizes.s25),
                       value.searchCtrl.text.isNotEmpty
                           ? Column(
@@ -39,49 +36,41 @@ class BookingServicemenListScreen extends StatelessWidget {
                                   .asMap()
                                   .entries
                                   .map((e) => BookingServicemenListLayout(
-                                      list: value.required,
-                                      selectedIndex: value.selectedIndex,
-                                      onTapRadio: () =>
-                                          value.onTapRadio(e.key, e.value),
-                                      data: e.value,
-                                      selList: value.selectService,
-                                      index: e.key,
-                                      onTap: () => value
-                                          .onTapRadio(e.key, e.value)).inkWell(onTap:  () => value
-                                  .onTapRadio(e.key, e.value)))
+                                          list: value.required,
+                                          selectedIndex: value.selectedIndex,
+                                          onTapRadio: () =>
+                                              value.onTapRadio(e.key, e.value),
+                                          data: e.value,
+                                          selList: value.selectService,
+                                          index: e.key,
+                                          onTap: () =>
+                                              value.onTapRadio(e.key, e.value))
+                                      .inkWell(
+                                          onTap: () =>
+                                              value.onTapRadio(e.key, e.value)))
                                   .toList())
                           : Column(
                               children: servicemanList
                                   .asMap()
                                   .entries
-                                  .map((e) => BookingServicemenListLayout(
-                                      list: value.required,
-                                      selectedIndex: value.selectedIndex,
-                                      onTapRadio: () =>
-                                          value.onTapRadio(e.key, e.value),
-                                      data: e.value,
-                                      selList: value.selectService,
-                                      index: e.key,
-                                      onTap: () => value
-                                          .onTapRadio(e.key, e.value)).inkWell(onTap:  () => value
-                                  .onTapRadio(e.key, e.value)))
+                                  .map((e) => BookingServicemenListLayout(list: value.required, selectedIndex: value.selectedIndex, onTapRadio: () => value.onTapRadio(e.key, e.value), data: e.value, selList: value.selectService, index: e.key, onTap: () => value.onTapRadio(e.key, e.value)).inkWell(onTap: () => value.onTapRadio(e.key, e.value)))
                                   .toList())
                     ]).padding(
                                 horizontal: Insets.i20,
                                 top: Insets.i20,
                                 bottom: Insets.i110))
                         .height(MediaQuery.of(context).size.height),
-                    if(!value.isTap)
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: ButtonCommon(
-                              title: appFonts.assignBooking,
-                              onTap: () => value.onAssignBooking(context))
-                          .paddingOnly(
-                              left: Insets.i20,
-                              right: Insets.i20,
-                              bottom: Insets.i20),
-                    )
+                    if (!value.isTap)
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: ButtonCommon(
+                                title: translations!.assignBooking,
+                                onTap: () => value.onAssignBooking(context))
+                            .paddingOnly(
+                                left: Insets.i20,
+                                right: Insets.i20,
+                                bottom: Insets.i20),
+                      )
                   ]))));
     });
   }

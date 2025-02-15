@@ -11,7 +11,7 @@ class ReviewListWithTitle extends StatelessWidget {
       children: [
         HeadingRowCommon(
                 isViewAllShow: reviews!.length >= 10,
-                title: appFonts.review,
+                title: translations!.review,
                 onTap: () => route.pushNamed(context, routeName.serviceReview))
             .paddingOnly(bottom: Insets.i12),
         ...reviews!.asMap().entries.map((e) =>
