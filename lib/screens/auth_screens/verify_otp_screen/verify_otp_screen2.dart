@@ -8,10 +8,12 @@ class VerifyOtpScreen extends StatelessWidget {
     return Consumer<VerifyOtpProvider>(builder: (context1, otpCtrl, child) {
       return LoadingComponent(
           child: StatefulWrapper(
+
               onInit: () => Future.delayed(DurationsDelay.ms150)
                   .then((value) => otpCtrl.getArgument(context)),
               child: Scaffold(
                   appBar: const AppBarCommon(title: ""),
+
                   body: SingleChildScrollView(
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,6 +63,7 @@ class VerifyOtpScreen extends StatelessWidget {
                                   ]).paddingSymmetric(vertical: Insets.i20))
                         ]).paddingSymmetric(horizontal: Insets.i20)
                       ])))));
+
     });
   }
 }
