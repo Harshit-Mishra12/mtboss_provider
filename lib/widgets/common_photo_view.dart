@@ -49,15 +49,13 @@ class _CommonPhotoViewState extends State<CommonPhotoView> {
         setState(() async {
           var response = await Dio().get(widget.image!,
               options: Options(responseType: ResponseType.bytes));
-
-          final result =
-              await SaverGallery.saveImage(Uint8List.fromList(response.data),
-                  quality: 60,
-                  androidRelativePath: "Pictures/appName/xx",
-                  // androidExistNotSave: false,
-                  skipIfExists: true,
-                  fileName: "");
-
+          final result = await SaverGallery.saveImage(
+            Uint8List.fromList(response.data),
+            quality: 60,
+            fileName: "Fixit:${DateTime.now().millisecond}",
+            androidRelativePath: "Pictures/appName/xx",
+            skipIfExists: false,
+          );
           log("result:$result");
           if (result.isSuccess == true) {
             snackBarMessengers(context,

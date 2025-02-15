@@ -31,7 +31,7 @@ class CompanyLogoLayout extends StatelessWidget {
                       children: [
                         SvgPicture.asset(eSvgAssets.upload),
                         const VSpace(Sizes.s6),
-                        Text(language(context, appFonts.uploadLogoImage),
+                        Text(language(context, translations!.uploadLogoImage),
                             style: appCss.dmDenseMedium12.textColor(
                                 appColor(context).appTheme.lightText))
                       ],
@@ -54,24 +54,24 @@ class CompanyLogoLayoutNetwork extends StatelessWidget {
             borderType: BorderType.RRect,
             radius: const Radius.circular(AppRadius.r10),
             child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(AppRadius.r8)),
+                borderRadius:
+                    const BorderRadius.all(Radius.circular(AppRadius.r8)),
                 child: imageFile != null
                     ? Container(
-
-                      padding: EdgeInsets.all(5),
-                      decoration: ShapeDecoration(
-                          shape: SmoothRectangleBorder(
-                            borderRadius: SmoothBorderRadius(
-                                cornerRadius: 8, cornerSmoothing: 1),
-                          ),
-                          color: appColor(context).appTheme.whiteBg),
-                      child: CommonImageLayout(
-                          image: imageFile,
-                          height: Sizes.s70,
-                          width: Sizes.s70,
-                          assetImage: eImageAssets.noImageFound3,
-                          radius: 8),
-                    )
+                        padding: EdgeInsets.all(5),
+                        decoration: ShapeDecoration(
+                            shape: SmoothRectangleBorder(
+                              borderRadius: SmoothBorderRadius(
+                                  cornerRadius: 8, cornerSmoothing: 1),
+                            ),
+                            color: appColor(context).appTheme.whiteBg),
+                        child: CommonImageLayout(
+                            image: imageFile,
+                            height: Sizes.s70,
+                            width: Sizes.s70,
+                            assetImage: eImageAssets.noImageFound3,
+                            radius: 8),
+                      )
                     : Container(
                         alignment: Alignment.center,
                         width: MediaQuery.of(context).size.width,
@@ -80,20 +80,20 @@ class CompanyLogoLayoutNetwork extends StatelessWidget {
                           children: [
                             SvgPicture.asset(eSvgAssets.upload),
                             const VSpace(Sizes.s6),
-                            Text(language(context, appFonts.uploadLogoImage),
+                            Text(
+                                language(
+                                    context, translations!.uploadLogoImage),
                                 style: appCss.dmDenseMedium12.textColor(
                                     appColor(context).appTheme.lightText))
                           ],
                         ).paddingSymmetric(vertical: Insets.i15)))),
         SizedBox(
-            child: SvgPicture.asset(eSvgAssets.add,
-                height: Sizes.s14)
-                .paddingAll(Insets.i7))
+                child: SvgPicture.asset(eSvgAssets.add, height: Sizes.s14)
+                    .paddingAll(Insets.i7))
             .decorated(
-            color: appColor(context).appTheme.stroke,
-            shape: BoxShape.circle,
-            border: Border.all(
-                color: appColor(context).appTheme.primary))
+                color: appColor(context).appTheme.stroke,
+                shape: BoxShape.circle,
+                border: Border.all(color: appColor(context).appTheme.primary))
       ],
     ).width(Sizes.s80);
   }

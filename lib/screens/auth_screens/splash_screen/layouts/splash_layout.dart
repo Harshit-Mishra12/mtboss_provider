@@ -12,17 +12,16 @@ class SplashLayout extends StatelessWidget {
           children: [
             Container(
                 child: AnimatedContainer(
-                        alignment: Alignment.center,
-                        height: Sizes.s10,
-                        width: Sizes.s10,
-                        duration: const Duration(seconds: 1),
-                        child: Text("mt",
-                            style: appCss.dmDenseMedium10
-                                .textColor(const Color(0xffFFFFFF))))
-                    .decorated(
-                        color: const Color(0xff5465FF),
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(AppRadius.r14)))),
+                    alignment: Alignment.center,
+                    height: Sizes.s10,
+                    width:  Sizes.s10,
+                    duration: const Duration(seconds: 1),
+                    child: Text("ft",
+                        style: appCss.dmDenseMedium10.textColor(const Color(0xffFFFFFF)))
+                ).decorated(
+                    color: const Color(0xff5465FF),
+                    borderRadius: const BorderRadius.all(Radius.circular(AppRadius.r14)))
+            ),
           ],
         ),
       ),

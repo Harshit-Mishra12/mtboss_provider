@@ -15,7 +15,8 @@ class _ServiceListScreenState extends State<ServiceListScreen>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ServiceListProvider>(builder: (context1, value, child) {
+    return Consumer2<LanguageProvider, ServiceListProvider>(
+        builder: (context1, lang, value, child) {
       return PopScope(
         canPop: true,
         onPopInvoked: (didPop) {
@@ -31,7 +32,8 @@ class _ServiceListScreenState extends State<ServiceListScreen>
                     child: Scaffold(
                         appBar: AppBar(
                             leadingWidth: 80,
-                            title: Text(language(context, appFonts.serviceList),
+                            title: Text(
+                                language(context, translations!.serviceList),
                                 style: appCss.dmDenseBold18.textColor(
                                     appColor(context).appTheme.darkText)),
                             centerTitle: true,
@@ -51,7 +53,11 @@ class _ServiceListScreenState extends State<ServiceListScreen>
                                       arrow: eSvgAssets.add,
                                       onTap: () => route.pushNamed(
                                           context, routeName.addNewService))
-                                  .paddingOnly(right: Insets.i20)
+                                  .paddingOnly(
+                                      right: Insets.i20,
+                                      left: lang.getLocal() == 'ar'
+                                          ? Insets.i20
+                                          : 0)
                             ]),
                         body: categoryList.isEmpty
                             ? const CommonEmpty()
@@ -62,8 +68,8 @@ class _ServiceListScreenState extends State<ServiceListScreen>
                                             CrossAxisAlignment.start,
                                         children: [
                                       Text(
-                                              language(
-                                                  context, appFonts.categories),
+                                              language(context,
+                                                  translations!.categories),
                                               style: appCss.dmDenseMedium12
                                                   .textColor(appColor(context)
                                                       .appTheme

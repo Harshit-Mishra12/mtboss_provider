@@ -11,56 +11,61 @@ class HoldBookingScreen extends StatelessWidget {
         canPop: true,
         onPopInvoked: (didPop) {
           value.onBack(context, false);
-          if(didPop) return;
+          if (didPop) return;
         },
         child: StatefulWrapper(
-            onInit: () =>
-                Future.delayed(
-                    const Duration(milliseconds: 50), () =>
-                    value.onReady(context)),
-            child:  value.bookingModel == null ?const BookingDetailShimmer()
-                :Scaffold(
-                appBar: AppBarCommon(title: appFonts.holdBooking,onTap: ()=> value.onBack(context, true),),
-                body: RefreshIndicator(
-                  onRefresh: () async {
-                    value.onRefresh(context);
-                  },
-                  child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
+            onInit: () => Future.delayed(
+                const Duration(milliseconds: 50), () => value.onReady(context)),
+            child: value.bookingModel == null
+                ? const BookingDetailShimmer()
+                : Scaffold(
+                    appBar: AppBarCommon(
+                      title: translations!.holdBooking,
+                      onTap: () => value.onBack(context, true),
+                    ),
+                    body: RefreshIndicator(
+                      onRefresh: () async {
+                        value.onRefresh(context);
+                      },
+                      child:
+                          Stack(alignment: Alignment.bottomCenter, children: [
                         SingleChildScrollView(
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  StatusDetailLayout(
-
-                                      data: value.bookingModel,
-
-                                      onTapStatus: () =>
-                                          showBookingStatus(
-                                              context, value.bookingModel)),
-                                  if(isFreelancer != true && value.amount != "0")
-                                    const ServicemenPayableLayout(amount: "0"),
-                                  Text(language(context, appFonts.billSummary),
-                                      style: appCss.dmDenseMedium14
-                                          .textColor(
+                              StatusDetailLayout(
+                                  data: value.bookingModel,
+                                  onTapStatus: () => showBookingStatus(
+                                      context, value.bookingModel)),
+                              if (isFreelancer != true && value.amount != "0")
+                                const ServicemenPayableLayout(amount: "0"),
+                              Text(language(context, translations!.billSummary),
+                                      style: appCss.dmDenseMedium14.textColor(
                                           appColor(context).appTheme.darkText))
-                                      .paddingOnly(
+                                  .paddingOnly(
                                       top: Insets.i25, bottom: Insets.i10),
-                                  HoldBillSummary(bookingModel: value.bookingModel),
-                                  const VSpace(Sizes.s20),
-                                  if (value.bookingModel!.service!.reviews != null && value.bookingModel!.service!.reviews!.isNotEmpty)
-                                    ReviewListWithTitle(reviews: value.bookingModel!.service!.reviews!)
-                                ]).padding(horizontal: Insets.i20,
+                              HoldBillSummary(bookingModel: value.bookingModel),
+                              const VSpace(Sizes.s20),
+                              if (value.bookingModel!.service!.reviews !=
+                                      null &&
+                                  value.bookingModel!.service!.reviews!
+                                      .isNotEmpty)
+                                ReviewListWithTitle(
+                                    reviews:
+                                        value.bookingModel!.service!.reviews!)
+                            ]).padding(
+                                horizontal: Insets.i20,
                                 top: Insets.i20,
                                 bottom: Insets.i100)),
                         Material(
                             elevation: 20,
-                            child: AssignStatusLayout(status: appFonts.reason,
-                                title:getReason(value.bookingModel!.bookingReasons!, value.bookingModel!.bookingStatus!.id)))
-                      ]
-                  ),
-                ))),
+                            child: AssignStatusLayout(
+                                status: translations!.reason,
+                                title: getReason(
+                                    value.bookingModel!.bookingReasons!,
+                                    value.bookingModel!.bookingStatus!.id)))
+                      ]),
+                    ))),
       );
     });
   }

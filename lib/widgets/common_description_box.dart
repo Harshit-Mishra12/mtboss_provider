@@ -3,8 +3,9 @@ import '../config.dart';
 class CommonDescriptionBox extends StatelessWidget {
   final FocusNode? focusNode;
   final TextEditingController? description;
-final Color? color;
-  const CommonDescriptionBox({super.key, this.focusNode, this.description, this.color});
+  final Color? color;
+  const CommonDescriptionBox(
+      {super.key, this.focusNode, this.description, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +14,9 @@ final Color? color;
               focusNode: focusNode,
               isNumber: true,
               validator: (name) => validation.dynamicTextValidation(
-                  context, name, appFonts.pleaseEnterDesc),
+                  context, name, translations!.pleaseEnterDesc),
               controller: description,
-              hintText: appFonts.enterDetails,
+              hintText: translations!.enterDetails!,
               maxLines: 3,
               fillColor: color,
               minLines: 3,

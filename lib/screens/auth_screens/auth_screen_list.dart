@@ -8,7 +8,7 @@ export '../../screens/auth_screens/login_as_serviceman_screen/login_as_servicema
 export '../../screens/auth_screens/intro_screen/layouts/language_drop_down_layout.dart';
 export '../../screens/auth_screens/forget_password_screen/forget_password_screen.dart';
 export '../../screens/auth_screens/verify_otp_screen/layouts/common_otp_layout.dart';
-export '../../screens/auth_screens/verify_otp_screen/verify_otp_screen.dart';
+export 'verify_otp_screen/verify_otp_screen.dart';
 export '../../screens/auth_screens/verify_otp_screen/layouts/otp_layout.dart';
 export '../../screens/auth_screens/reset_password_screen/reset_password_screen.dart';
 export '../../screens/auth_screens/intro_screen/layouts/joining_layout.dart';

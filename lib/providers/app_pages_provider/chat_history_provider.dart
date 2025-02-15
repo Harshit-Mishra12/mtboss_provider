@@ -10,21 +10,22 @@ class ChatHistoryProvider with ChangeNotifier {
 
 //on page init data fetch
   onReady(context) async {
-if(userModel != null) {
-  await FirebaseFirestore.instance
-      .collection(collectionName.users)
-      .doc(userModel!.id.toString())
-      .collection(collectionName.chats).orderBy("updateStamp", descending: true)
-      .get()
-      .then((value) {
-    chatHistory = [];
-    if (value.docs.isNotEmpty) {
-      chatHistory = value.docs;
-    }
+    if (userModel != null) {
+      await FirebaseFirestore.instance
+          .collection(collectionName.users)
+          .doc(userModel!.id.toString())
+          .collection(collectionName.chats)
+          .orderBy("updateStamp", descending: true)
+          .get()
+          .then((value) {
+        chatHistory = [];
+        if (value.docs.isNotEmpty) {
+          chatHistory = value.docs;
+        }
 
-    notifyListeners();
-  });
-}
+        notifyListeners();
+      });
+    }
     log("chatHistory ;${chatHistory.length}");
   }
 
@@ -33,7 +34,7 @@ if(userModel != null) {
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
 
     value.onDeleteDialog(sync, context, eImageAssets.clearChat,
-        appFonts.clearChat, appFonts.areYouClearChat, () async {
+        translations!.clearChat, translations!.areYouClearChat, () async {
       showLoading(context);
       notifyListeners();
       try {
@@ -48,7 +49,7 @@ if(userModel != null) {
                 .collection(collectionName.users)
                 .doc(userModel!.id.toString())
                 .collection(collectionName.messages)
-                .doc( value.docs[0].data()['chatId'])
+                .doc(value.docs[0].data()['chatId'])
                 .collection(collectionName.chat)
                 .get()
                 .then((v) {
@@ -81,12 +82,15 @@ if(userModel != null) {
         hideLoading(context);
         notifyListeners();
       }
-      
+
       onReady(context);
       route.pop(context);
       notifyListeners();
-      value.onResetPass(context, language(context, appFonts.hurrayChatDelete),
-          language(context, appFonts.okay), () => route.pop(context));
+      value.onResetPass(
+          context,
+          language(context, translations!.hurrayChatDelete),
+          language(context, translations!.okay),
+          () => route.pop(context));
     });
     value.notifyListeners();
   }
@@ -98,7 +102,8 @@ if(userModel != null) {
       notifyListeners();
     } else {
       onReady(context);
-      scaffoldMessage(context, "${language(context, appFonts.refresh)}...");
+      scaffoldMessage(
+          context, "${language(context, translations!.refresh)}...");
     }
   }
 
@@ -119,12 +124,14 @@ if(userModel != null) {
       "image": data['receiverImage'],
       "name": data['receiverName'],
       "role": data['role'],
-      if(data.data().containsKey('bookingId'))
-        "bookingId": data['bookingId'],
+      if (data.data().containsKey('bookingId')) "bookingId": data['bookingId'],
       "chatId": data['chatId'],
-      "userId": data['senderId'].toString() == userModel!.id.toString() ?  data['receiverId']:data['senderId'],
-      "token":  data['senderId'].toString() == userModel!.id.toString() ?  data["receiverToken"]  :data['senderToken'],
-
+      "userId": data['senderId'].toString() == userModel!.id.toString()
+          ? data['receiverId']
+          : data['senderId'],
+      "token": data['senderId'].toString() == userModel!.id.toString()
+          ? data["receiverToken"]
+          : data['senderToken'],
     }).then((e) => onReady(context));
   }
 }

@@ -1,4 +1,3 @@
-
 import '../../../config.dart';
 
 class AddServicemenScreen extends StatelessWidget {
@@ -11,18 +10,18 @@ class AddServicemenScreen extends StatelessWidget {
         canPop: true,
         onPopInvoked: (didPop) {
           value.onBack(context, false);
-          if(didPop) return;
+          if (didPop) return;
         },
         child: StatefulWrapper(
-            onInit: () => Future.delayed(
-                const Duration(milliseconds: 100), () => value.onReady(context)),
+            onInit: () => Future.delayed(const Duration(milliseconds: 100),
+                () => value.onReady(context)),
             child: LoadingComponent(
                 child: Scaffold(
                     appBar: AppBarCommon(
-                      onTap: ()=>value.onBack(context, true),
+                        onTap: () => value.onBack(context, true),
                         title: value.servicemanModel != null
-                            ? appFonts.editServicemen
-                            : appFonts.addServicemen),
+                            ? translations!.editServicemen
+                            : translations!.addServicemen),
                     body: SingleChildScrollView(
                         child: Form(
                             key: value.addServiceManFormKey,
@@ -30,17 +29,18 @@ class AddServicemenScreen extends StatelessWidget {
                               const Column(children: [
                                 AddServicemenProfileLayout(),
                                 VSpace(Sizes.s35),
-                               ServicemanOtherDetail()
+                                ServicemanOtherDetail()
                               ])
                                   .paddingSymmetric(vertical: Insets.i20)
                                   .boxShapeExtension(
-                                      color:
-                                          appColor(context).appTheme.fieldCardBg,
+                                      color: appColor(context)
+                                          .appTheme
+                                          .fieldCardBg,
                                       radius: AppRadius.r12),
                               ButtonCommon(
                                   title: value.servicemanModel != null
-                                      ? appFonts.update
-                                      : appFonts.addServicemen,
+                                      ? translations!.update
+                                      : translations!.addServicemen,
                                   onTap: () => value.servicemanModel != null
                                       ? value.editData(context)
                                       : value.addData(context)).paddingOnly(

@@ -22,7 +22,7 @@ class _NotificationScreenState extends State<NotificationScreen>
             child: Scaffold(
                 appBar: AppBar(
                     leadingWidth: 80,
-                    title: Text(language(context, appFonts.notification),
+                    title: Text(language(context, translations!.notification),
                         style: appCss.dmDenseBold18
                             .textColor(appColor(context).appTheme.darkText)),
                     centerTitle: true,
@@ -55,15 +55,15 @@ class _NotificationScreenState extends State<NotificationScreen>
                                 children: notificationList
                                     .asMap()
                                     .entries
-                                    .map((e) =>
-                                        NotificationLayout(data: e.value, onTap: () => value.onTap(e.value, context)))
+                                    .map(
+                                        (e) => NotificationLayout(data: e.value, onTap: () => value.onTap(e.value, context)))
                                     .toList())
                             .paddingAll(Insets.i20))
                     : EmptyLayout(
                         isButton: true,
-                        title: appFonts.nothingHere,
-                        subtitle: appFonts.clickTheRefresh,
-                        buttonText: appFonts.refresh,
+                        title: translations!.nothingHere,
+                        subtitle: translations!.clickTheRefresh,
+                        buttonText: translations!.refresh,
                         bTap: () => value.onRefresh(context),
                         widget: Stack(children: [
                           Image.asset(eImageAssets.notiBoy, height: Sizes.s346),

@@ -15,7 +15,7 @@ class PackageDetailRowLayout extends StatelessWidget {
         const VSpace(Sizes.s2),
         Text(
             language(context,
-                "$subtext ${language(context, title == appFonts.serviceIncluded ? appFonts.service : "")}"),
+                "$subtext ${language(context, title == translations!.serviceIncluded ? translations!.service : "")}"),
             style: appCss.dmDenseMedium12
                 .textColor(appColor(context).appTheme.darkText))
       ])

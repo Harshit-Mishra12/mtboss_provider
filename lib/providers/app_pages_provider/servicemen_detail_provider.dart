@@ -7,22 +7,22 @@ class ServicemenDetailProvider with ChangeNotifier {
   int? id;
   bool isIcons = true;
   ServicemanModel? servicemanModel;
-  double widget1Opacity =0.0;
+  double widget1Opacity = 0.0;
 
   //page init data fetch
-  onReady(context)async {
+  onReady(context) async {
     dynamic data = ModalRoute.of(context)!.settings.arguments ?? "";
     log("data :$data");
     notifyListeners();
     if (data != null) {
       isIcons = data['isShow'] ?? true;
       id = data["detail"];
-    await  getServicemenById(context);
+      await getServicemenById(context);
       Future.delayed(const Duration(milliseconds: 500), () {
         widget1Opacity = 1;
         notifyListeners();
       });
-    }else{
+    } else {
       widget1Opacity = 1;
       notifyListeners();
     }
@@ -30,12 +30,12 @@ class ServicemenDetailProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  onBack(context,isBack) async {
-    if(isBack){
+  onBack(context, isBack) async {
+    if (isBack) {
       route.pop(context);
     }
     servicemanModel = null;
-    widget1Opacity =0.0;
+    widget1Opacity = 0.0;
     notifyListeners();
   }
 
@@ -43,20 +43,23 @@ class ServicemenDetailProvider with ChangeNotifier {
   Future getImage(context, source) async {
     final ImagePicker picker = ImagePicker();
     route.pop(context);
-    imageFile = (await picker.pickImage(source: source,imageQuality: 70))!;
+    imageFile = (await picker.pickImage(source: source, imageQuality: 70))!;
     notifyListeners();
   }
 
   //edit servicemane detail
   editServicemanDetail(context) {
-
-    route.pushNamed(context, routeName.addServicemen,arg: servicemanModel).then((e)=>getServicemenById(context));
+    route
+        .pushNamed(context, routeName.addServicemen, arg: servicemanModel)
+        .then((e) => getServicemenById(context));
   }
 
-  onRefresh(context)async{
+  onRefresh(context) async {
     showLoading(context);
     notifyListeners();
-    await getServicemenById(context,);
+    await getServicemenById(
+      context,
+    );
     hideLoading(context);
     notifyListeners();
   }
@@ -64,8 +67,9 @@ class ServicemenDetailProvider with ChangeNotifier {
   //get serviceman id
   getServicemenById(context) async {
     try {
-      await apiServices.getApi("${api.serviceman}/$id", [],isData: true).then((value) {
-
+      await apiServices
+          .getApi("${api.serviceman}/$id", [], isData: true)
+          .then((value) {
         if (value.isSuccess!) {
           log("data : ${value.data}");
           servicemanModel = ServicemanModel.fromJson(value.data);
@@ -81,10 +85,14 @@ class ServicemenDetailProvider with ChangeNotifier {
   onServicemenDelete(context, sync) {
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
 
-    value.onDeleteDialog(sync, context, eImageAssets.servicemen,
-        appFonts.deleteServicemen, appFonts.areYouSureDeleteServicemen, () {
+    value.onDeleteDialog(
+        sync,
+        context,
+        eImageAssets.servicemen,
+        translations!.deleteServicemen,
+        translations!.areYouSureDeleteServicemen, () {
       route.pop(context);
-    deleteServiceman(context);
+      deleteServiceman(context);
     });
     value.notifyListeners();
   }
@@ -101,20 +109,20 @@ class ServicemenDetailProvider with ChangeNotifier {
 
         notifyListeners();
         if (value.isSuccess!) {
-          final common = Provider.of<UserDataApiProvider>(context, listen: false);
+          final common =
+              Provider.of<UserDataApiProvider>(context, listen: false);
           common.getServicemenByProviderId();
 
           final delete =
-          Provider.of<DeleteDialogProvider>(context, listen: false);
+              Provider.of<DeleteDialogProvider>(context, listen: false);
           delete.onResetPass(
               context,
-              language(context, appFonts.hurrayServicemenDelete),
-              language(context, appFonts.okay), () {
+              language(context, translations!.hurrayServicemenDelete),
+              language(context, translations!.okay), () {
             route.pop(context);
             route.pop(context);
-          }, title: appFonts.deleteSuccessfully);
+          }, title: translations!.deleteSuccessfully);
           notifyListeners();
-
         } else {
           snackBarMessengers(context,
               color: appColor(context).appTheme.red, message: value.message);

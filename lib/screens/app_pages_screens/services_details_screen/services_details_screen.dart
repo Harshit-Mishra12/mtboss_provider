@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fixit_provider/screens/app_pages_screens/services_details_screen/service_detail_shimmer/services_details_shimmer.dart';
 
 import '../../../config.dart';
@@ -40,14 +42,17 @@ class _ServicesDetailsScreenState extends State<ServicesDetailsScreen>
                                   child: Column(children: [
                                   ServiceImageLayout(
                                       onBack: () => value.onBack(context, true),
-                                      editTap: () => route.pushNamed(
-                                              context, routeName.addNewService,
-                                              arg: {
-                                                "isEdit": true,
-                                                "service": value.services,
-                                                "serviceFaq": value.serviceFaq,
-                                              }).then((e) =>
-                                              value.getServiceId(context)),
+                                      editTap: () {
+                                        log("value.services::${value.services}");
+                                        route.pushNamed(
+                                            context, routeName.addNewService,
+                                            arg: {
+                                              "isEdit": true,
+                                              "service": value.services,
+                                              "serviceFaq": value.serviceFaq,
+                                            }).then(
+                                            (e) => value.getServiceId(context));
+                                      },
                                       deleteTap: () =>
                                           value.onServiceDelete(context, this),
                                       title: value.services!.title!,
@@ -62,21 +67,26 @@ class _ServicesDetailsScreenState extends State<ServicesDetailsScreen>
                                     const VSpace(Sizes.s12),
                                   if (value.services!.media != null ||
                                       value.services!.media!.length > 1)
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: value.services!.media!
-                                            .asMap()
-                                            .entries
-                                            .map((e) => ServicesImageLayout(
-                                                data: e.value.originalUrl,
-                                                index: e.key,
-                                                selectIndex:
-                                                    value.selectedIndex,
-                                                onTap: () =>
-                                                    value.onImageChange(e.key,
-                                                        e.value.originalUrl!)))
-                                            .toList()),
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: value.services!.media!
+                                              .asMap()
+                                              .entries
+                                              .map((e) => ServicesImageLayout(
+                                                  data: e.value.originalUrl,
+                                                  index: e.key,
+                                                  selectIndex:
+                                                      value.selectedIndex,
+                                                  onTap: () =>
+                                                      value.onImageChange(
+                                                          e.key,
+                                                          e.value
+                                                              .originalUrl!)))
+                                              .toList()),
+                                    ),
                                   Column(children: [
                                     Stack(
                                             alignment: Alignment.center,
@@ -92,7 +102,7 @@ class _ServicesDetailsScreenState extends State<ServicesDetailsScreen>
                                               children: [
                                                 Text(
                                                     language(context,
-                                                        appFonts.amount),
+                                                        translations!.amount),
                                                     style: appCss
                                                         .dmDenseMedium12
                                                         .textColor(
@@ -118,7 +128,9 @@ class _ServicesDetailsScreenState extends State<ServicesDetailsScreen>
                                             CrossAxisAlignment.start,
                                         children: [
                                           const VSpace(Sizes.s10),
-                                          Text(language(context, appFonts.faq),
+                                          Text(
+                                              language(
+                                                  context, translations!.faq),
                                               overflow: TextOverflow.clip,
                                               style: appCss.dmDenseBold16
                                                   .textColor(appColor(context)
@@ -223,7 +235,7 @@ class _ServicesDetailsScreenState extends State<ServicesDetailsScreen>
                                           isViewAllShow:
                                               value.services!.reviews!.length >=
                                                   10,
-                                          title: appFonts.review,
+                                          title: translations!.review,
                                           onTap: () => route.pushNamed(context,
                                                   routeName.serviceReview,
                                                   arg: {

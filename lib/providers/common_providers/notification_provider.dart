@@ -28,14 +28,13 @@ Future<void> setupFlutterNotifications() async {
   isFlutterLocalNotificationsInitialized = true;
 }
 
-
 /// Create a [AndroidNotificationChannel] for heads up notifications
 AndroidNotificationChannel? channel;
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 class CustomNotificationController {
   AndroidNotificationChannel? channel;
@@ -115,7 +114,6 @@ class CustomNotificationController {
           importance: Importance.high,
         );
 
-
         /// We use this channel in the `AndroidManifest.xml` file to override the
         /// default FCM channel to enable heads up notifications.
         await flutterLocalNotificationsPlugin
@@ -143,12 +141,11 @@ class CustomNotificationController {
 
       flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-
       requestPermissions();
     }
   }
 
-  Future<void> setupListenerCallbacks(context)async{
+  Future<void> setupListenerCallbacks(context) async {
     //when app in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification notification = message.notification!;
@@ -174,7 +171,7 @@ class CustomNotificationController {
               importance: Importance.max,
               priority: Priority.high,
               sound: (message.data['title'] != 'Incoming Audio Call...' ||
-                  message.data['title'] != 'Incoming Video Call...')
+                      message.data['title'] != 'Incoming Video Call...')
                   ? null
                   : const RawResourceAndroidNotificationSound('callsound'),
               // TODO add a proper drawable resource to android, for now using
@@ -191,8 +188,7 @@ class CustomNotificationController {
     });
 
     //when app in background
-    FirebaseMessaging.onMessageOpenedApp
-        .listen((RemoteMessage message) async {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       debugPrint('A new onMessageOpenedApp event was published!');
       debugPrint("onMessageOpenedApp: $message");
       flutterLocalNotificationsPlugin.cancelAll();
@@ -269,7 +265,7 @@ class CustomNotificationController {
         .requestPermission(
             announcement: true,
             carPlay: true,
-            criticalAlert: true,  
+            criticalAlert: true,
             sound: true);
     log("settings.authorizationStatus: ${settings.authorizationStatus}");
   }
@@ -313,7 +309,7 @@ getBookingDetailById(context, id) async {
         debugPrint("DHRUVU :${value.data}");
 
         BookingModel bookingModel = BookingModel.fromJson(value.data);
-        if (bookingModel.bookingStatus!.slug == appFonts.pending) {
+        if (bookingModel.bookingStatus!.slug == translations!.pending) {
           //route.pushNamed(context, routeName.packageBookingScreen);
           Navigator.pushNamed(context, routeName.pendingBooking,
                   arguments: bookingModel.id)
@@ -321,7 +317,7 @@ getBookingDetailById(context, id) async {
             navigatorKey.currentState!
                 .pushNamedAndRemoveUntil(routeName.dashboard, (route) => false);
           });
-        } else if (bookingModel.bookingStatus!.slug == appFonts.accepted) {
+        } else if (bookingModel.bookingStatus!.slug == translations!.accepted) {
           if (isFreelancer) {
             Navigator.pushNamed(context, routeName.assignBooking,
                     arguments: bookingModel.id)
@@ -342,21 +338,21 @@ getBookingDetailById(context, id) async {
           }
           /* {"amount": "0", "assign_me": bookingModel.providerId.toString() == userModel!.id.toString()? true: false}*/
         } else if (bookingModel.bookingStatus!.slug ==
-            appFonts.pendingApproval) {
+            translations!.pendingApproval) {
           Navigator.pushNamed(context, routeName.pendingApprovalBooking,
                   arguments: bookingModel.id)
               .then((e) {
             navigatorKey.currentState!
                 .pushNamedAndRemoveUntil(routeName.dashboard, (route) => false);
           });
-        } else if (bookingModel.bookingStatus!.slug == appFonts.hold) {
+        } else if (bookingModel.bookingStatus!.slug == translations!.hold) {
           Navigator.pushNamed(context, routeName.holdBooking,
                   arguments: bookingModel.id)
               .then((e) {
             navigatorKey.currentState!
                 .pushNamedAndRemoveUntil(routeName.dashboard, (route) => false);
           });
-        } else if (bookingModel.bookingStatus!.slug == appFonts.hold) {
+        } else if (bookingModel.bookingStatus!.slug == translations!.hold) {
           Navigator.pushNamed(context, routeName.holdBooking,
                   arguments: bookingModel.id)
               .then((e) {
@@ -374,21 +370,22 @@ getBookingDetailById(context, id) async {
             navigatorKey.currentState!
                 .pushNamedAndRemoveUntil(routeName.dashboard, (route) => false);
           });
-        } else if (bookingModel.bookingStatus!.slug == appFonts.completed) {
+        } else if (bookingModel.bookingStatus!.slug ==
+            translations!.completed) {
           Navigator.pushNamed(context, routeName.completedBooking,
                   arguments: bookingModel.id)
               .then((e) {
             navigatorKey.currentState!
                 .pushNamedAndRemoveUntil(routeName.dashboard, (route) => false);
           });
-        } else if (bookingModel.bookingStatus!.slug == appFonts.assigned) {
+        } else if (bookingModel.bookingStatus!.slug == translations!.assigned) {
           Navigator.pushNamed(context, routeName.assignBooking,
                   arguments: bookingModel.id)
               .then((e) {
             navigatorKey.currentState!
                 .pushNamedAndRemoveUntil(routeName.dashboard, (route) => false);
           });
-        } else if (bookingModel.bookingStatus!.slug == appFonts.cancel) {
+        } else if (bookingModel.bookingStatus!.slug == translations!.cancel) {
           Navigator.pushNamed(context, routeName.cancelledBooking,
                   arguments: bookingModel.id)
               .then((e) {
@@ -400,7 +397,6 @@ getBookingDetailById(context, id) async {
     });
   } catch (e) {}
 }
-
 
 showNotification(RemoteMessage remote) async {
   print("---Show Notification ---- ${remote.notification?.title}");
@@ -420,12 +416,12 @@ showNotification(RemoteMessage remote) async {
     importance: Importance.max,
     priority: Priority.high,
     sound: (remote.data['title'] != 'Incoming Audio Call...' ||
-        remote.data['title'] != 'Incoming Video Call...')
-        ?  null
+            remote.data['title'] != 'Incoming Video Call...')
+        ? null
         : const RawResourceAndroidNotificationSound('callsound'),
   );
-  DarwinNotificationDetails iOSDetails =
-  const DarwinNotificationDetails(sound: 'callsound.wav', presentSound: true);
+  DarwinNotificationDetails iOSDetails = const DarwinNotificationDetails(
+      sound: 'callsound.wav', presentSound: true);
 
   NotificationDetails notificationDetails = NotificationDetails(
     android: androidDetails,

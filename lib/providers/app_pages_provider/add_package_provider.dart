@@ -88,13 +88,17 @@ class AddPackageProvider with ChangeNotifier {
   onPackageDelete(context, sync) {
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
 
-    value.onDeleteDialog(sync, context, eImageAssets.packageDelete,
-        appFonts.deletePackages, appFonts.areYouSureDeletePackage, () {
+    value.onDeleteDialog(
+        sync,
+        context,
+        eImageAssets.packageDelete,
+        translations!.deletePackages,
+        translations!.areYouSureDeletePackage, () {
       route.pop(context);
       value.onResetPass(
           context,
-          language(context, appFonts.hurrayPackageDelete),
-          language(context, appFonts.okay), () {
+          language(context, translations!.hurrayPackageDelete),
+          language(context, translations!.okay), () {
         Navigator.pop(context);
         Navigator.pop(context);
       });
@@ -304,7 +308,7 @@ class AddPackageProvider with ChangeNotifier {
               } else {
                 snackBarMessengers(context,
                     message: language(
-                        context, appFonts.youCanAddOnlyMinServicePackage));
+                        context, translations!.youCanAddOnlyMinServicePackage));
               }
             } else {
               if (servicePackageList.length <
@@ -323,297 +327,76 @@ class AddPackageProvider with ChangeNotifier {
           }
         } else {
           snackBarMessengers(context,
-              message: language(context, appFonts.pleaseSelectAtLeastServices));
+              message:
+                  language(context, translations!.pleaseSelectAtLeastServices));
         }
       } else {
         snackBarMessengers(context,
-            message: language(context, appFonts.pleaseSelectServices));
+            message: language(context, translations!.pleaseSelectServices));
       }
     }
   }
 
   //add service package api
-  // addServicePackageApi(context, List serviceList) async {
-  //   log("addServicePackageApi called"); // Log entry point
-  //   showLoading(context);
-  //   notifyListeners();
-
-  //   log("Preparing request body...");
-  //   Map<String, dynamic>? body; // Declare `body` outside the try block
-
-  //   try {
-  //     log("startDateCtrl.text: ${startDateCtrl.text}");
-  //     log("endDateCtrl.text: ${endDateCtrl.text}");
-
-  //     // Validate and parse dates
-  //     if (startDateCtrl.text.isEmpty || endDateCtrl.text.isEmpty) {
-  //       throw Exception("Start date or end date cannot be empty");
-  //     }
-
-  //     DateFormat inputFormat = DateFormat("dd/MM/yyyy");
-
-  //     // Parse input dates
-  //     DateTime startDate = inputFormat.parse("01/01/2023");
-  //     DateTime endDate = inputFormat.parse("31/12/2023");
-
-  //     // Convert to required format
-  //     String startedAt = DateFormat("dd-MMM-yyyy").format(startDate);
-  //     String endedAt = DateFormat("dd-MMM-yyyy").format(endDate);
-
-  //     log("Formatted startDate: $startedAt");
-  //     log("Formatted endDate: $endedAt");
-
-  //     // Prepare the body
-  //     body = {
-  //       "title": packageCtrl.text,
-  //       "hexa_code":
-  //           hexaCtrl.text.contains("#") ? hexaCtrl.text : "#${hexaCtrl.text}",
-  //       "provider_id": userModel!.id,
-  //       "price": amountCtrl.text,
-  //       "discount": discountCtrl.text.isNotEmpty ? discountCtrl.text : "0",
-  //       "description": descriptionCtrl.text,
-  //       "disclaimer": disclaimerCtrl.text,
-  //       "started_at": startedAt,
-  //       "ended_at": endedAt,
-  //       "is_featured": "1",
-  //       "status": isSwitch == true ? "1" : "0",
-  //       for (var i = 0; i < serviceList.length; i++)
-  //         "service_id[$i]": serviceList[i].id,
-  //     };
-
-  //     log("Request body prepared: $body");
-  //   } catch (e) {
-  //     log("Error while preparing request body: $e");
-  //     hideLoading(context);
-  //     return; // Stop further execution
-  //   }
-
-  //   // Ensure `body` is not null before proceeding
-  //   if (body == null) {
-  //     log("Failed to prepare request body. Aborting API call.");
-  //     return;
-  //   }
-
-  //   try {
-  //     // Create FormData
-  //     dio.FormData formData = dio.FormData.fromMap(body);
-  //     log("FormData created: ${formData.fields}");
-
-  //     // Make API call
-  //     log("Starting API call to ${api.servicePackage}...");
-  //     final response = await apiServices.postApi(api.servicePackage, formData,
-  //         isToken: true);
-
-  //     hideLoading(context);
-  //     notifyListeners();
-
-  //     if (response.isSuccess!) {
-  //       log("API success response received: ${response.message}");
-  //       final userApi =
-  //           Provider.of<UserDataApiProvider>(context, listen: false);
-  //       await userApi.getServicePackageList();
-  //       log("Service package list updated");
-
-  //       snackBarMessengers(context,
-  //           message: response.message,
-  //           color: appColor(context).appTheme.primary);
-  //       log("Success snackbar displayed");
-
-  //       onBackButton(context);
-  //     } else {
-  //       log("API error response received: ${response.message}");
-  //       final userApi =
-  //           Provider.of<UserDataApiProvider>(context, listen: false);
-  //       await userApi.getServicePackageList();
-
-  //       snackBarMessengers(context,
-  //           message: response.message, color: appColor(context).appTheme.red);
-  //     }
-  //   } catch (e) {
-  //     hideLoading(context);
-  //     notifyListeners();
-  //     log("Error occurred during API call: $e");
-  //     snackBarMessengers(context,
-  //         message: e.toString(), color: appColor(context).appTheme.red);
-  //   } finally {
-  //     log("addServicePackageApi execution completed");
-  //   }
-  // }
-
-  // addServicePackageApi(context, List serviceList) async {
-  //   showLoading(context);
-  //   notifyListeners();
-
-  //   log("addServicePackageApi:");
-  //   var body = {
-  //     "title": packageCtrl.text,
-  //     "hexa_code":
-  //         hexaCtrl.text.contains("#") ? hexaCtrl.text : "#${hexaCtrl.text}",
-  //     "provider_id": userModel!.id,
-  //     "price": amountCtrl.text,
-  //     "discount": discountCtrl.text.isNotEmpty ? discountCtrl.text : 0,
-  //     "description": descriptionCtrl.text,
-  //     "disclaimer": disclaimerCtrl.text,
-  //     "started_at":
-  //         DateFormat("dd-MMM-yyyy").format(DateTime.parse(startDateCtrl.text)),
-  //     "ended_at":
-  //         DateFormat("dd-MMM-yyyy").format(DateTime.parse(endDateCtrl.text)),
-  //     "is_featured": "1",
-  //     "status": isSwitch == true ? "1" : "0",
-  //     for (var i = 0; i < serviceList.length; i++)
-  //       "service_id[$i]": serviceList[i].id,
-  //   };
-  //   dio.FormData formData = dio.FormData.fromMap(body);
-
-  //   log("BODY L$body");
-  //   log("BODY L${userModel!.role!.name}");
-  //   try {
-  //     await apiServices
-  //         .postApi(api.servicePackage, formData, isToken: true)
-  //         .then((value) async {
-  //       hideLoading(context);
-  //       notifyListeners();
-  //       log("SHHHH ");
-  //       if (value.isSuccess!) {
-  //         final userApi =
-  //             Provider.of<UserDataApiProvider>(context, listen: false);
-  //         await userApi.getServicePackageList();
-  //         snackBarMessengers(context,
-  //             message: value.message,
-  //             color: appColor(context).appTheme.primary);
-
-  //         notifyListeners();
-
-  //         onBackButton(context);
-  //       } else {
-  //         final userApi =
-  //             Provider.of<UserDataApiProvider>(context, listen: false);
-  //         await userApi.getServicePackageList();
-
-  //         snackBarMessengers(context,
-  //             message: value.message, color: appColor(context).appTheme.red);
-  //       }
-  //     });
-  //   } catch (e) {
-  //     hideLoading(context);
-  //     notifyListeners();
-  //     snackBarMessengers(context,
-  //         message: e.toString(), color: appColor(context).appTheme.red);
-  //     log("EEEE addServiceman : $e");
-  //   }
-  // }
-
   addServicePackageApi(context, List serviceList) async {
-    log("addServicePackageApi called"); // Log entry point
     showLoading(context);
     notifyListeners();
 
-    log("Preparing request body...");
-    Map<String, dynamic>? body; // Declare `body` outside the try block
+    var body = {
+      "title": packageCtrl.text,
+      "hexa_code":
+          hexaCtrl.text.contains("#") ? hexaCtrl.text : "#${hexaCtrl.text}",
+      "provider_id": userModel!.id,
+      "price": amountCtrl.text,
+      "discount": discountCtrl.text.isNotEmpty ? discountCtrl.text : 0,
+      "description": descriptionCtrl.text,
+      "disclaimer": disclaimerCtrl.text,
+      "started_at":
+          DateFormat("dd-MMM-yyyy").format(DateTime.parse(startDateCtrl.text)),
+      "ended_at":
+          DateFormat("dd-MMM-yyyy").format(DateTime.parse(endDateCtrl.text)),
+      "is_featured": "1",
+      "status": isSwitch == true ? "1" : "0",
+      for (var i = 0; i < serviceList.length; i++)
+        "service_id[$i]": serviceList[i].id,
+    };
+    dio.FormData formData = dio.FormData.fromMap(body);
 
+    log("BODY L$body");
+    log("BODY L${userModel!.role!.name}");
     try {
-      log("startDateCtrl.text: ${startDateCtrl.text}");
-      log("endDateCtrl.text: ${endDateCtrl.text}");
+      await apiServices
+          .postApi(api.servicePackage, formData, isToken: true)
+          .then((value) async {
+        hideLoading(context);
+        notifyListeners();
+        log("SHHHH ");
+        if (value.isSuccess!) {
+          final userApi =
+              Provider.of<UserDataApiProvider>(context, listen: false);
+          await userApi.getServicePackageList();
+          snackBarMessengers(context,
+              message: value.message,
+              color: appColor(context).appTheme.primary);
 
-      // Function to detect and parse different date formats
-      DateTime parseDate(String date) {
-        try {
-          if (date.contains("/")) {
-            log("Detected format: dd/MM/yyyy");
-            return DateFormat("dd/MM/yyyy").parse(date);
-          } else if (date.contains("-")) {
-            log("Detected format: dd-MM-yyyy");
-            return DateFormat("dd-MM-yyyy").parse(date);
-          } else {
-            throw Exception("Invalid date format: $date");
-          }
-        } catch (e) {
-          throw Exception("Error parsing date: $date - $e");
+          notifyListeners();
+
+          onBackButton(context);
+        } else {
+          final userApi =
+              Provider.of<UserDataApiProvider>(context, listen: false);
+          await userApi.getServicePackageList();
+
+          snackBarMessengers(context,
+              message: value.message, color: appColor(context).appTheme.red);
         }
-      }
-
-      // Parse input dates
-      DateTime startDate = parseDate(startDateCtrl.text);
-      DateTime endDate = parseDate(endDateCtrl.text);
-
-      // Convert to required format
-      String startedAt = DateFormat("dd-MMM-yyyy").format(startDate);
-      String endedAt = DateFormat("dd-MMM-yyyy").format(endDate);
-
-      log("Formatted startDate: $startedAt");
-      log("Formatted endDate: $endedAt");
-
-      // Prepare the body
-      body = {
-        "title": packageCtrl.text,
-        "hexa_code":
-            hexaCtrl.text.contains("#") ? hexaCtrl.text : "#${hexaCtrl.text}",
-        "provider_id": userModel!.id,
-        "price": amountCtrl.text,
-        "discount": discountCtrl.text.isNotEmpty ? discountCtrl.text : "0",
-        "description": descriptionCtrl.text,
-        "disclaimer": disclaimerCtrl.text,
-        "started_at": startedAt,
-        "ended_at": endedAt,
-        "is_featured": "1",
-        "status": isSwitch == true ? "1" : "0",
-        for (var i = 0; i < serviceList.length; i++)
-          "service_id[$i]": serviceList[i].id,
-      };
-
-      log("Request body prepared: $body");
-    } catch (e) {
-      log("Error while preparing request body: $e");
-      hideLoading(context);
-      return; // Stop further execution
-    }
-
-    if (body == null) {
-      log("Failed to prepare request body. Aborting API call.");
-      return;
-    }
-
-    try {
-      dio.FormData formData = dio.FormData.fromMap(body);
-      log("FormData created: ${formData.fields}");
-
-      log("Starting API call to ${api.servicePackage}...");
-      final response = await apiServices.postApi(api.servicePackage, formData,
-          isToken: true);
-
-      hideLoading(context);
-      notifyListeners();
-
-      if (response.isSuccess!) {
-        log("API success response received: ${response.message}");
-        final userApi =
-            Provider.of<UserDataApiProvider>(context, listen: false);
-        await userApi.getServicePackageList();
-        log("Service package list updated");
-
-        snackBarMessengers(context,
-            message: response.message,
-            color: appColor(context).appTheme.primary);
-        log("Success snackbar displayed");
-
-        onBackButton(context);
-      } else {
-        log("API error response received: ${response.message}");
-        final userApi =
-            Provider.of<UserDataApiProvider>(context, listen: false);
-        await userApi.getServicePackageList();
-
-        snackBarMessengers(context,
-            message: response.message, color: appColor(context).appTheme.red);
-      }
+      });
     } catch (e) {
       hideLoading(context);
       notifyListeners();
-      log("Error occurred during API call: $e");
       snackBarMessengers(context,
           message: e.toString(), color: appColor(context).appTheme.red);
-    } finally {
-      log("addServicePackageApi execution completed");
+      log("EEEE addServiceman : $e");
     }
   }
 
@@ -642,7 +425,7 @@ class AddPackageProvider with ChangeNotifier {
           "service_id[$i]": serviceList[i].id,
       };
       dio.FormData formData = dio.FormData.fromMap(body);
-      log("harshit");
+
       log("BODY L$body");
       await apiServices
           .postApi("${api.servicePackage}/${servicePackageModel!.id}", formData,

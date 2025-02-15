@@ -18,7 +18,7 @@ class EarningScreen extends StatelessWidget {
     ];*/
     log("commissionList::  ${commissionList?.total}");
     return Scaffold(
-        appBar: AppBarCommon(title: appFonts.earnings),
+        appBar: AppBarCommon(title: translations!.earnings),
         body: commissionList == null
             ? const CommonEmpty()
             : SingleChildScrollView(
@@ -36,7 +36,7 @@ class EarningScreen extends StatelessWidget {
                           children: [
                             Text(
                                 language(context,
-                                    "${language(context, appFonts.totalEarning)} :"),
+                                    "${language(context, translations!.totalEarning)} :"),
                                 style: appCss.dmDenseMedium12.textColor(
                                     appColor(context).appTheme.whiteBg)),
                             Text(
@@ -63,7 +63,7 @@ class EarningScreen extends StatelessWidget {
                         SizedBox(
                             width: Sizes.s120,
                             child: Text(
-                                language(context, appFonts.topCategorys),
+                                language(context, translations!.topCategorys),
                                 textAlign: TextAlign.center,
                                 style: appCss.dmDenseMedium16.textColor(
                                     appColor(context).appTheme.darkText)))

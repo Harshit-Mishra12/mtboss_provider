@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>Your Firebase ANDROID_CLIENT_ID</string>
+	<string>Your ANDROID_CLIENT_ID</string>
 	<key>API_KEY</key>
-	<string>Your Firebase Api Key</string>
+	<string>Your API_KEY</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
@@ -37,7 +37,15 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>Your Firebase REVERSED_CLIENT_ID</string>
+				<string>Your REVERSED_CLIENT_ID</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>app-1-186901032010-ios-486230702d30b471740ab3</string>
 			</array>
 		</dict>
 		<dict>
@@ -54,13 +62,13 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>CLIENT_ID</key>
-	<string>Your Firebase CLIENT_ID</string>
+	<string>Your CLIENT_ID</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
 	<key>GCM_SENDER_ID</key>
-	<string>Your Firebase Message Sender GCM_SENDER_ID</string>
+	<string>186901032010</string>
 	<key>GOOGLE_APP_ID</key>
-	<string>Your Firebase IOS GOOGLE_APP_ID</string>
+	<string>Your GOOGLE_APP_ID</string>
 	<key>GoogleUtilitiesAppDelegateProxyEnabled</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
@@ -85,7 +93,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME)We need To access your camera to allow you to upload a profile picture,photos from your trips,etc</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.186901032010-ptfuib0o1j3elstpgl7bilpnjtenhhvf</string>
+	<string>Your REVERSED_CLIENT_ID</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

@@ -9,7 +9,7 @@ class RadioLayout extends StatelessWidget {
     return SafeArea(
         child: SingleChildScrollView(
             child: Column(children: [
-      ...appArray.languageList.asMap().entries.map((e) {
+      ...languageCtrl.languageList.asMap().entries.map((e) {
         return Column(children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Row(children: [
@@ -19,9 +19,9 @@ class RadioLayout extends StatelessWidget {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: AssetImage(e.value["icon"].toString())))),
+                          image: NetworkImage(e.value.flag.toString())))),
               const HSpace(Sizes.s12),
-              Text(language(context, e.value['title']),
+              Text(language(context, e.value.name),
                   style: appCss.dmDenseRegular14
                       .textColor(appColor(context).appTheme.darkText))
             ]),
@@ -49,7 +49,7 @@ class RadioLayout extends StatelessWidget {
         ])
             .paddingSymmetric(horizontal: Insets.i15)
             .width(MediaQuery.of(context).size.width)
-            .inkWell(onTap: () => languageCtrl.onRadioChange(e.key, e.value));
+            .inkWell(onTap: () => languageCtrl.setIndex(e.key));
       })
     ]))).decorated(
         color: appColor(context).appTheme.whiteBg,

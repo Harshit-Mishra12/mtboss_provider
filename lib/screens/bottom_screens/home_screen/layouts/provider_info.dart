@@ -18,21 +18,30 @@ class ProviderInfo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(children: [
-                    provider != null && provider!.media !=null &&  provider!.media!.isNotEmpty? CommonImageLayout(
-                        image:  provider!.media![0].originalUrl!,
-                        assetImage: eImageAssets.noImageFound3,
-                        height: 38,
-                        width: 38): CommonCachedImage( height: 38,
-                        width: 38,image: eImageAssets.noImageFound3,),
+                    provider != null &&
+                            provider!.media != null &&
+                            provider!.media!.isNotEmpty
+                        ? CommonImageLayout(
+                            image: provider!.media![0].originalUrl!,
+                            assetImage: eImageAssets.noImageFound3,
+                            height: 38,
+                            width: 38)
+                        : CommonCachedImage(
+                            height: 38,
+                            width: 38,
+                            image: eImageAssets.noImageFound3,
+                          ),
                     const HSpace(Sizes.s10),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(language(context, appFonts.yourProviderDetails),
+                          Text(
+                              language(
+                                  context, translations!.yourProviderDetails),
                               style: appCss.dmDenseRegular12.textColor(
                                   appColor(context).appTheme.lightText)),
                           const VSpace(Sizes.s3),
-                          Text(provider !=null? provider!.name!:"",
+                          Text(provider != null ? provider!.name! : "",
                               style: appCss.dmDenseMedium14.textColor(
                                   appColor(context).appTheme.darkText))
                         ])

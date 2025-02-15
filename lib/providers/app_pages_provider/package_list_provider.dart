@@ -4,10 +4,9 @@ import 'package:dio/dio.dart' as dio;
 import 'package:fixit_provider/config.dart';
 
 class PackageListProvider with ChangeNotifier {
-
   //package active status
   onToggle(index, val, context, id) {
-    servicePackageList[index].status = val == true ? 1 :0;
+    servicePackageList[index].status = val == true ? 1 : 0;
     updateActiveStatusServicePackage(context, id, val, index);
     notifyListeners();
   }
@@ -17,7 +16,7 @@ class PackageListProvider with ChangeNotifier {
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
 
     value.onDeleteDialog(sync, context, eImageAssets.packageDelete,
-        appFonts.deletePackages, appFonts.areYouSureDeletePackage, () {
+        translations!.deletePackages, translations!.areYouSureDeletePackage, () {
       route.pop(context);
       deletePackage(context, id);
     });
@@ -44,8 +43,8 @@ class PackageListProvider with ChangeNotifier {
               Provider.of<DeleteDialogProvider>(context, listen: false);
           delete.onResetPass(
               context,
-              language(context, appFonts.hurrayPackageDelete),
-              language(context, appFonts.okay), () {
+              language(context, translations!.hurrayPackageDelete),
+              language(context, translations!.okay), () {
             route.pop(context);
             notifyListeners();
           });
@@ -67,7 +66,7 @@ class PackageListProvider with ChangeNotifier {
   updateActiveStatusServicePackage(context, id, val, index) async {
     showLoading(context);
 
-    servicePackageList[index].status = val == true ? 1 :0;
+    servicePackageList[index].status = val == true ? 1 : 0;
     notifyListeners();
     editServicePackageApi(context, servicePackageList[index], val);
   }
@@ -81,41 +80,41 @@ class PackageListProvider with ChangeNotifier {
     try {
       var body = {
         "title": servicePackageModel!.title,
-        "hexa_code": servicePackageModel.hexaCode!.contains("#") ? servicePackageModel!.hexaCode :"#${servicePackageModel.hexaCode}",
+        "hexa_code": servicePackageModel.hexaCode!.contains("#")
+            ? servicePackageModel!.hexaCode
+            : "#${servicePackageModel.hexaCode}",
         "provider_id": userModel!.id,
         "price": servicePackageModel.price,
         "discount": servicePackageModel.discount,
         "description": servicePackageModel.description,
-        "disclaimer":servicePackageModel.disclaimer,
+        "disclaimer": servicePackageModel.disclaimer,
         "is_featured": "1",
         "status": val == true ? "1" : 0,
-        "_method": "PUT"
-        , for (var i = 0; i < servicePackageModel.services!.length; i++)
+        "_method": "PUT",
+        for (var i = 0; i < servicePackageModel.services!.length; i++)
           "service_id[$i]": servicePackageModel.services![i].id,
-
       };
       dio.FormData formData = dio.FormData.fromMap(body);
 
       await apiServices
           .postApi("${api.servicePackage}/${servicePackageModel.id}", formData,
-          isToken: true)
+              isToken: true)
           .then((value) async {
         hideLoading(context);
         notifyListeners();
         if (value.isSuccess!) {
           final userApi =
-          Provider.of<UserDataApiProvider>(context, listen: false);
+              Provider.of<UserDataApiProvider>(context, listen: false);
           await userApi.getServicePackageList();
           snackBarMessengers(context,
               message: value.message, color: appColor(context).appTheme.green);
 
           notifyListeners();
-
         } else {
           hideLoading(context);
           notifyListeners();
           final userApi =
-          Provider.of<UserDataApiProvider>(context, listen: false);
+              Provider.of<UserDataApiProvider>(context, listen: false);
           await userApi.getServicePackageList();
         }
       });

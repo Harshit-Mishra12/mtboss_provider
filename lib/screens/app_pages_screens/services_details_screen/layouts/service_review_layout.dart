@@ -74,6 +74,6 @@ class ServiceReviewLayout extends StatelessWidget {
     ]))
         .paddingSymmetric(horizontal: Insets.i15)
         .boxBorderExtension(context,bColor: appColor(context).appTheme.stroke)
-        .paddingOnly(bottom: index != list!.length  ? Insets.i15 : 0);
+        ;
   }
 }

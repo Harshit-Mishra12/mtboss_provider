@@ -21,7 +21,7 @@ class ServicemenChargesSheet extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: Column(children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text(language(context, appFonts.servicemenCharge),
+                Text(language(context, translations!.servicemenCharge),
                     style: appCss.dmDenseBold18
                         .textColor(appColor(context).appTheme.darkText)),
                 const Icon(CupertinoIcons.multiply)
@@ -34,7 +34,7 @@ class ServicemenChargesSheet extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(language(context, appFonts.charges),
+                          Text(language(context, translations!.charges),
                               style: appCss.dmDenseMedium14.textColor(
                                   appColor(context).appTheme.darkText)),
                           const VSpace(Sizes.s8),
@@ -47,11 +47,11 @@ class ServicemenChargesSheet extends StatelessWidget {
                                     validator: (val) => validation
                                         .commonValidation(context, val),
                                     keyboardType: TextInputType.number,
-                                    hintText: appFonts.enterAmount,
+                                    hintText: translations!.enterAmount!,
                                     focusNode: focusNode,
                                     controller: controller,
                                     prefixIcon: eSvgAssets.dollar),
-                                Text("/${language(context, appFonts.perServicemen)}",
+                                Text("/${language(context, translations!.perServicemen)}",
                                         style: appCss.dmDenseRegular14
                                             .textColor(appColor(context)
                                                 .appTheme
@@ -60,17 +60,17 @@ class ServicemenChargesSheet extends StatelessWidget {
                               ]),
                           const VSpace(Sizes.s12),
                           Text(
-                              language(
-                                  context, appFonts.enterThePayableCharges),
+                              language(context,
+                                  translations!.enterThePayableCharges),
                               style: appCss.dmDenseRegular12
                                   .textColor(appColor(context).appTheme.red))
                         ]).paddingAll(Insets.i15).boxShapeExtension(
                         color: appColor(context).appTheme.fieldCardBg)),
                 const VSpace(Sizes.s20),
                 BottomSheetButtonCommon(
-                    textTwo: appFonts.done,
+                    textTwo: translations!.done,
                     applyTap: onTap,
-                    textOne: appFonts.cancel,
+                    textOne: translations!.cancel,
                     clearTap: () => route.pop(context))
               ]).paddingSymmetric(horizontal: Insets.i20)
             ])).bottomSheetExtension(context));

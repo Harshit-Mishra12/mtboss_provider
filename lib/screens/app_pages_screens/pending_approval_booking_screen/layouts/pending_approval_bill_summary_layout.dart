@@ -16,12 +16,12 @@ class PendingApprovalBillSummary extends StatelessWidget {
                 fit: BoxFit.fill)),
         child: Column(children: [
           BillRowCommon(
-              title: appFonts.perServiceCharge,
+              title: translations!.perServiceCharge,
               price:
                   "${getSymbol(context)}${(currency(context).currencyVal * bookingModel!.perServicemanCharge!).ceilToDouble()}"),
           BillRowCommon(
                   title:
-                  "${(bookingModel!.requiredServicemen != null ? bookingModel!.requiredServicemen! : 0) + (bookingModel!.totalExtraServicemen != null ? bookingModel!.totalExtraServicemen! : 0)} ${language(context, appFonts.serviceman)} (${getSymbol(context)}${(currency(context).currencyVal * bookingModel!.perServicemanCharge!).ceilToDouble()} × ${(bookingModel!.requiredServicemen != null ? bookingModel!.requiredServicemen! : 0) + (bookingModel!.totalExtraServicemen != null ? bookingModel!.totalExtraServicemen! : 0)})",
+                      "${(bookingModel!.requiredServicemen != null ? bookingModel!.requiredServicemen! : 0) + (bookingModel!.totalExtraServicemen != null ? bookingModel!.totalExtraServicemen! : 0)} ${language(context, translations!.serviceman)} (${getSymbol(context)}${(currency(context).currencyVal * bookingModel!.perServicemanCharge!).ceilToDouble()} × ${(bookingModel!.requiredServicemen != null ? bookingModel!.requiredServicemen! : 0) + (bookingModel!.totalExtraServicemen != null ? bookingModel!.totalExtraServicemen! : 0)})",
                   price:
                       "${getSymbol(context)}${(currency(context).currencyVal * bookingModel!.subtotal!).ceilToDouble()}",
                   style: appCss.dmDenseBold14
@@ -37,13 +37,13 @@ class PendingApprovalBillSummary extends StatelessWidget {
                     .textColor(appColor(context).appTheme.red)),
           if (bookingModel!.couponId != null) const VSpace(Sizes.s20),
           BillRowCommon(
-              title: appFonts.tax,
+              title: translations!.tax,
               price:
                   "+${getSymbol(context)}${(currency(context).currencyVal * bookingModel!.tax!)}",
               color: appColor(context).appTheme.online),
           const VSpace(Sizes.s20),
           BillRowCommon(
-              title: appFonts.platformFees,
+              title: translations!.platformFees,
               price:
                   "+${getSymbol(context)}${(currency(context).currencyVal * (bookingModel!.platformFees ?? 0.0)).ceilToDouble()}",
               color: appColor(context).appTheme.online),
@@ -56,7 +56,7 @@ class PendingApprovalBillSummary extends StatelessWidget {
                   endIndent: 6)
               .paddingOnly(bottom: Insets.i27),
           BillRowCommon(
-              title: appFonts.totalAmount,
+              title: translations!.totalAmount,
               price:
                   "${getSymbol(context)}${(currency(context).currencyVal * bookingModel!.total!)}",
               styleTitle: appCss.dmDenseMedium14

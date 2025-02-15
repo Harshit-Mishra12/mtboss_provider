@@ -33,13 +33,12 @@ class ServicemanListProvider with ChangeNotifier {
     log("HHHH :$val");
     expValue = val;
     notifyListeners();
-    if (expValue == appFonts.allServicemen) {
+    if (expValue == translations!.allServicemen) {
       searchList = [];
       expValue = null;
       notifyListeners();
       getServicemenByProviderId(context);
     } else {
-
       getServicemenByProviderId(context);
     }
     log("expValue :$expValue");
@@ -111,7 +110,7 @@ class ServicemanListProvider with ChangeNotifier {
         if (value.isSuccess!) {
           List data = value.data;
 
-          if(searchCtrl.text.isNotEmpty) {
+          if (searchCtrl.text.isNotEmpty) {
             searchList = [];
             hideLoading(context);
             for (var list in data) {
@@ -120,8 +119,8 @@ class ServicemanListProvider with ChangeNotifier {
               }
               notifyListeners();
             }
-          }else{
-            servicemanList =[];
+          } else {
+            servicemanList = [];
             hideLoading(context);
             for (var list in data) {
               if (!servicemanList.contains(ServicemanModel.fromJson(list))) {

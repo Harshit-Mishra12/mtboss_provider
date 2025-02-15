@@ -16,7 +16,7 @@ class KnownLanguageLayout extends StatelessWidget {
           color: appColor(context).appTheme.whiteBg,
           shape: SmoothRectangleBorder(
               borderRadius:
-              SmoothBorderRadius(cornerRadius: 8, cornerSmoothing: 1))),
+                  SmoothBorderRadius(cornerRadius: 8, cornerSmoothing: 1))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -24,16 +24,16 @@ class KnownLanguageLayout extends StatelessWidget {
             child: Row(
               children: [
                 SvgPicture.asset(eSvgAssets.country,
-                    colorFilter: ColorFilter.mode(
-                        value.languageSelect.isNotEmpty
-                            ? appColor(context).appTheme.darkText
-                            : appColor(context).appTheme.lightText,
-                        BlendMode.srcIn))
+                        colorFilter: ColorFilter.mode(
+                            value.languageSelect.isNotEmpty
+                                ? appColor(context).appTheme.darkText
+                                : appColor(context).appTheme.lightText,
+                            BlendMode.srcIn))
                     .padding(
-                    left: Insets.i5,
-                    right: rtl(context) ? Insets.i5 : 0,
-                    top: Sizes.s5,
-                    vertical: Sizes.s5),
+                        left: Insets.i5,
+                        right: rtl(context) ? Insets.i5 : 0,
+                        top: Sizes.s5,
+                        vertical: Sizes.s5),
                 const HSpace(Sizes.s12),
                 if (value.languageSelect.isNotEmpty)
                   Expanded(
@@ -43,35 +43,51 @@ class KnownLanguageLayout extends StatelessWidget {
                             .asMap()
                             .entries
                             .map((e) => Container(
-                            margin:  EdgeInsets.only(bottom: value.languageSelect.length -1 != e.key? Sizes.s8:0,right: Sizes.s10),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: Sizes.s9,
-                                vertical: Sizes.s5),
-                            decoration: ShapeDecoration(
-                                shape: SmoothRectangleBorder(
-                                  borderRadius: SmoothBorderRadius(
-                                      cornerRadius: 8,
-                                      cornerSmoothing: 1),
-                                ),
-                                color: Color.fromRGBO(84, 101, 255, 0.1)),
-                            child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SvgPicture.asset(eSvgAssets.cross,height: 16,colorFilter: ColorFilter.mode(appColor(context).appTheme.primary, BlendMode.srcIn),),
-                                  const HSpace(Sizes.s2),
-                                  Text(e.value.key!,
-                                      style: appCss.dmDenseLight14
-                                          .textColor(appColor(context)
-                                          .appTheme
-                                          .primary))
-                                ]))
-                            .inkWell(
-                            onTap: () => value.onLanguageSelect(
-                                e.value)))
+                                    margin: EdgeInsets.only(
+                                        bottom: value.languageSelect.length -
+                                                    1 !=
+                                                e.key
+                                            ? Sizes.s8
+                                            : 0,
+                                        right: Sizes.s10),
+                                    padding:
+                                        const EdgeInsets.symmetric(
+                                            horizontal: Sizes.s9,
+                                            vertical: Sizes.s5),
+                                    decoration: ShapeDecoration(
+                                        shape: SmoothRectangleBorder(
+                                          borderRadius: SmoothBorderRadius(
+                                              cornerRadius: 8,
+                                              cornerSmoothing: 1),
+                                        ),
+                                        color: Color.fromRGBO(84, 101, 255, 0.1)),
+                                    child:
+                                        Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                          SvgPicture.asset(
+                                            eSvgAssets.cross,
+                                            height: 16,
+                                            colorFilter: ColorFilter.mode(
+                                                appColor(context)
+                                                    .appTheme
+                                                    .primary,
+                                                BlendMode.srcIn),
+                                          ),
+                                          const HSpace(Sizes.s2),
+                                          Text(e.value.key!,
+                                              style: appCss.dmDenseLight14
+                                                  .textColor(appColor(context)
+                                                      .appTheme
+                                                      .primary))
+                                        ]))
+                                .inkWell(
+                                    onTap: () =>
+                                        value.onLanguageSelect(e.value)))
                             .toList()),
                   ),
                 if (value.languageSelect.isEmpty)
-                  Text(language(context, appFonts.knowLanguage),
+                  Text(language(context, translations!.knowLanguage),
                       style: appCss.dmDenseMedium14
                           .textColor(appColor(context).appTheme.lightText))
               ],
@@ -86,7 +102,7 @@ class KnownLanguageLayout extends StatelessWidget {
         ],
       ),
     ).inkWell(onTap: () => value.onBottomSheet(context));
-   /* return Stack(children: [
+    /* return Stack(children: [
       MultiSelectDropDownCustom(
 
               backgroundColor: appColor(context).appTheme.whiteBg,
@@ -99,7 +115,7 @@ class KnownLanguageLayout extends StatelessWidget {
                       label: language(context, e.value.key), value: e.value.id))
                   .toList(),
               selectionType: SelectionType.multi,
-              hint: language(context, appFonts.selectLanguage),
+              hint: language(context, translations!.selectLanguage),
               optionsBackgroundColor: appColor(context).appTheme.whiteBg,
               selectedOptionBackgroundColor: appColor(context).appTheme.whiteBg,
               hintStyle: appCss.dmDenseMedium14

@@ -8,7 +8,7 @@ class LatestBlogViewAll extends StatelessWidget {
     final value = Provider.of<DashboardProvider>(context, listen: true);
 
     return Scaffold(
-        appBar: AppBarCommon(title: appFonts.latestBlog),
+        appBar: AppBarCommon(title: translations!.latestBlog),
         body: SingleChildScrollView(
             child: Container(
                 alignment: Alignment.center,

@@ -1,5 +1,5 @@
-import 'package:fixit_provider/widgets/country_picker_custom/country_code_custom.dart';
 import 'package:fixit_provider/widgets/country_picker_custom/country_picker_custom.dart';
+import 'package:fixit_provider/widgets/country_picker_custom/layouts/country_theme.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../config.dart';
 
@@ -145,7 +145,7 @@ List<Map> countriesEnglish = [
   {"name": "Liechtenstein", "dial_code": "+423", "code": "LI"},
   {"name": "Lithuania", "dial_code": "+370", "code": "LT"},
   {"name": "Luxembourg", "dial_code": "+352", "code": "LU"},
-  {"name": "Macao", "dial_code": "+853", "code": "MO"},
+  // {"name": "Macao", "dial_code": "+853", "code": "MO"},
   {"name": "Macedonia", "dial_code": "+389", "code": "MK"},
   {"name": "Madagascar", "dial_code": "+261", "code": "MG"},
   {"name": "Malawi", "dial_code": "+265", "code": "MW"},
@@ -252,7 +252,6 @@ List<Map> countriesEnglish = [
   {"name": "Sweden", "dial_code": "+46", "code": "SE"},
   {"name": "Switzerland", "dial_code": "+41", "code": "CH"},
   {"name": "Syrian Arab Republic", "dial_code": "+963", "code": "SY"},
-  {"name": "Taiwan", "dial_code": "+886", "code": "TW"},
   {"name": "Tajikistan", "dial_code": "+992", "code": "TJ"},
   {
     "name": "Tanzania, United Republic of Tanzania",
@@ -938,11 +937,11 @@ List<Map<String, String>> codes = [
     "code": "LU",
     "dial_code": "+352",
   },
-  {
+  /*{
     "name": "澳門",
     "code": "MO",
     "dial_code": "+853",
-  },
+  },*/
   {
     "name": "Македонија",
     "code": "MK",
@@ -1378,11 +1377,11 @@ List<Map<String, String>> codes = [
     "code": "SY",
     "dial_code": "+963",
   },
-  {
+  /*{
     "name": "臺灣",
     "code": "TW",
     "dial_code": "+886",
-  },
+  },*/
   {
     "name": "Тоҷикистон",
     "code": "TJ",
@@ -1530,70 +1529,62 @@ List<Map<String, String>> codes = [
   },
 ];
 
-
 class CountryListLayout extends StatelessWidget {
   final Function(CountryCodeCustom?)? onChanged;
-  final String? dialCode;
-  const CountryListLayout({super.key,this.onChanged, this.dialCode});
+
+  const CountryListLayout({super.key, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-            height: Sizes.s50,
-            child: CountryListPickCustom(
-                appBar: AppBar(
-                    centerTitle: true,
-                    title: Text(language(context, appFonts.selectCountry),
-                        style: appCss.dmDenseBold20.textColor(
-                            appColor(context).appTheme.whiteBg)),
-                    elevation: 0,
-                    backgroundColor: appColor(context).appTheme.primary),countryBuilder: (context, countryCode) =>
-                Container(
-                  height: 50,
-                  color: Colors.white,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: ListTile(
-                      leading: Image.asset(
-                        countryCode.flagUri!,
-                        package: 'country_list_pick',
-                        width: 30.0,
-                      ),
-                      title: Text(countryCode.name!,style: appCss.dmDenseMedium14.textColor(appColor(context).appTheme.darkText),),
-                      onTap: () {
-                        Navigator.pop(context, countryCode);
-                      },
-                    ),
-                  ),
+        height: Sizes.s50,
+        child: CountryListPickCustom(
+          appBar: AppBar(
+              centerTitle: true,
+              title: Text(language(context, "Select Country"),
+                  style: appCss.dmDenseblack16
+                      .textColor(appColor(context).appTheme.whiteBg)),
+              elevation: 0,
+              backgroundColor: appColor(context).appTheme.primary),
+          countryBuilder: (context, countryCode) => Container(
+            height: 50,
+            color: Colors.white,
+            child: Material(
+              color: Colors.transparent,
+              child: ListTile(
+                leading: Image.asset(
+                  countryCode.flagUri!,
+                  width: 30.0,
                 ),
-
-                pickerBuilder: (context, CountryCodeCustom? countryCode) {
-                  return Row(children: [
-                    Image.asset("${countryCode!.flagUri}",
-                        package: 'country_list_pick',
-                        width: Sizes.s22,
-                        height: Sizes.s16),
-                    Text(countryCode.dialCode.toString(),
-                            style: appCss.dmDenseMedium14.textColor(
-                                appColor(context).appTheme.darkText))
-                        .paddingSymmetric(horizontal: Insets.i5),
-                    Icon(CupertinoIcons.chevron_down,
-                        size: Sizes.s16,
-                        color: appColor(context).appTheme.darkText)
-                  ]);
+                title: Text(
+                  countryCode.name!,
+                  style: appCss.dmDenseMedium14
+                      .textColor(appColor(context).appTheme.darkText),
+                ),
+                onTap: () {
+                  Navigator.pop(context, countryCode);
                 },
-                theme: CountryTheme(
-                    isShowFlag: true,
-                    alphabetSelectedBackgroundColor:
-                        appColor(context).appTheme.primary),
-                initialSelection: dialCode,
-
-                onChanged:onChanged,))
-        .decorated(
-            color: appColor(context).appTheme.whiteBg,
-            borderRadius:
-                const BorderRadius.all(Radius.circular(AppRadius.r8)));
+              ),
+            ),
+          ),
+          pickerBuilder: (context, CountryCodeCustom? countryCode) {
+            return Row(children: [
+              Image.asset("${countryCode!.flagUri}",
+                  width: Sizes.s22, height: Sizes.s16),
+              Text(countryCode.dialCode.toString(),
+                      style: appCss.dmDenseMedium14
+                          .textColor(appColor(context).appTheme.darkText))
+                  .paddingSymmetric(horizontal: Insets.i5),
+              Icon(CupertinoIcons.chevron_down,
+                  size: Sizes.s16, color: appColor(context).appTheme.darkText)
+            ]);
+          },
+          theme: CountryTheme(
+              isShowFlag: true,
+              alphabetSelectedBackgroundColor:
+                  appColor(context).appTheme.primary),
+          initialSelection: '+91',
+          onChanged: onChanged,
+        )).decorated(color: appColor(context).appTheme.whiteBg);
   }
 }
-
-

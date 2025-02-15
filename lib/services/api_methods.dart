@@ -75,4 +75,7 @@ class ApiMethods {
   String serviceRequest = '$apiUrl/serviceRequest';
   String bid = '$apiUrl/bid';
   String zoneUpdateOnLatLongChange = '$apiUrl/zone-update';
+  String systemLanguage = '$apiUrl/systemLang';
+
+  String translate = '$apiUrl/systemLang/provider/translate';
 }

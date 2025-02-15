@@ -45,34 +45,32 @@ class DocumentLayout extends StatelessWidget {
                   shape: SmoothRectangleBorder(
                       borderRadius: SmoothBorderRadius(
                           cornerRadius: 8, cornerSmoothing: 1)))),
-
       const VSpace(Sizes.s12),
-      
       Column(
         children: [
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(language(context, appFonts.identityNo)),
-              Text(data!.identityNo ??"")
+              Text(language(context, translations!.identityNo)),
+              Text(data!.identityNo ?? "")
             ],
           ),
           const VSpace(Sizes.s12),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Row(children: [
               if (language(context, data!.status) ==
-                  language(context, appFonts.requestForUpdate))
+                  language(context, translations!.requestForUpdate))
                 Icon(CupertinoIcons.checkmark_alt_circle_fill,
                     color: appColor(context).appTheme.online, size: Sizes.s18),
               if (language(context, data!.status) ==
-                  language(context, appFonts.requestForUpdate))
+                  language(context, translations!.requestForUpdate))
                 const HSpace(Sizes.s5),
               Text(language(context, data!.document!.title!),
                   style: appCss.dmDenseMedium14
                       .textColor(appColor(context).appTheme.darkText))
             ]).expanded(),
-            language(context, data!.status) != language(context, appFonts.pending)
+            language(context, data!.status) !=
+                    language(context, translations!.pending)
                 ? Row(children: [
                     Text(language(context, "${data!.status}"),
                         style: appCss.dmDenseMedium12
@@ -80,10 +78,12 @@ class DocumentLayout extends StatelessWidget {
                     const HSpace(Sizes.s5),
                     SvgPicture.asset(eSvgAssets.anchorArrowRight,
                         colorFilter: ColorFilter.mode(
-                            appColor(context).appTheme.primary, BlendMode.srcIn))
+                            appColor(context).appTheme.primary,
+                            BlendMode.srcIn))
                   ])
                 : Text(
-                    language(context, "\u2022 ${language(context, data!.status)}"),
+                    language(
+                        context, "\u2022 ${language(context, data!.status)}"),
                     style: appCss.dmDenseMedium12
                         .textColor(appColor(context).appTheme.red))
           ])

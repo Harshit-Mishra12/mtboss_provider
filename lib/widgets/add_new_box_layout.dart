@@ -8,31 +8,29 @@ class AddNewBoxLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  DottedBorder(
+    return DottedBorder(
         color: appColor(context).appTheme.stroke,
         borderType: BorderType.RRect,
         radius: const Radius.circular(AppRadius.r10),
         child: ClipRRect(
-            borderRadius: const BorderRadius.all(
-                Radius.circular(AppRadius.r8)),
-            child: Container(
-                alignment: Alignment.center,
-                width: width ?? Sizes.s70,
-                height: Sizes.s70,
-                color: appColor(context).appTheme.whiteBg,
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
+                borderRadius:
+                    const BorderRadius.all(Radius.circular(AppRadius.r8)),
+                child: Container(
+                    alignment: Alignment.center,
+                    width: width ?? Sizes.s70,
+                    height: Sizes.s70,
+                    color: appColor(context).appTheme.whiteBg,
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
                       SvgPicture.asset(eSvgAssets.addOutline),
                       const VSpace(Sizes.s6),
                       Expanded(
-                        child: Text(language(context, title ?? appFonts.addNew),
+                        child: Text(
+                            language(context, title ?? translations!.addNew),
                             overflow: TextOverflow.clip,
                             style: appCss.dmDenseMedium12.textColor(
-                                appColor(context)
-                                    .appTheme
-                                    .lightText)),
+                                appColor(context).appTheme.lightText)),
                       )
-                    ]).paddingSymmetric(vertical: Insets.i15))).inkWell(onTap: onAdd));
+                    ]).paddingSymmetric(vertical: Insets.i15)))
+            .inkWell(onTap: onAdd));
   }
 }

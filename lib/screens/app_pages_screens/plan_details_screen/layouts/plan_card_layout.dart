@@ -1,4 +1,3 @@
-
 import '../../../../config.dart';
 
 class PlanCardLayout extends StatelessWidget {
@@ -25,7 +24,7 @@ class PlanCardLayout extends StatelessWidget {
                     : eImageAssets.planBgUnselect),
                 fit: BoxFit.fill)),
         child: Column(children: [
-             Column(children: [
+          Column(children: [
             Text(
                 "${getSymbol(context)}${currency(context).currencyVal * data!.price!}",
                 style: selectIndex == index
@@ -80,10 +79,11 @@ class PlanCardLayout extends StatelessWidget {
                     : appCss.dmDenseSemiBold15
                         .textColor(appColor(context).appTheme.primary)),
             const VSpace(Sizes.s20),
-            ...data!.benefits!.asMap().entries.map((e) => PlanRowCommon(title: e.value,index: index,selectIndex: selectIndex)),
+            ...data!.benefits!.asMap().entries.map((e) => PlanRowCommon(
+                title: e.value, index: index, selectIndex: selectIndex)),
             Image.asset(eImageAssets.bulletDotted, width: Sizes.s215)
                 .paddingOnly(top: Insets.i5, bottom: Insets.i15),
-            Text(language(context, appFonts.takeYourService),
+            Text(language(context, translations!.takeYourService),
                     textAlign: TextAlign.center,
                     style: selectIndex == index
                         ? appCss.dmDenseRegular12
@@ -94,7 +94,7 @@ class PlanCardLayout extends StatelessWidget {
             const VSpace(Sizes.s25),
             ButtonCommon(
                 onTap: onTapSelectPlan,
-                title: appFonts.selectPlan,
+                title: translations!.selectPlan,
                 width: selectIndex == index ? Sizes.s145 : Sizes.s112,
                 style: selectIndex == index
                     ? appCss.dmDenseSemiBold16

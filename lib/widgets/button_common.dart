@@ -1,14 +1,13 @@
 import '../../config.dart';
 
 class ButtonCommon extends StatelessWidget {
-  final String title;
+  final String? title;
   final double? padding, margin, radius, height, fontSize, width;
   final GestureTapCallback? onTap;
   final TextStyle? style;
   final Color? color, fontColor, borderColor;
   final Widget? icon;
   final FontWeight? fontWeight;
-
 
   const ButtonCommon(
       {Key? key,
@@ -35,26 +34,24 @@ class ButtonCommon extends StatelessWidget {
         height: height,
         margin: EdgeInsets.symmetric(horizontal: margin!),
         decoration: ShapeDecoration(
-          color: color ?? appColor(context).appTheme.primary,
-          shape: SmoothRectangleBorder(
-            side: BorderSide(color: borderColor ?? appColor(context).appTheme.trans),
-            borderRadius: SmoothBorderRadius(
-              cornerRadius: radius!,
-              cornerSmoothing: 1
-            )
-          )
-        ),
+            color: color ?? appColor(context).appTheme.primary,
+            shape: SmoothRectangleBorder(
+                side: BorderSide(
+                    color: borderColor ?? appColor(context).appTheme.trans),
+                borderRadius: SmoothBorderRadius(
+                    cornerRadius: radius!, cornerSmoothing: 1))),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-
           Expanded(
-            child: Text(language(context, title),
+            child: Text(language(context, title ?? ''),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: style ??
-                    appCss.dmDenseRegular16.textColor(appColor(context).appTheme.whiteColor)),
+                    appCss.dmDenseRegular16
+                        .textColor(appColor(context).appTheme.whiteColor)),
           ),
           if (icon != null)
-            Row(children: [icon ?? const HSpace(0), const HSpace(Sizes.s10)]).paddingOnly(left: Insets.i8),
+            Row(children: [icon ?? const HSpace(0), const HSpace(Sizes.s10)])
+                .paddingOnly(left: Insets.i8),
         ])).inkWell(onTap: onTap);
   }
 }

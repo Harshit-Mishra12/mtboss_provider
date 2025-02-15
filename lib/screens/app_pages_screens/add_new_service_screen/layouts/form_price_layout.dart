@@ -5,9 +5,10 @@ class FormPriceLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AddNewServiceProvider>(builder: (context1, value, child) {
+    return Consumer2<LanguageProvider, AddNewServiceProvider>(
+        builder: (context1, lang, value, child) {
       return Column(children: [
-        ContainerWithTextLayout(title: language(context, appFonts.price))
+        ContainerWithTextLayout(title: language(context, translations!.price))
             .paddingOnly(top: Insets.i24, bottom: Insets.i12),
         Container(
                 decoration: ShapeDecoration(
@@ -30,66 +31,66 @@ class FormPriceLayout extends StatelessWidget {
             .paddingSymmetric(horizontal: Insets.i20),
         if (value.selectIndex == 0)
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            ContainerWithTextLayout(title: language(context, appFonts.amount))
+            ContainerWithTextLayout(
+                    title: language(context, translations!.amount))
                 .paddingOnly(top: Insets.i24, bottom: Insets.i12),
             TextFieldCommon(
                     keyboardType: TextInputType.number,
                     focusNode: value.amountFocus,
                     controller: value.amount,
-                    hintText: appFonts.enterAmt,
+                    hintText: translations!.enterAmt!,
                     prefixIcon: eSvgAssets.dollar)
                 .padding(horizontal: Insets.i20)
           ]),
         if (value.selectIndex == 1)
           Column(children: [
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ContainerWithTextLayout(title: language(context, appFonts.amount))
-                      .paddingOnly(bottom: Insets.i12),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              ContainerWithTextLayout(
+                      title: language(context, translations!.amount))
+                  .paddingOnly(bottom: Insets.i12),
               TextFieldCommon(
-                  keyboardType: TextInputType.number,
-                  focusNode: value.amountFocus,
-                  controller: value.amount,
-                  hintText: appFonts.enterAmt,
-                  prefixIcon: eSvgAssets.dollar).paddingSymmetric(horizontal: Sizes.s20)
+                      keyboardType: TextInputType.number,
+                      focusNode: value.amountFocus,
+                      controller: value.amount,
+                      hintText: translations!.enterAmt!,
+                      prefixIcon: eSvgAssets.dollar)
+                  .paddingSymmetric(horizontal: Sizes.s20)
             ]),
             const VSpace(Sizes.s20),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ContainerWithTextLayout(title: language(context, appFonts.discount))
-                      .paddingOnly(bottom: Insets.i12),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              ContainerWithTextLayout(
+                      title: language(context, translations!.discount))
+                  .paddingOnly(bottom: Insets.i12),
               TextFieldCommon(
-                  keyboardType: TextInputType.number,
-                  focusNode: value.discountFocus,
-                  controller: value.discount,
-                  hintText: appFonts.addDic,
-                  prefixIcon: eSvgAssets.discount).paddingSymmetric(horizontal: Sizes.s20)
+                      keyboardType: TextInputType.number,
+                      focusNode: value.discountFocus,
+                      controller: value.discount,
+                      hintText: translations!.addDic!,
+                      prefixIcon: eSvgAssets.discount)
+                  .paddingSymmetric(horizontal: Sizes.s20)
             ])
-          ]).padding( top: Insets.i24),
-        ContainerWithTextLayout(title: language(context, appFonts.tax))
+          ]).padding(top: Insets.i24),
+        ContainerWithTextLayout(title: language(context, translations!.tax))
             .paddingOnly(top: Insets.i24, bottom: Insets.i12),
         TaxDropDownLayout(
                 doc: value.taxIndex,
                 icon: eSvgAssets.receiptDiscount,
-                hintText: appFonts.selectTax,
+                hintText: translations!.selectTax,
                 isIcon: true,
                 tax: taxList,
                 onChanged: (val) => value.onChangeTax(val))
             .paddingSymmetric(horizontal: Insets.i20),
         const VSpace(Sizes.s20),
-
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Expanded(
               flex: 8,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(language(context, appFonts.status),
+                    Text(language(context, translations!.status),
                         style: appCss.dmDenseSemiBold14
                             .textColor(appColor(context).appTheme.darkText)),
-                    Text(language(context, appFonts.thisServiceCanBe),
+                    Text(language(context, translations!.thisServiceCanBe),
                         style: appCss.dmDenseRegular12
                             .textColor(appColor(context).appTheme.lightText))
                   ])),

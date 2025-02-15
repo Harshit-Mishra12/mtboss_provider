@@ -15,7 +15,7 @@ class CompanyDetailUpdate extends StatelessWidget {
               .then((_) => value.getArg(context)),
           child: LoadingComponent(
             child: Scaffold(
-                appBar: AppBarCommon(title: appFonts.companyDetails),
+                appBar: AppBarCommon(title: translations!.companyDetails),
                 body: SingleChildScrollView(
                     child: Column(children: [
                   Stack(children: [
@@ -23,75 +23,95 @@ class CompanyDetailUpdate extends StatelessWidget {
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ContainerWithTextLayout(title: appFonts.logo),
+                          ContainerWithTextLayout(title: translations!.logo),
                           const VSpace(Sizes.s12),
                           value.imageFile != null
-                              ? Stack(alignment: Alignment.bottomRight,
-                                children: [
-                                  CompanyLogoLayout(imageFile: value.imageFile)
-
-                                      .paddingSymmetric(horizontal: Insets.i20),
-                                  if(value.imageFile != null)
-                                  Positioned(
-                                    right: 10,
-                                    child: SizedBox(
-                                        child: SvgPicture.asset(eSvgAssets.add,
-                                            height: Sizes.s14)
-                                            .paddingAll(Insets.i7))
-                                        .decorated(
-                                        color: appColor(context).appTheme.stroke,
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                            color: appColor(context).appTheme.primary)).inkWell(
-                                        onTap: () => value.onImagePick(context)),
-                                  )
-                                ],
-                              )
+                              ? Stack(
+                                  alignment: Alignment.bottomRight,
+                                  children: [
+                                    CompanyLogoLayout(
+                                            imageFile: value.imageFile)
+                                        .paddingSymmetric(
+                                            horizontal: Insets.i20),
+                                    if (value.imageFile != null)
+                                      Positioned(
+                                        right: 10,
+                                        child: SizedBox(
+                                                child: SvgPicture.asset(
+                                                        eSvgAssets.add,
+                                                        height: Sizes.s14)
+                                                    .paddingAll(Insets.i7))
+                                            .decorated(
+                                                color: appColor(context)
+                                                    .appTheme
+                                                    .stroke,
+                                                shape: BoxShape.circle,
+                                                border: Border.all(
+                                                    color: appColor(context)
+                                                        .appTheme
+                                                        .primary))
+                                            .inkWell(
+                                                onTap: () =>
+                                                    value.onImagePick(context)),
+                                      )
+                                  ],
+                                )
                               : value.logo != null
                                   ? CompanyLogoLayoutNetwork(
-
                                           imageFile: value.logo)
                                       .inkWell(
                                           onTap: () =>
                                               value.onImagePick(context))
                                       .paddingSymmetric(horizontal: Insets.i20)
-                                  :  Stack(alignment: Alignment.bottomRight,
-                            children: [
-                              CompanyLogoLayout(imageFile: value.imageFile)
-
-                                  .paddingSymmetric(horizontal: Insets.i20),
-                              if(value.imageFile != null)
-                              Positioned(
-                                right: 10,
-                                child: SizedBox(
-                                    child: SvgPicture.asset(eSvgAssets.add,
-                                        height: Sizes.s14)
-                                        .paddingAll(Insets.i7))
-                                    .decorated(
-                                    color: appColor(context).appTheme.stroke,
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: appColor(context).appTheme.primary)).inkWell(
-                                    onTap: () => value.onImagePick(context)),
-                              )
-                            ],
-                          ),
-                          ContainerWithTextLayout(title: appFonts.companyName)
+                                  : Stack(
+                                      alignment: Alignment.bottomRight,
+                                      children: [
+                                        CompanyLogoLayout(
+                                                imageFile: value.imageFile)
+                                            .paddingSymmetric(
+                                                horizontal: Insets.i20),
+                                        if (value.imageFile != null)
+                                          Positioned(
+                                            right: 10,
+                                            child: SizedBox(
+                                                    child: SvgPicture.asset(
+                                                            eSvgAssets.add,
+                                                            height: Sizes.s14)
+                                                        .paddingAll(Insets.i7))
+                                                .decorated(
+                                                    color: appColor(context)
+                                                        .appTheme
+                                                        .stroke,
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                        color: appColor(context)
+                                                            .appTheme
+                                                            .primary))
+                                                .inkWell(
+                                                    onTap: () => value
+                                                        .onImagePick(context)),
+                                          )
+                                      ],
+                                    ),
+                          ContainerWithTextLayout(
+                                  title: translations!.companyName)
                               .paddingOnly(top: Insets.i24, bottom: Insets.i8),
                           TextFieldCommon(
                                   controller: value.companyName,
                                   validator: (v) =>
                                       validation.nameValidation(context, v),
                                   focusNode: value.companyNameFocus,
-                                  hintText: appFonts.enterCompanyName,
+                                  hintText: translations!.enterCompanyName!,
                                   prefixIcon: eSvgAssets.companyName)
                               .paddingSymmetric(horizontal: Insets.i20),
                           ContainerWithTextLayout(
-                                  title: appFonts.companyPhoneNo)
+                                  title: translations!.companyPhoneNo)
                               .paddingOnly(top: Insets.i24, bottom: Insets.i8),
                           RegisterWidgetClass().phoneTextBox(
                               dialCode: value.dialCode,
-                              context, value.companyPhone, value.phoneNameFocus,
+                              context,
+                              value.companyPhone,
+                              value.phoneNameFocus,
                               onChanged: (CountryCodeCustom? code) =>
                                   value.changeDialCode(code!),
                               onFieldSubmitted: (values) =>
@@ -99,7 +119,8 @@ class CompanyDetailUpdate extends StatelessWidget {
                                       context,
                                       value.phoneNameFocus,
                                       value.companyMailFocus)),
-                          ContainerWithTextLayout(title: appFonts.companyMail)
+                          ContainerWithTextLayout(
+                                  title: translations!.companyMail)
                               .paddingOnly(top: Insets.i24, bottom: Insets.i8),
                           TextFieldCommon(
                                   validator: (v) =>
@@ -107,10 +128,11 @@ class CompanyDetailUpdate extends StatelessWidget {
                                   controller: value.companyMail,
                                   focusNode: value.companyMailFocus,
                                   keyboardType: TextInputType.emailAddress,
-                                  hintText: appFonts.enterMail,
+                                  hintText: translations!.enterMail!,
                                   prefixIcon: eSvgAssets.email)
                               .paddingSymmetric(horizontal: Insets.i20),
-                          ContainerWithTextLayout(title: appFonts.description)
+                          ContainerWithTextLayout(
+                                  title: translations!.description)
                               .paddingOnly(top: Insets.i24, bottom: Insets.i8),
                           Stack(children: [
                             TextFieldCommon(
@@ -120,9 +142,9 @@ class CompanyDetailUpdate extends StatelessWidget {
                                         validation.dynamicTextValidation(
                                             context,
                                             v,
-                                            appFonts.pleaseEnterDesc),
+                                            translations!.pleaseEnterDesc),
                                     controller: value.description,
-                                    hintText: appFonts.enterDetails,
+                                    hintText: translations!.enterDetails!,
                                     maxLines: 3,
                                     minLines: 3,
                                     isMaxLine: true)
@@ -147,71 +169,87 @@ class CompanyDetailUpdate extends StatelessWidget {
                                     right: rtl(context) ? Insets.i35 : 0,
                                     top: Insets.i13)
                           ]),
-
-                          ContainerWithTextLayout(title: appFonts.address)
+                          ContainerWithTextLayout(title: translations!.address)
                               .paddingOnly(bottom: Insets.i8),
                           Container(
                             width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(horizontal: Sizes.s20),
-                            padding: const EdgeInsets.symmetric(horizontal: Sizes.s20,vertical: Sizes.s20),
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: Sizes.s20),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: Sizes.s20, vertical: Sizes.s20),
                             decoration: ShapeDecoration(
                               shape: SmoothRectangleBorder(
                                   borderRadius: SmoothBorderRadius(
-                                      cornerRadius: 8,cornerSmoothing: 1
-                                  )
-                              ),
+                                      cornerRadius: 8, cornerSmoothing: 1)),
                               color: appColor(context).appTheme.whiteBg,
-
                             ),
-                            child:  Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                value.areaData == null?
-                                Text(language(context, appFonts.companyLocation),style:  appCss.dmDenseMedium14
-                                    .textColor(appColor(context).appTheme.lightText)): Expanded(
-                                  child: Text(value.areaData,style:  appCss.dmDenseMedium14
-                                      .textColor(appColor(context).appTheme.darkText),),
-                                ),
-                                SvgPicture.asset(eSvgAssets.locationOut).inkWell(onTap: ()=> value.getLocation(context))
+                                value.areaData == null
+                                    ? Text(
+                                        language(context,
+                                            translations!.companyLocation),
+                                        style: appCss.dmDenseMedium14.textColor(
+                                            appColor(context)
+                                                .appTheme
+                                                .lightText))
+                                    : Expanded(
+                                        child: Text(
+                                          value.areaData,
+                                          style: appCss.dmDenseMedium14
+                                              .textColor(appColor(context)
+                                                  .appTheme
+                                                  .darkText),
+                                        ),
+                                      ),
+                                SvgPicture.asset(eSvgAssets.locationOut)
+                                    .inkWell(
+                                        onTap: () => value.getLocation(context))
                               ],
                             ).marginOnly(bottom: Sizes.s10),
                           ),
                           const VSpace(Sizes.s20),
-                          ContainerWithTextLayout(title: appFonts.street)
+                          ContainerWithTextLayout(title: translations!.street)
                               .paddingOnly(bottom: Insets.i8),
                           TextFieldCommon(
-                              focusNode: value.streetFocus,
-                              validator: (val) => validation.dynamicTextValidation(
-                                  context, val, appFonts.pleaseEnterDesc),
-                              controller: value.street,
-                              hintText: appFonts.street,
-                              prefixIcon: eSvgAssets.address)
+                                  focusNode: value.streetFocus,
+                                  validator: (val) =>
+                                      validation.dynamicTextValidation(context,
+                                          val, translations!.pleaseEnterDesc),
+                                  controller: value.street,
+                                  hintText: translations!.street!,
+                                  prefixIcon: eSvgAssets.address)
                               .paddingSymmetric(horizontal: Insets.i20),
                           const VSpace(Sizes.s20),
-                          ContainerWithTextLayout(title: appFonts.areaLocality)
+                          ContainerWithTextLayout(
+                                  title: translations!.areaLocality)
                               .paddingOnly(bottom: Insets.i8),
                           TextFieldCommon(
-                              focusNode: value.areaFocus,
-                              validator: (val) => validation.dynamicTextValidation(
-                                  context, val, appFonts.pleaseEnterArea),
-                              controller: value.area,
-                              hintText: appFonts.area,
-                              prefixIcon: eSvgAssets.address)
+                                  focusNode: value.areaFocus,
+                                  validator: (val) =>
+                                      validation.dynamicTextValidation(context,
+                                          val, translations!.pleaseEnterArea),
+                                  controller: value.area,
+                                  hintText: translations!.area!,
+                                  prefixIcon: eSvgAssets.address)
                               .paddingSymmetric(horizontal: Insets.i20),
-
                           const VSpace(Sizes.s20),
-                          ContainerWithTextLayout(title: appFonts.country)
+                          ContainerWithTextLayout(title: translations!.country)
                               .paddingOnly(bottom: Insets.i8),
-                          const CountryDropDown(isUpdate: true,)
-                              .paddingSymmetric(horizontal: Insets.i20),
+                          const CountryDropDown(
+                            isUpdate: true,
+                          ).paddingSymmetric(horizontal: Insets.i20),
                           const VSpace(Sizes.s20),
-                          ContainerWithTextLayout(title: appFonts.state)
+                          ContainerWithTextLayout(title: translations!.state)
                               .paddingOnly(bottom: Insets.i8),
                           const StateDropDown(isUpdate: true)
                               .paddingSymmetric(horizontal: Insets.i20),
                         ]).paddingSymmetric(vertical: Sizes.s20)
                   ]),
-                  ButtonCommon(title: appFonts.update, onTap: () => value.updateProfile(context))
+                  ButtonCommon(
+                          title: translations!.update,
+                          onTap: () => value.updateProfile(context))
                       .paddingOnly(bottom: Insets.i10, top: Insets.i40)
                 ]).paddingAll(Insets.i20))),
           ));

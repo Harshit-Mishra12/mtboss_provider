@@ -33,8 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
                 minRadius: 12,
                 maxRadius: 600,
                 child: Container(
-                    color:
-                        appColor(context).appTheme.primary.withOpacity(0.7),
+                    color: appColor(context).appTheme.primary.withOpacity(0.7),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: Opacity(
@@ -51,9 +50,9 @@ class _SplashScreenState extends State<SplashScreen>
                             begin: const Offset(0, 2),
                             end: const Offset(0, -0.1))
                         .animate(splash.popUpAnimationController!),
-                    child: Text(language(context, appFonts.fixit),
-                        style: appCss.outfitSemiBold45.textColor(
-                            appColor(context).appTheme.whiteColor)))
+                    child: Text(language(context,appFonts.fixit),
+                        style: appCss.outfitSemiBold45
+                            .textColor(appColor(context).appTheme.whiteColor)))
           ])
         ])
       ])));

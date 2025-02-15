@@ -14,18 +14,27 @@ class _SignUpCompanyScreenState extends State<SignUpCompanyScreen>
     return Consumer<SignUpCompanyProvider>(builder: (context1, value, child) {
       return StatefulWrapper(
           onInit: () => Future.delayed(
-              const Duration(milliseconds: 50), () => value.onReady()),
+              const Duration(milliseconds: 150), () => value.onReady()),
           child: PopScope(
               canPop: false,
               onPopInvoked: (bool didPop) => value.popInvoke(didPop, context),
               child: LoadingComponent(
                   child: Scaffold(
-                      appBar: AppBarCommon(title: appFonts.signUp),
+                      appBar: AppBarCommon(
+                        title: translations!.signUp,
+                        onTap: () {
+                          value.documentModel = '';
+                          documentList = [];
+                          route.pop(context);
+                        },
+                      ),
                       body: SingleChildScrollView(
                           controller: value.controller,
                           child: Column(children: [
                             SignupLinearProgressbar(
-                                pageIndex:isFreelancer ?value.fPageIndex : value.pageIndex),
+                                pageIndex: isFreelancer
+                                    ? value.fPageIndex
+                                    : value.pageIndex),
                             const VSpace(Sizes.s15),
                             Stack(children: [
                               const FieldsBackground(),
@@ -37,11 +46,12 @@ class _SignUpCompanyScreenState extends State<SignUpCompanyScreen>
                                         language(
                                                 context,
                                                 value.pageIndex == 0
-                                                    ? appFonts.companyDetails
+                                                    ? translations!
+                                                        .companyDetails
                                                     : value.pageIndex == 1
-                                                        ? appFonts
+                                                        ? translations!
                                                             .companyLocation
-                                                        : appFonts
+                                                        : translations!
                                                             .providerDetails)
                                             .toUpperCase(),
                                         style: appCss.dmDenseMedium16.textColor(
@@ -60,8 +70,8 @@ class _SignUpCompanyScreenState extends State<SignUpCompanyScreen>
                             ButtonCommon(
                                     title: value.pageIndex == 0 ||
                                             value.pageIndex == 1
-                                        ? appFonts.next
-                                        : appFonts.finish,
+                                        ? translations!.next
+                                        : translations!.finish,
                                     onTap: () => value.onNext(context))
                                 .paddingSymmetric(
                                     horizontal: Insets.i20,

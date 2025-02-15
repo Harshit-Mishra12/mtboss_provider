@@ -1,4 +1,3 @@
-
 import '../../../config.dart';
 
 class BankDetailScreen extends StatelessWidget {
@@ -12,15 +11,13 @@ class BankDetailScreen extends StatelessWidget {
               Future.delayed(DurationsDelay.ms150).then((_) => value.getArg()),
           child: LoadingComponent(
             child: Scaffold(
-                appBar: AppBarCommon(title: appFonts.bankDetails),
+                appBar: AppBarCommon(title: translations!.bankDetails),
                 body: SingleChildScrollView(
                     child: Column(children: [
-                  const Stack(children: [
-                    FieldsBackground(),
-                    BankDetailBodyWidget()
-                  ]),
+                  const Stack(
+                      children: [FieldsBackground(), BankDetailBodyWidget()]),
                   ButtonCommon(
-                          title: appFonts.update,
+                          title: translations!.update,
                           onTap: () => value.updateBankDetail(context))
                       .paddingOnly(bottom: Insets.i10, top: Insets.i40)
                 ]).paddingAll(Insets.i20))),

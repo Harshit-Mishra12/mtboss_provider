@@ -17,7 +17,7 @@ class AssignBookingBodyWidget extends StatelessWidget {
                     showBookingStatus(context, value.bookingModel)),
             if (value.amount != null)
               ServicemenPayableLayout(amount: value.amount),
-            Text(language(context, appFonts.billSummary),
+            Text(language(context, translations!.billSummary),
                     style: appCss.dmDenseMedium14
                         .textColor(appColor(context).appTheme.darkText))
                 .paddingOnly(top: Insets.i25, bottom: Insets.i10),
@@ -34,7 +34,7 @@ class AssignBookingBodyWidget extends StatelessWidget {
         if (value.bookingModel!.service!.type != "remotely")
           if (isFreelancer)
             ButtonCommon(
-                title: appFonts.assignNow,
+                title: translations!.assignNow,
                 onTap: () => acpCtrl.onAssignTap(context)),
         if (value.bookingModel!.servicemen!.isNotEmpty)
           if (value.bookingModel!.servicemen!
@@ -45,12 +45,12 @@ class AssignBookingBodyWidget extends StatelessWidget {
                 elevation: 20,
                 child: (value.bookingModel!.service!.type == "remotely")
                     ? AssignStatusLayout(
-                        status: appFonts.reason,
+                        status: translations!.reason,
                         isGreen: true,
                         title: "Wait for Call from Customer")
                     : BottomSheetButtonCommon(
-                            textOne: appFonts.cancelService,
-                            textTwo: appFonts.startDriving,
+                            textOne: translations!.cancelService,
+                            textTwo: translations!.startDriving,
                             clearTap: () => value.onCancel(context),
                             applyTap: () => value.onStartServicePass(context))
                         .paddingAll(Insets.i20)

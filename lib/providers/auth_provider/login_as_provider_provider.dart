@@ -51,16 +51,11 @@ class LoginAsProvider with ChangeNotifier {
           notifyListeners();
           if (value.isSuccess!) {
             log("value.isSuccess:${value.isSuccess}");
-            log("BLaaah!");
             final commonApi =
                 Provider.of<CommonApiProvider>(context, listen: false);
             await commonApi.selfApi(context);
-
             dynamic userData = pref!.getString(session.user);
-
-            log("userData:$userData");
-
-            if (userData != null) {
+            if (userModel!.role!.name != "user") {
               if (userData != null) {
                 log("userDatahjuhjo:$userData");
                 final commonApi =
@@ -87,8 +82,6 @@ class LoginAsProvider with ChangeNotifier {
                 await userApi.getBookingHistory(context);
                 userApi.statisticDetailChart();
                 FirebaseApi().onlineActiveStatusChange(false);
-              } else {
-                log("UserData not show ");
               }
               hideLoading(context);
 

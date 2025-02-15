@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:fixit_provider/firebase/firebase_api.dart';
+import 'package:fixit_provider/model/system_language_model.dart';
 import 'package:fixit_provider/providers/common_providers/notification_provider.dart';
 
 import '../../config.dart';
@@ -28,6 +29,7 @@ class SplashProvider extends ChangeNotifier {
   onReady(TickerProvider sync, context) async {
     bool isAvailable = await isNetworkConnection();
     if (isAvailable) {
+
       onChangeSize();
       getAppSettingList(context);
       CustomNotificationController().initNotification(context);
@@ -162,15 +164,13 @@ class SplashProvider extends ChangeNotifier {
         log("IS LOGINN $appSettingModel");
         onDispose();
         Provider.of<SplashProvider>(context, listen: false).dispose();
-        if ( appSettingModel!=null&&  appSettingModel!.activation!.maintenanceMode == "1") {
+        if (appSettingModel != null &&
+            appSettingModel!.activation!.maintenanceMode == "1") {
           route.pushReplacementNamed(context, routeName.maintenanceMode);
         } else {
           if (userData != null) {
             UserModel user = UserModel.fromJson(jsonDecode(userData));
             if (isAuthenticate) {
-
-
-              
               if (user.role!.name == "provider") {
                 if (!isSubscription) {
                   route.pushReplacementNamed(
@@ -237,31 +237,38 @@ class SplashProvider extends ChangeNotifier {
   }
 
   //setting list
-  getAppSettingList(context) async {
+  getAppSettingList(BuildContext context) async {
     try {
-      await apiServices
-          .getApi(api.settings, [], isData: true)
-          .then((value) async {
-        // log("message::Sdas:${value.data}");
-        if (value.isSuccess!) {
-          appSettingModel = AppSettingModel.fromJson(value.data['values']);
-          //  log("appSettingModel::${value.data['values']}");
+      var value = await apiServices.getApi(api.settings, [], isData: true);
+
+      if (value.isSuccess!) {
+        appSettingModel = AppSettingModel.fromJson(value.data['values']);
+       // log("appSettingModel::${value.data['values']}");
+
+        if (context.mounted) {
+          onUpdate(context, appSettingModel!.general!.defaultCurrency!);
+          onUpdateLanguage(context, appSettingModel!.general!.defaultLanguage!);
+          log("appSettingModel!.general!.defaultLanguage::${appSettingModel!.general!.defaultLanguage!.locale}");
+
+          notifyListeners();
         }
-        onUpdate(context, appSettingModel!.general!.defaultCurrency!);
-
-        onUpdateLanguage(context, appSettingModel!.general!.defaultLanguage!);
-
-        notifyListeners();
-      });
+      }
     } catch (e) {
       log("EEEE :getAppSettingList $e");
-      notifyListeners();
+      if (context.mounted) {
+        notifyListeners();
+      }
     }
   }
 
-  onUpdate(context, CurrencyModel data) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
+  onUpdate(BuildContext context, CurrencyModel data) async {
+    // Retrieve the provider reference once at the start
     final currencyData = Provider.of<CurrencyProvider>(context, listen: false);
+
+    // Use SharedPreferences
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    // Fetch stored currency data if it exists
     double? currencyVal = pref.getDouble(session.currencyVal);
     if (currencyVal != null) {
       final prefCurrency = pref.getString(session.currency);
@@ -269,39 +276,41 @@ class SplashProvider extends ChangeNotifier {
       currencyData.currencyVal = currencyVal;
       currencyData.currency = CurrencyModel.fromJson(jsonDecode(prefCurrency!));
       currencyData.priceSymbol = pref.getString(session.priceSymbol)!;
-      currencyData.notifyListeners();
     } else {
-      currency(context).priceSymbol = data.symbol.toString();
-
+      // Set data from the provided `CurrencyModel`
+      currencyData.priceSymbol = data.symbol.toString();
       currencyData.currency = data;
       currencyData.currencyVal = data.exchangeRate!;
-      currencyData.notifyListeners();
     }
 
-    await pref.setString(session.priceSymbol, currency(context).priceSymbol);
+    // Save updated data to SharedPreferences
+    await pref.setString(session.priceSymbol, currencyData.priceSymbol);
     Map<String, dynamic> cc = await currencyData.currency!.toJson();
     await pref.setString(session.currency, jsonEncode(cc));
     await pref.setDouble(session.currencyVal, currencyData.currencyVal);
-    //notifyListeners();
-    log("currency(context).priceSymbol : ${currency(context).priceSymbol}");
+
+    // Notify listeners at the end to update dependent widgets
+    currencyData.notifyListeners();
+
+    log("currency(context).priceSymbol : ${currencyData.priceSymbol}");
   }
 
   Locale? locale;
 
   onUpdateLanguage(context, DefaultLanguage data) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    final languageProvider =
-        Provider.of<LanguageProvider>(context, listen: false);
+    // final languageProvider =
+    //     Provider.of<LanguageProvider>(context, listen: false);
     if (pref.getString("selectedLocale") == null) {
-      languageProvider.apiLanguage = data.locale!;
-      await pref.setString('selectedApi', languageProvider.apiLanguage!);
-      languageProvider.changeLocale(pref.getString("selectedApi").toString());
-      log("messagedatadatadata::${languageProvider.apiLanguage}");
+      // languageProvider.currentLanguage = data.locale!;
+      await pref.setString('selectedLocale', data.locale!);
+      // languageProvider.changeLocale(data.locale as SystemLanguage);
+      log("messagedatadatadata::${data.locale}");
       // locale = const Locale("en");
     } else {
-      log("messagedatadatadavdsfsdta::${languageProvider.apiLanguage}");
+      log("messagedatadatadavdsfsdta::${data.locale}");
     }
 
-    languageProvider.notifyListeners();
+    // languageProvider.notifyListeners();
   }
 }

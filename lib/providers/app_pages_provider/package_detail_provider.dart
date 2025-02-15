@@ -4,7 +4,7 @@ import 'package:fixit_provider/config.dart';
 
 class PackageDetailProvider with ChangeNotifier {
   ServicePackageModel? packageModel;
-  double widget1Opacity =0.0;
+  double widget1Opacity = 0.0;
 
   onReady(context) {
     dynamic data = ModalRoute.of(context)!.settings.arguments;
@@ -16,7 +16,7 @@ class PackageDetailProvider with ChangeNotifier {
     });
   }
 
-  onRefresh(context)async{
+  onRefresh(context) async {
     showLoading(context);
     notifyListeners();
     await getServicePackageById(context, packageModel!.id);
@@ -34,24 +34,21 @@ class PackageDetailProvider with ChangeNotifier {
           packageModel = ServicePackageModel.fromJson(value.data[0]);
           notifyListeners();
         }
-
       });
     } catch (e) {
-
       log("ERRROEEE getServicePackageById : $e");
       notifyListeners();
     }
   }
 
-  onBack(context,isBack) async {
-    if(isBack){
+  onBack(context, isBack) async {
+    if (isBack) {
       route.pop(context);
     }
     packageModel = null;
-    widget1Opacity =0.0;
+    widget1Opacity = 0.0;
     notifyListeners();
   }
-
 
   //package delete confirmation
   onPackageDelete(context, sync) {
@@ -59,7 +56,7 @@ class PackageDetailProvider with ChangeNotifier {
     final package = Provider.of<PackageListProvider>(context, listen: false);
 
     value.onDeleteDialog(sync, context, eImageAssets.packageDelete,
-        appFonts.deletePackages, appFonts.areYouSureDeletePackage, () {
+        translations!.deletePackages, translations!.areYouSureDeletePackage, () {
       route.pop(context);
       package.deletePackage(context, packageModel!.id);
     });

@@ -36,14 +36,10 @@ class BlogDetailsLayout extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: appCss.dmDenseMedium11
                         .textColor(appColor(context).appTheme.primary))
-                .paddingSymmetric(
-                    horizontal: Insets.i7, vertical: Insets.i5)
+                .paddingSymmetric(horizontal: Insets.i7, vertical: Insets.i5)
                 .decorated(
                     borderRadius: BorderRadius.circular(AppRadius.r6),
-                    color: appColor(context)
-                        .appTheme
-                        .primary
-                        .withOpacity(0.1))
+                    color: appColor(context).appTheme.primary.withOpacity(0.1))
         ]),
         Row(children: [
           Expanded(
@@ -64,7 +60,7 @@ class BlogDetailsLayout extends StatelessWidget {
                   .textColor(appColor(context).appTheme.lightText))
         ]),
         const DottedLines().paddingSymmetric(vertical: Insets.i15),
-        Text(language(context, appFonts.description),
+        Text(language(context, translations!.description),
             style: appCss.dmDenseMedium12
                 .textColor(appColor(context).appTheme.lightText)),
         const VSpace(Sizes.s10),

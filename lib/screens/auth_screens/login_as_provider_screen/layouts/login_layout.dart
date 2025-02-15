@@ -20,14 +20,14 @@ class LoginLayout extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonWidgetLayout()
-                  .commonTitleWithSmallContainer(context, appFonts.email),
+                  .commonTitleWithSmallContainer(context, translations!.email),
               TextFieldCommon(
                       validator: (email) =>
                           Validation().emailValidation(context, email),
                       controller: isProvider == true
                           ? value.emailController
                           : value2.emailController,
-                      hintText: language(context, appFonts.enterEmail),
+                      hintText: language(context, translations!.enterEmail),
                       keyboardType: TextInputType.emailAddress,
                       focusNode: value.emailFocus,
                       onFieldSubmitted: (val) => validation.fieldFocusChange(
@@ -41,8 +41,8 @@ class LoginLayout extends StatelessWidget {
                       prefixIcon: eSvgAssets.email)
                   .paddingSymmetric(horizontal: Insets.i20),
               const VSpace(Sizes.s15),
-              CommonWidgetLayout()
-                  .commonTitleWithSmallContainer(context, appFonts.password),
+              CommonWidgetLayout().commonTitleWithSmallContainer(
+                  context, translations!.password),
               TextFieldCommon(
                       suffixIcon: SvgPicture.asset(
                               value.isPassword
@@ -52,18 +52,18 @@ class LoginLayout extends StatelessWidget {
                           .inkWell(onTap: () => value.passwordSeenTap()),
                       obscureText: value.isPassword,
                       validator: (pass) => Validation().dynamicTextValidation(
-                          context, pass, appFonts.pleaseEnterPassword),
+                          context, pass, translations!.pleaseEnterPassword),
                       controller: isProvider == true
                           ? value.passwordController
                           : value2.passwordController,
-                      hintText: language(context, appFonts.enterPassword),
+                      hintText: language(context, translations!.enterPassword),
                       focusNode: isProvider == true
                           ? value.passwordFocus
                           : value2.passwordFocus,
                       prefixIcon: eSvgAssets.lock)
                   .paddingSymmetric(horizontal: Insets.i20),
               const VSpace(Sizes.s10),
-              Text(language(context, appFonts.forgotPassword),
+              Text(language(context, translations!.forgotPassword),
                       style: appCss.dmDenseSemiBold14
                           .textColor(appColor(context).appTheme.primary))
                   .inkWell(onTap: onForget)
@@ -71,7 +71,7 @@ class LoginLayout extends StatelessWidget {
                   .paddingSymmetric(horizontal: Insets.i20),
               const VSpace(Sizes.s35),
               ButtonCommon(
-                      title: appFonts.loginNow,
+                      title: translations!.loginNow,
                       onTap: () => isProvider == true
                           ? value.login(context)
                           : value2.login(context))
@@ -79,13 +79,13 @@ class LoginLayout extends StatelessWidget {
               if (isProvider == true)
                 RichText(
                         text: TextSpan(
-                            text: language(context, appFonts.notMember),
+                            text: language(context, translations!.notMember),
                             style: appCss.dmDenseMedium14
                                 .textColor(appColor(context).appTheme.darkText),
                             children: [
                       TextSpan(
                           recognizer: recognizer,
-                          text: language(context, appFonts.signUp),
+                          text: language(context, translations!.signUp),
                           style: appCss.dmDenseMedium14
                               .textColor(appColor(context).appTheme.primary))
                     ]))

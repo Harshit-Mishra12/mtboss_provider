@@ -1,7 +1,6 @@
 import '../../../../config.dart';
 import '../../../../widgets/progress_bar_common.dart';
 
-
 class ProgressBarLayout extends StatelessWidget {
   final int? data;
   final int? index;
@@ -11,19 +10,9 @@ class ProgressBarLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Row(children: [
       Text(
-          "${ (index! == 0
-              ? 5
-              : index == 1
-              ? 4
-              : index == 2
-              ? 3
-              : index == 3
-              ? 4
-              : 1)
-              .toString()} ${language(context, appFonts.star)}",
+          "${(index! == 0 ? 5 : index == 1 ? 4 : index == 2 ? 3 : index == 3 ? 4 : 1).toString()} ${language(context, translations!.star)}",
           style: appCss.dmDenseMedium13
               .textColor(appColor(context).appTheme.darkText)),
       Expanded(

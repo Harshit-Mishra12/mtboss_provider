@@ -15,28 +15,29 @@ class AddPackageBodyWidget extends StatelessWidget {
             const FieldsBackground(),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               ContainerWithTextLayout(
-                  title: language(context, appFonts.packageName)),
+                  title: language(context, translations!.packageName)),
               const VSpace(Sizes.s8),
               TextFieldCommon(
                       focusNode: value.packageFocus,
                       controller: value.packageCtrl,
                       validator: (value) => validation.dynamicTextValidation(
-                          context, value, appFonts.enterPackageName),
-                      hintText: language(context, appFonts.enterPackageName),
+                          context, value, translations!.enterPackageName),
+                      hintText:
+                          language(context, translations!.enterPackageName),
                       prefixIcon: eSvgAssets.packageName)
                   .padding(horizontal: Insets.i20, bottom: Insets.i15),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Row(children: [
                   const SmallContainer(),
                   const HSpace(Sizes.s20),
-                  Text(language(context, appFonts.selectServiceOnly),
+                  Text(language(context, translations!.selectServiceOnly),
                           //overflow: TextOverflow.ellipsis,
                           style: appCss.dmDenseSemiBold14
                               .textColor(appColor(context).appTheme.darkText))
                       .width(Sizes.s120)
                 ]),
                 if (selectVal.selectServiceList.isNotEmpty)
-                  Text(language(context, appFonts.editService),
+                  Text(language(context, translations!.editService),
                           textAlign:
                               rtl(context) ? TextAlign.end : TextAlign.start,
                           overflow: TextOverflow.ellipsis,
@@ -64,7 +65,7 @@ class AddPackageBodyWidget extends StatelessWidget {
                               left: rtl(context) ? 0 : Insets.i20,
                               right: rtl(context) ? Insets.i20 : 0))
                   : AddNewBoxLayout(
-                          title: appFonts.addNew,
+                          title: translations!.addNew,
                           onAdd: () =>
                               route.pushNamed(context, routeName.selectService))
                       .paddingSymmetric(horizontal: Insets.i20),
@@ -74,8 +75,8 @@ class AddPackageBodyWidget extends StatelessWidget {
           ]),
           ButtonCommon(
                   title: value.isEdit
-                      ? appFonts.updatePackage
-                      : appFonts.addPackage,
+                      ? translations!.updatePackage
+                      : translations!.addPackage,
                   onTap: () => value.addData(context))
               .paddingOnly(top: Insets.i40, bottom: Insets.i30)
         ]).paddingSymmetric(horizontal: Insets.i20),

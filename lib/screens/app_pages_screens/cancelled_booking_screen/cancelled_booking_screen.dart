@@ -20,7 +20,7 @@ class CancelledBookingScreen extends StatelessWidget {
                 ? const BookingDetailShimmer()
                 : Scaffold(
                     appBar: AppBarCommon(
-                      title: appFonts.cancelledBookings,
+                      title: translations!.cancelledBookings,
                       onTap: () => value.onBack(context, true),
                     ),
                     body: RefreshIndicator(
@@ -38,7 +38,9 @@ class CancelledBookingScreen extends StatelessWidget {
                                     data: value.bookingModel,
                                     onTapStatus: () => showBookingStatus(
                                         context, value.bookingModel)),
-                                Text(language(context, appFonts.billSummary),
+                                Text(
+                                        language(
+                                            context, translations!.billSummary),
                                         style: appCss.dmDenseMedium14.textColor(
                                             appColor(context)
                                                 .appTheme
@@ -56,10 +58,10 @@ class CancelledBookingScreen extends StatelessWidget {
                           Material(
                               elevation: 20,
                               child: AssignStatusLayout(
-                                  status: appFonts.reason,
+                                  status: translations!.reason,
                                   title: isFreelancer
-                                      ? appFonts.youChangedTimeSlot
-                                      : appFonts.servicemenIsNotAvailable))
+                                      ? translations!.youChangedTimeSlot
+                                      : translations!.servicemenIsNotAvailable))
                         ],
                       ),
                     ))),

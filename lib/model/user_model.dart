@@ -37,38 +37,41 @@ class UserModel {
 
   UserModel(
       {this.id,
-        this.name,
-        this.email,
-        this.served,
-        this.phone,
-        this.code,
-        this.providerId,
-        this.status,
-        this.isFeatured,
-        this.isVerified,
-        this.type,
-        this.emailVerifiedAt,
-        this.fcmToken,
-        this.experienceInterval,
-        this.experienceDuration,
-        this.description,
-        this.createdBy,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.companyId,
-        this.role,
-        this.primaryAddress,
-        this.company,
-        this.media,
-        this.wallet,
-        this.providerWallet,
-        this.knownLanguages,
-        this.expertise,this.activeSubscription,this.zones,this.subscriptionReminderNote});
-
+      this.name,
+      this.email,
+      this.served,
+      this.phone,
+      this.code,
+      this.providerId,
+      this.status,
+      this.isFeatured,
+      this.isVerified,
+      this.type,
+      this.emailVerifiedAt,
+      this.fcmToken,
+      this.experienceInterval,
+      this.experienceDuration,
+      this.description,
+      this.createdBy,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.companyId,
+      this.role,
+      this.primaryAddress,
+      this.company,
+      this.media,
+      this.wallet,
+      this.providerWallet,
+      this.knownLanguages,
+      this.expertise,
+      this.activeSubscription,
+      this.zones,
+      this.subscriptionReminderNote});
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = int.tryParse(json['id'].toString()) ?? 0;
+
     name = json['name'];
     email = json['email'];
     served = json['served']?.toString();

@@ -39,6 +39,8 @@ class CommonApiProvider extends ChangeNotifier {
 
           final userApi =
               Provider.of<UserDataApiProvider>(context, listen: false);
+          final languages =
+              Provider.of<LanguageProvider>(context, listen: false);
           userApi.getWalletList(context);
           userApi.getServicemanWalletList(context);
           userApi.statisticDetailChart();
@@ -47,7 +49,7 @@ class CommonApiProvider extends ChangeNotifier {
           userApi.getMyReview();
           log("PROVIDER :$provider");
           appArray.companyDetailList.asMap().entries.forEach((element) {
-            if (element.value['title'] == appFonts.phone) {
+            if (element.value['title'] == translations!.phone) {
               element.value['subtitle'] = userModel!.company != null
                   ? "${userModel!.company!.code!} ${userModel!.company!.phone!}"
                   : "${userModel!.code!} ${userModel!.phone!}";
@@ -60,16 +62,16 @@ class CommonApiProvider extends ChangeNotifier {
                         ? "${userModel!.primaryAddress!.address} ${userModel!.primaryAddress!.area}, ${userModel!.primaryAddress!.state!.name} - ${userModel!.primaryAddress!.postalCode}, ${userModel!.primaryAddress!.country!.name}"
                         : "";
               }
-            } else if (element.value['title'] == appFonts.experience) {
+            } else if (element.value['title'] == translations!.experience) {
               debugPrint(
                   "userModel!.company :${userModel!.experienceDuration}");
               element.value['subtitle'] = userModel!.experienceDuration !=
                           null &&
                       userModel!.experienceInterval != null
-                  ? "${userModel!.experienceDuration ?? "0"} ${userModel!.experienceInterval != null ? capitalizeFirstLetter(userModel!.experienceInterval) : "Years"} ${appFonts.of} ${language(context, appFonts.experience).toLowerCase()}"
-                  : "0 ${language(context, appFonts.experience).toLowerCase()}";
+                  ? "${userModel!.experienceDuration ?? "0"} ${userModel!.experienceInterval != null ? capitalizeFirstLetter(userModel!.experienceInterval) : "Years"} ${translations!.of} ${language(context, translations!.experience).toLowerCase()}"
+                  : "0 ${language(context, translations!.experience).toLowerCase()}";
             } else if (element.value['title'] ==
-                appFonts.noOfCompletedService) {
+                translations!.noOfCompletedService) {
               element.value['subtitle'] = userModel!.served ?? "0";
             }
           });
@@ -144,7 +146,8 @@ class CommonApiProvider extends ChangeNotifier {
         if (value.isSuccess!) {
           List planList = value.data;
           subscriptionList = [];
-          log("getSubscriptionPlanList :${planList.length}");
+          log("getSubscriptionPlanList :${planList.first}");
+          Provider.of<LanguageProvider>(context, listen: true);
           for (var data in planList) {
             notifyListeners();
             SubscriptionModel subscriptionModel =
@@ -178,7 +181,7 @@ class CommonApiProvider extends ChangeNotifier {
         }
       });
     } catch (e) {
-      log("EEEE getSubscriptionPlanList :$e" );
+      log("EEEE getSubscriptionPlanList :$e");
       notifyListeners();
     }
   }
@@ -386,7 +389,7 @@ class CommonApiProvider extends ChangeNotifier {
                   .replaceAll("_", "") ==
               "cancelled");
       if (cancelIndex >= 0) {
-        appFonts.cancel = bookingStatusList[cancelIndex].slug!;
+        translations!.cancel = bookingStatusList[cancelIndex].slug!;
       }
       int acceptedIndex = bookingStatusList.indexWhere((element) =>
           element.slug!
@@ -402,7 +405,7 @@ class CommonApiProvider extends ChangeNotifier {
                   .replaceAll("_", "") ==
               "accept");
       if (acceptedIndex >= 0) {
-        appFonts.accepted = bookingStatusList[acceptedIndex].slug!;
+        translations!.accepted = bookingStatusList[acceptedIndex].slug!;
       }
 
       int assignedIndex = bookingStatusList.indexWhere((element) =>
@@ -419,7 +422,7 @@ class CommonApiProvider extends ChangeNotifier {
                   .replaceAll("_", "") ==
               "assigned");
       if (assignedIndex >= 0) {
-        appFonts.assigned = bookingStatusList[assignedIndex].slug!;
+        translations!.assigned = bookingStatusList[assignedIndex].slug!;
       }
 
       int onTheWayIndex = bookingStatusList.indexWhere((element) =>
@@ -491,7 +494,7 @@ class CommonApiProvider extends ChangeNotifier {
                   .replaceAll("_", "") ==
               "complete");
       if (completedIndex >= 0) {
-        appFonts.completed = bookingStatusList[completedIndex].slug!;
+        translations!.completed = bookingStatusList[completedIndex].slug!;
       }
     } catch (e) {
       notifyListeners();

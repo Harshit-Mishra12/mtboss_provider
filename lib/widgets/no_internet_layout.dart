@@ -31,8 +31,7 @@ class _NoInternetLayoutState extends State<NoInternetLayout> {
   @override
   Widget build(BuildContext context) {
     connectivity.onConnectivityChanged
-        .listen(( List<ConnectivityResult> result) async {
-
+        .listen((List<ConnectivityResult> result) async {
       if (result.contains(ConnectivityResult.none)) {
         isInternet = false;
         setState(() {});
@@ -59,9 +58,9 @@ class _NoInternetLayoutState extends State<NoInternetLayout> {
             return Scaffold(
               body: EmptyLayout(
                   isButton: false,
-                  title: appFonts.oopsYour,
-                  subtitle: appFonts.clickTheRefresh,
-                  buttonText: appFonts.refresh,
+                  title: translations!.oopsYour,
+                  subtitle: translations!.clickTheRefresh,
+                  buttonText: translations!.refresh,
                   widget: Stack(children: [
                     Image.asset(
                         isFreelancer

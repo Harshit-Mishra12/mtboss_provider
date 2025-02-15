@@ -1,7 +1,7 @@
 import '../config.dart';
 
 class AppFonts {
-  final fixit = "Mtboss";
+  final fixit = "fixit";
   final login = "login";
 
   final email = "email";
@@ -553,8 +553,6 @@ class AppFonts {
   final youHaveNotSearch = "youHaveNotSearch";
   final startSearching = "startSearching";
   final addSelectLocation = "addSelectLocation";
-  final selectLocationFirst = "Select location first...";
-  final areYouSure = "Are you sure want to Logout ?";
 
   final pleaseEnterDesc = "pleaseEnterDesc";
   final addCompanyLogo = "addCompanyLogo";
@@ -664,32 +662,50 @@ class AppFonts {
   final maintenanceMode = "maintenanceMode";
   final subBookingId = "subBookingId";
 
+  final selectLocationFirst = "Select location first...";
+  final areYouSure = "Are you sure want to Logout ?";
+  final acCleaning = "Ac cleaning";
+  final painting = "Painting";
+  final january = "January";
+  final february = "February";
+  final march = "March";
+  final april = "April";
+  final may = "May";
+  final june = "June";
+  final july = "July";
+  final august = "August";
+  final september = "September";
+  final october = "October";
+  final november = "November";
+  final december = "December";
+  final minutes = "Minutes";
+
   String experienceVal(context, count, interval) =>
-      "$count $interval ${appFonts.of} ${language(context, appFonts.experience).toLowerCase()}";
+      "$count $interval ${translations!.of} ${language(context, translations!.experience).toLowerCase()}";
 
   String addUpToService(context, count) =>
-      "${language(context, youCanAdd)} $count ${language(context, appFonts.service)}. ${language(context, appFonts.toAddMore)} ${language(context, appFonts.service)} ${language(context, appFonts.pleasePurchase)}";
+      "${language(context, youCanAdd)} $count ${language(context, translations!.service)}. ${language(context, translations!.toAddMore)} ${language(context, translations!.service)} ${language(context, translations!.pleasePurchase)}";
 
   String addUpToServicePackage(context, count) =>
-      "${language(context, youCanAdd)} $count ${language(context, appFonts.servicePackage)}. ${language(context, appFonts.toAddMore)} ${language(context, appFonts.servicePackage)} ${language(context, appFonts.pleasePurchase)}";
+      "${language(context, youCanAdd)} $count ${language(context, translations!.servicePackage)}. ${language(context, translations!.toAddMore)} ${language(context, translations!.servicePackage)} ${language(context, translations!.pleasePurchase)}";
 
   String addUpToServiceman(context, count) =>
-      "${language(context, youCanAdd)} $count ${language(context, appFonts.serviceman)}. ${language(context, appFonts.toAddMore)} ${language(context, appFonts.serviceman)} ${language(context, appFonts.pleasePurchase)}";
+      "${language(context, youCanAdd)} $count ${language(context, translations!.serviceman)}. ${language(context, translations!.toAddMore)} ${language(context, translations!.serviceman)} ${language(context, translations!.pleasePurchase)}";
 
   String addUpToLocation(context, count) =>
-      "${language(context, youCanAdd)} $count ${language(context, appFonts.location)}. ${language(context, appFonts.toAddMore)} ${language(context, appFonts.location)} ${language(context, appFonts.pleasePurchase)}";
+      "${language(context, youCanAdd)} $count ${language(context, translations!.location)}. ${language(context, translations!.toAddMore)} ${language(context, translations!.location)} ${language(context, translations!.pleasePurchase)}";
 
   String addUpToServicePlan(context, count) =>
-      "${language(context, addUpTo)} $count ${language(context, appFonts.service)}";
+      "${language(context, addUpTo)} $count ${language(context, translations!.service)}";
 
   String addUpToServicePackagePlan(context, count) =>
-      "${language(context, addUpTo)} $count ${language(context, appFonts.servicePackage)}";
+      "${language(context, addUpTo)} $count ${language(context, translations!.servicePackage)}";
 
   String addUpToServicemanPlan(context, count) =>
-      "${language(context, addUpTo)} $count ${language(context, appFonts.serviceman)}";
+      "${language(context, addUpTo)} $count ${language(context, translations!.serviceman)}";
 
   String addUpToLocationPlan(context, count) =>
-      "${language(context, addUpTo)} $count ${language(context, appFonts.location)}";
+      "${language(context, addUpTo)} $count ${language(context, translations!.location)}";
 }
 
 class CollectionName {

@@ -41,7 +41,6 @@ class ChangePasswordProvider extends ChangeNotifier {
     }
   }
 
-
   //reset password api
   resetPassword(context) async {
     showLoading(context);
@@ -54,7 +53,9 @@ class ChangePasswordProvider extends ChangeNotifier {
     };
 
     try {
-      await apiServices.putApi(api.updatePassword, body,isToken: true).then((value) {
+      await apiServices
+          .putApi(api.updatePassword, body, isToken: true)
+          .then((value) {
         hideLoading(context);
         notifyListeners();
         if (value.isSuccess!) {
@@ -63,32 +64,33 @@ class ChangePasswordProvider extends ChangeNotifier {
             context: context,
             builder: (context1) {
               return AlertDialogCommon(
-                title: appFonts.successfullyChanged,
+                title: translations!.successfullyChanged,
                 height: Sizes.s140,
                 image: eGifAssets.successGif,
-                subtext: language(context, appFonts.thankYou),
-                bText1: language(context, appFonts.loginAgain),
-                b1OnTap: ()async {
-                  SharedPreferences pref = await SharedPreferences.getInstance();
+                subtext: language(context, translations!.thankYou),
+                bText1: language(context, translations!.loginAgain),
+                b1OnTap: () async {
+                  SharedPreferences pref =
+                      await SharedPreferences.getInstance();
 
                   txtNewPassword.text = "";
                   txtOldPassword.text = "";
                   txtConfirmPassword.text = "";
 
-                  userModel =null;
+                  userModel = null;
                   servicemanList = [];
 
                   notifyListeners();
                   pref.remove(session.user);
                   pref.remove(session.accessToken);
                   notifyListeners();
-                  route.pushNamedAndRemoveUntil(context, routeName.loginServiceman);
+                  route.pushNamedAndRemoveUntil(
+                      context, routeName.loginServiceman);
                 },
               );
             },
           );
         } else {
-
           snackBarMessengers(context,
               message: value.message, color: appColor(context).appTheme.red);
         }

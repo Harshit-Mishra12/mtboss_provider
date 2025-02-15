@@ -4,13 +4,13 @@ import 'package:fixit_provider/common/languages/ar.dart';
 import '../../config.dart';
 
 class PaymentProvider with ChangeNotifier {
-  int? selectIndex;ScrollController scrollController = ScrollController();
+  int? selectIndex;
+  ScrollController scrollController = ScrollController();
   List<PaymentMethods> paymentList = [];
   SharedPreferences? preferences;
   dynamic method;
   double wallet = 0.0;
-  bool isBottom = true,isTrial=false;
-
+  bool isBottom = true, isTrial = false;
 
 //select payment method option
   onSelectPaymentMethod(index, title) {
@@ -19,10 +19,11 @@ class PaymentProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  onReady(context){
-    dynamic arg = ModalRoute.of(context)!.settings.arguments ??false;
+  onReady(context) {
+    dynamic arg = ModalRoute.of(context)!.settings.arguments ?? false;
     isTrial = arg;
-    paymentList = paymentMethods.where((element) => element.slug != "cash").toList();
+    paymentList =
+        paymentMethods.where((element) => element.slug != "cash").toList();
     scrollController.addListener(listen);
     notifyListeners();
   }
@@ -57,7 +58,6 @@ class PaymentProvider with ChangeNotifier {
 
   //subscription plan
   subscriptionPlan(context) async {
-
     try {
       showLoading(context);
       notifyListeners();
@@ -65,8 +65,8 @@ class PaymentProvider with ChangeNotifier {
         "plan_id": userSubscribe!.id,
         "payment_method": method,
         "type": "subscription",
-        "included_free_trial":isTrial,
-        "currency_code":currency(context).currency!.code,
+        "included_free_trial": isTrial,
+        "currency_code": currency(context).currency!.code,
       };
       log("BODY :$body");
 
@@ -84,13 +84,12 @@ class PaymentProvider with ChangeNotifier {
               .then((e) async {
             if (e != null) {
               if (e['isVerify'] == true) {
-                getVerifyPayment(value.data['item_id'],context);
+                getVerifyPayment(value.data['item_id'], context);
                 route.pop(context);
                 route.pop(context);
                 final commonApi =
                     Provider.of<CommonApiProvider>(context, listen: false);
                 await commonApi.selfApi(context);
-
               }
             }
           });
@@ -111,32 +110,32 @@ class PaymentProvider with ChangeNotifier {
   //verify payment
   getVerifyPayment(data, context) async {
     try {
-
       await apiServices
-          .getApi("${api.verifyPayment}?item_id=$data&type=subscription",
-          {},
+          .getApi("${api.verifyPayment}?item_id=$data&type=subscription", {},
               isToken: true, isData: true)
           .then((value) {
         if (value.isSuccess!) {
           if (value.data["payment_status"].toString().toLowerCase() ==
               "pending") {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                duration: Duration(milliseconds: 500),
-              content: Text(language(context, appFonts.yourPaymentIsDeclined)),
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              duration: Duration(milliseconds: 500),
+              content:
+                  Text(language(context, translations!.yourPaymentIsDeclined)),
               backgroundColor: appColor(context).appTheme.red,
             ));
           } else {
             showDialog(
                 context: context,
                 builder: (context) => AlertDialogCommon(
-                    title: appFonts.updateSuccessfully,
+                    title: translations!.updateSuccessfully,
                     height: Sizes.s140,
                     image: eGifAssets.successGif,
-                    subtext: language(context, appFonts.successfullyComplete),
-                    bText1: language(context, appFonts.okay),
+                    subtext:
+                        language(context, translations!.successfullyComplete),
+                    bText1: language(context, translations!.okay),
                     b1OnTap: () => route.pop(context)));
-           /* ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(language(context, appFonts.successfullyComplete)),
+            /* ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(language(context, translations!.successfullyComplete)),
               backgroundColor: appColor(context).appTheme.green,
             ));*/
           }

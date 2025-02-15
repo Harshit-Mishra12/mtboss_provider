@@ -7,17 +7,16 @@ class IdVerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<IdVerificationProvider>(builder: (context1, value, child) {
-
+    return Consumer2<LanguageProvider,IdVerificationProvider>(builder: (context1, lang,value, child) {
       return LoadingComponent(
         child: Scaffold(
-            appBar: AppBarCommon(title: appFonts.idVerification),
+            appBar: AppBarCommon(title: translations!.idVerification),
             body: SingleChildScrollView(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                   if (providerDocumentList.isNotEmpty)
-                    Text(language(context, appFonts.submittedDocument),
+                    Text(language(context, translations!.submittedDocument),
                         style: appCss.dmDenseMedium14
                             .textColor(appColor(context).appTheme.lightText)),
                   if (providerDocumentList.isNotEmpty) const VSpace(Sizes.s15),
@@ -28,10 +27,9 @@ class IdVerificationScreen extends StatelessWidget {
                             data: e.value,
                             list: appArray.documentsList,
                             index: e.key,
-                          ))
-                      ,
+                          )),
                   const VSpace(Sizes.s20),
-                  Text(language(context, appFonts.pendingDocument),
+                  Text(language(context, translations!.pendingDocument),
                       style: appCss.dmDenseMedium14
                           .textColor(appColor(context).appTheme.lightText)),
                   const VSpace(Sizes.s15),

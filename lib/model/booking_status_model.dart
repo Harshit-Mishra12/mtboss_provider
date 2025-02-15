@@ -1,4 +1,3 @@
-
 class BookingStatusModel {
   int? id;
   String? name;
@@ -15,20 +14,19 @@ class BookingStatusModel {
 
   BookingStatusModel(
       {this.id,
-        this.name,
-        this.hexaCode,
-        this.slug,
-        this.sequence,
-        this.description,
-        this.createdById,
-
-        this.status,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt});
+      this.name,
+      this.hexaCode,
+      this.slug,
+      this.sequence,
+      this.description,
+      this.createdById,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt});
 
   BookingStatusModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = int.tryParse(json['id'].toString()) ?? 0;
     name = json['name'];
     hexaCode = json['hexa_code'];
     slug = json['slug'];

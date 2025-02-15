@@ -22,7 +22,7 @@ class OngoingBookingScreen extends StatelessWidget {
                   ? const BookingDetailShimmer()
                   : Scaffold(
                       appBar: AppBarCommon(
-                        title: appFonts.ongoingBooking,
+                        title: translations!.ongoingBooking,
                         onTap: () => value.onBack(context, true),
                       ),
                       body: RefreshIndicator(
@@ -43,7 +43,9 @@ class OngoingBookingScreen extends StatelessWidget {
                                   if (value.amount != null)
                                     ServicemenPayableLayout(
                                         amount: value.amount),
-                                  Text(language(context, appFonts.billSummary),
+                                  Text(
+                                          language(context,
+                                              translations!.billSummary),
                                           style: appCss.dmDenseMedium14
                                               .textColor(appColor(context)
                                                   .appTheme
@@ -65,8 +67,10 @@ class OngoingBookingScreen extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                              language(context,
-                                                  appFonts.addServiceDetails),
+                                              language(
+                                                  context,
+                                                  translations!
+                                                      .addServiceDetails),
                                               style: appCss.dmDenseMedium14
                                                   .textColor(appColor(context)
                                                       .appTheme
@@ -94,14 +98,15 @@ class OngoingBookingScreen extends StatelessWidget {
                                           userModel!.id.toString())
                                       .isEmpty)
                                   ? AssignStatusLayout(
-                                      status: appFonts.status,
-                                      title: appFonts.serviceInProgress,
+                                      status: translations!.status,
+                                      title: translations!.serviceInProgress,
                                       isGreen: true)
                                   : value.bookingModel!.bookingStatus!.slug !=
                                           appFonts.onGoing
                                       ? AssignStatusLayout(
-                                          status: appFonts.status,
-                                          title: appFonts.serviceNotStarted,
+                                          status: translations!.status,
+                                          title:
+                                              translations!.serviceNotStarted,
                                           isGreen: true)
                                       : Row(children: [
                                           Expanded(
@@ -111,14 +116,15 @@ class OngoingBookingScreen extends StatelessWidget {
                                                           context,
                                                           value.bookingModel!
                                                               .id),
-                                                  title: appFonts.complete,
+                                                  title: translations!.complete,
                                                   color: appColor(context)
                                                       .appTheme
                                                       .green)),
                                           const HSpace(Sizes.s15),
                                           Expanded(
                                               child: ButtonCommon(
-                                                  title: appFonts.addCharges,
+                                                  title:
+                                                      translations!.addCharges,
                                                   onTap: () => value
                                                       .addCharges(context)))
                                         ]).paddingAll(Insets.i20).decorated(

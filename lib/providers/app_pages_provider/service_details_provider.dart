@@ -113,7 +113,7 @@ class ServiceDetailsProvider with ChangeNotifier {
         }
         if (services!.media != null && services!.media!.isNotEmpty) {
           selectedImage = services!.media![0].originalUrl!;
-          log("services!.media::${services!.media}");
+          log("services!.media::${services!.media![0].originalUrl}");
         }
         notifyListeners();
       });
@@ -124,11 +124,16 @@ class ServiceDetailsProvider with ChangeNotifier {
     }
   }
 
+/*[log] BODY :{type: fixed, title: ar title, thumbnail: Instance of 'MultipartFile', provider_id: 3, price: 80, discount: 0, tax_id: 1, duration: 1, duration_unit
+: ساعة, description: njj hello ar, required_servicemen: 2, is_featured: 1, per_serviceman_commission: 2,
+ destination_location: {lat: 21.1983277, lng: 72.7961031, area: Adajan, address: Adajan, 324, state_id: 12,
+ country_id: 356, postal_code: 395009, city: Surat}, faqs: [], isMultipleServiceman: 0, status: 0, category_id[0]: 8, category_id[1]: 7}
+*/
   // delete service confirmation
   onServiceDelete(context, sync) {
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
     value.onDeleteDialog(sync, context, eImageAssets.service,
-        appFonts.deleteService, appFonts.areYouSureDeleteService, () {
+        translations!.deleteService, translations!.areYouSureDeleteService, () {
       route.pop(context);
       deleteService(context);
 
@@ -158,8 +163,8 @@ class ServiceDetailsProvider with ChangeNotifier {
 
           delete.onResetPass(
               context,
-              language(context, appFonts.hurrayServiceDelete),
-              language(context, appFonts.okay), () {
+              language(context, translations!.hurrayServiceDelete),
+              language(context, translations!.okay), () {
             route.pop(context);
             route.pop(context);
           });
@@ -191,8 +196,8 @@ class ServiceDetailsProvider with ChangeNotifier {
   onTapDetailLocationDelete(id, context, sync, index) {
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
 
-    value.onDeleteDialog(sync, context, eImageAssets.location, appFonts.delete,
-        appFonts.areYiuSureDeleteLocation, () {
+    value.onDeleteDialog(sync, context, eImageAssets.location,
+        translations!.delete, translations!.areYiuSureDeleteLocation, () {
       route.pop(context);
       services!.serviceAvailabilities!.removeAt(index);
       deleteAvailabilityService(context, id);

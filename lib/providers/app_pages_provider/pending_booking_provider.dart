@@ -66,8 +66,8 @@ class PendingBookingProvider with ChangeNotifier {
             validator: (value) => validation.commonValidation(context, value),
             focusNode: reasonFocus,
             controller: reasonCtrl,
-            title: appFonts.reasonOfRejectBooking,
-            singleText: appFonts.send,
+            title: translations!.reasonOfRejectBooking,
+            singleText: translations!.send,
             globalKey: formKey,
             singleTap: () {
               if (formKey.currentState!.validate()) {
@@ -87,9 +87,12 @@ class PendingBookingProvider with ChangeNotifier {
       notifyListeners();
       dynamic data;
       if (isCancel) {
-        data = {"reason": reasonCtrl.text, "booking_status": appFonts.cancel};
+        data = {
+          "reason": reasonCtrl.text,
+          "booking_status": translations!.cancel
+        };
       } else {
-        data = {"booking_status": appFonts.accepted};
+        data = {"booking_status": translations!.accepted};
       }
 
       log("DATA :$data");
@@ -119,11 +122,11 @@ class PendingBookingProvider with ChangeNotifier {
                 context: context,
                 builder: (context1) => AppAlertDialogCommon(
                     height: Sizes.s100,
-                    title: appFonts.assignBooking,
-                    firstBText: appFonts.doItLater,
-                    secondBText: appFonts.yes,
+                    title: translations!.assignBooking,
+                    firstBText: translations!.doItLater,
+                    secondBText: translations!.yes,
                     image: eGifAssets.dateGif,
-                    subtext: appFonts.doYouWant,
+                    subtext: translations!.doYouWant,
                     firstBTap: () => route.pop(context),
                     secondBTap: () {
                       BookingModel booking = bookingModel!;
