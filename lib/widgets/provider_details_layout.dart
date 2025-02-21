@@ -1,19 +1,20 @@
 import '../../../../config.dart';
 
 class ProviderDetailLayout extends StatelessWidget {
-  final String? name,image,rate,star;
+  final String? name, image, rate, star;
   final GestureTapCallback? onTapMore;
-  const ProviderDetailLayout({super.key,this.image,this.rate,this.name,this.star, this.onTapMore});
+  const ProviderDetailLayout(
+      {super.key, this.image, this.rate, this.name, this.star, this.onTapMore});
 
   @override
   Widget build(BuildContext context) {
-    return  Column(children: [
+    return Column(children: [
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(language(context, appFonts.providerDetails),
+        Text(language(context, translations!.providerDetails),
             style: appCss.dmDenseMedium12
                 .textColor(appColor(context).appTheme.lightText)),
         Row(children: [
-          Text(language(context, appFonts.view),
+          Text(language(context, translations!.view),
               style: appCss.dmDenseMedium12
                   .textColor(appColor(context).appTheme.primary)),
           const HSpace(Sizes.s4),
@@ -32,8 +33,7 @@ class ProviderDetailLayout extends StatelessWidget {
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    fit: BoxFit.cover,
-                      image: AssetImage(image!)))),
+                      fit: BoxFit.cover, image: AssetImage(image!)))),
           const HSpace(Sizes.s12),
           Text(name!,
               style: appCss.dmDenseMedium14
@@ -47,6 +47,7 @@ class ProviderDetailLayout extends StatelessWidget {
                   .textColor(appColor(context).appTheme.darkText))
         ])
       ]).paddingSymmetric(horizontal: Insets.i15)
-    ]).paddingSymmetric(vertical: Insets.i15).boxShapeExtension(color: appColor(context).appTheme.fieldCardBg,radius: AppRadius.r10);
+    ]).paddingSymmetric(vertical: Insets.i15).boxShapeExtension(
+        color: appColor(context).appTheme.fieldCardBg, radius: AppRadius.r10);
   }
 }

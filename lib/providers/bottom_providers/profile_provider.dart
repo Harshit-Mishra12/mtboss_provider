@@ -12,6 +12,7 @@ class ProfileProvider with ChangeNotifier {
   //on page init data fetch
   onReady(context) async {
     preferences = await SharedPreferences.getInstance();
+
     profileLists = isServiceman
         ? appArray.profileListAsServiceman
             .map((e) => ProfileModel.fromJson(e))
@@ -99,33 +100,33 @@ class ProfileProvider with ChangeNotifier {
 
   //profile list setting tap layout
   onTapOption(data, context, sync) {
-    if (data.title == appFonts.companyDetails) {
+    if (data.title == translations!.companyDetails) {
       route.pushNamed(context, routeName.companyDetails);
-    } else if (data.title == appFonts.bankDetails) {
+    } else if (data.title == translations!.bankDetails) {
       route.pushNamed(context, routeName.bankDetails);
-    } else if (data.title == appFonts.idVerification) {
+    } else if (data.title == translations!.idVerification) {
       route.pushNamed(context, routeName.idVerification);
-    } else if (data.title == appFonts.timeSlots) {
+    } else if (data.title == translations!.timeSlots) {
       route.pushNamed(context, routeName.timeSlot);
-    } else if (data.title == appFonts.myPackages) {
+    } else if (data.title == translations!.myPackages) {
       route.pushNamed(context, routeName.packagesList);
-    } else if (data.title == appFonts.commissionDetails) {
+    } else if (data.title == translations!.commissionDetails) {
       route.pushNamed(context, routeName.commissionHistory);
-    } else if (data.title == appFonts.myReview) {
+    } else if (data.title == translations!.myReview) {
       route.pushNamed(context, routeName.serviceReview,
           arg: {"isSetting": true});
-    } else if (data.title == appFonts.subscriptionPlan) {
+    } else if (data.title == translations!.subscriptionPlan) {
       route.pushNamed(context, routeName.planDetails);
-    } else if (data.title == appFonts.deleteAccount) {
+    } else if (data.title == translations!.deleteAccount) {
       onDeleteAccount(context, sync);
       notifyListeners();
-    } else if (data.title == appFonts.logOut) {
+    } else if (data.title == translations!.logOut) {
       onLogout(context);
-    } else if (data.title == appFonts.serviceLocation) {
+    } else if (data.title == translations!.serviceLocation) {
       route.pushNamed(context, routeName.companyDetails);
-    } else if (data.title == appFonts.serviceman) {
+    } else if (data.title == translations!.serviceman) {
       route.pushNamed(context, routeName.servicemanList);
-    } else if (data.title == appFonts.services) {
+    } else if (data.title == translations!.services) {
       route.pushNamed(context, routeName.serviceList);
     }
   }

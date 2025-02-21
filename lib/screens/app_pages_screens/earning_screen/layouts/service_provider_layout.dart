@@ -58,10 +58,12 @@ class ServiceProviderLayout extends StatelessWidget {
           subtitle: Text(language(context, name!),
               style: appCss.dmDenseMedium14
                   .textColor(appColor(context).appTheme.darkText)),
-          trailing:
-              language(context, title!) == language(context, appFonts.customer)
+          trailing: language(context, title!) ==
+                  language(context, translations!.customer)
+              ? null
+              : rate == null
                   ? null
-                  : rate == null ?null : Row(mainAxisSize: MainAxisSize.min, children: [
+                  : Row(mainAxisSize: MainAxisSize.min, children: [
                       SvgPicture.asset(eSvgAssets.star),
                       const HSpace(Sizes.s4),
                       Text(rate!,

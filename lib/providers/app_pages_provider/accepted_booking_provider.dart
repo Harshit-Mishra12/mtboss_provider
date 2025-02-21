@@ -44,11 +44,11 @@ class AcceptedBookingProvider with ChangeNotifier {
             context: context,
             builder: (context1) => AppAlertDialogCommon(
                 height: Sizes.s145,
-                title: appFonts.assignToMe,
-                firstBText: appFonts.cancel,
-                secondBText: appFonts.yes,
+                title: translations!.assignToMe,
+                firstBText: translations!.cancel,
+                secondBText: translations!.yes,
                 image: eImageAssets.assignMe,
-                subtext: appFonts.areYouSureYourself,
+                subtext: translations!.areYouSureYourself,
                 secondBTap: () {
                   assignServiceman(context, [userModel!.id]);
                 },
@@ -98,11 +98,11 @@ class AcceptedBookingProvider with ChangeNotifier {
           context: context,
           builder: (context1) => AppAlertDialogCommon(
               height: Sizes.s145,
-              title: appFonts.assignToMe,
-              firstBText: appFonts.cancel,
-              secondBText: appFonts.yes,
+              title: translations!.assignToMe,
+              firstBText: translations!.cancel,
+              secondBText: translations!.yes,
               image: eImageAssets.assignMe,
-              subtext: appFonts.areYouSureYourself,
+              subtext: translations!.areYouSureYourself,
               secondBTap: () {
                 assignServiceman(context, [userModel!.id]);
               },

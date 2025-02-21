@@ -30,7 +30,7 @@ class StatusRow extends StatelessWidget {
               .inkWell(onTap: onTap)
               .paddingSymmetric(horizontal: Insets.i6)
       ]),
-      title == appFonts.bookingStatus
+      title == translations!.bookingStatus
           ? BookingStatusLayout(
               title: capitalizeFirstLetter(statusText.toString()),
               color:

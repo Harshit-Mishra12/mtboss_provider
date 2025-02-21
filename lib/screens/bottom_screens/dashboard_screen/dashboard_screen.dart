@@ -52,61 +52,68 @@ class _DashboardScreenState extends State<DashboardScreen>
   Widget build(BuildContext context) {
     return Consumer2<DashboardProvider, ThemeService>(
         builder: (contextTheme, value, theme, child) {
+
       return PickupLayout(
-          scaffold: StatefulWrapper(
-              onInit: () => Future.delayed(
-                  const Duration(milliseconds: 150), () => value.onReady()),
-              child: PopScope(
-                  canPop: false,
-                  onPopInvoked: (didPop) {
-                    value.onBack(context);
-                  },
-                  child: Scaffold(
-                      floatingActionButton: isServiceman
-                          ? Container()
-                          : SizedBox(
-                                  height: Sizes.s50,
-                                  width: Sizes.s50,
-                                  child:
-                                      SvgPicture.asset(eSvgAssets.add, colorFilter: ColorFilter.mode(appColor(context).appTheme.whiteColor, BlendMode.srcIn))
-                                          .paddingAll(Insets.i10))
-                              .decorated(
-                                  color: appColor(context).appTheme.primary,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(AppRadius.r30)))
-                              .inkWell(onTap: () => value.onAdd(context)),
-                      floatingActionButtonLocation: isServiceman
-                          ? null
-                          : FloatingActionButtonLocation.centerDocked,
-                      extendBody: true,
-                      resizeToAvoidBottomInset: false,
-                      bottomNavigationBar: Container(
-                          height: 76,
-                          decoration: ShapeDecoration(
-                              shape: const SmoothRectangleBorder(
-                                  borderRadius: SmoothBorderRadius.only(
-                                      topLeft: SmoothRadius(cornerRadius: 18, cornerSmoothing: 1),
-                                      topRight: SmoothRadius(cornerRadius: 18, cornerSmoothing: 1))),
-                              shadows: [
-                                BoxShadow(
-                                    color: appColor(context)
-                                        .appTheme
-                                        .darkText
-                                        .withOpacity(0.10),
-                                    blurRadius: 4,
-                                    spreadRadius: 0)
-                              ]),
-                          child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                topRight: Radius.circular(16),
-                              ),
-                              child: BottomAppBar(elevation: 10, height: 76, shape: const CircularNotchedRectangle(), padding: EdgeInsets.zero, shadowColor: appColor(context).appTheme.darkText.withOpacity(0.5), notchMargin: 6, child: isServiceman ? const ServicemanBottomNav() : const ProviderBottomNav()))),
-                      body: Consumer<ThemeService>(builder: (context, theme, child) {
-                        return NoInternetLayout(
-                            child:
-                                Center(child: value.pages[value.selectIndex]));
-                      })))));
+        scaffold: StatefulWrapper(
+            onInit: () => Future.delayed(
+                const Duration(milliseconds: 150), () => value.onReady()),
+            child: PopScope(
+              canPop: false,
+              onPopInvoked: (didPop) {
+                value.onBack(context);
+              },
+              child: Scaffold(
+                  floatingActionButton: isServiceman
+                      ? Container()
+                      : SizedBox(height: Sizes.s50, width: Sizes.s50, child: SvgPicture.asset(eSvgAssets.add, colorFilter: ColorFilter.mode(appColor(context).appTheme.whiteColor, BlendMode.srcIn)).paddingAll(Insets.i10))
+                          .decorated(
+                              color: appColor(context).appTheme.primary,
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(AppRadius.r30)))
+                          .inkWell(onTap: () => value.onAdd(context)),
+                  floatingActionButtonLocation: isServiceman
+                      ? null
+                      : FloatingActionButtonLocation.centerDocked,
+                  extendBody: true,
+                  resizeToAvoidBottomInset: false,
+                  bottomNavigationBar: Container(
+                      height: 76,
+                      decoration: ShapeDecoration(
+                          shape: const SmoothRectangleBorder(
+                              borderRadius: SmoothBorderRadius.only(
+                                  topLeft: SmoothRadius(
+                                      cornerRadius: 18, cornerSmoothing: 1),
+                                  topRight: SmoothRadius(
+                                      cornerRadius: 18, cornerSmoothing: 1))),
+                          shadows: [
+                            BoxShadow(
+                                color: appColor(context)
+                                    .appTheme
+                                    .darkText
+                                    .withOpacity(0.10),
+                                blurRadius: 4,
+                                spreadRadius: 0)
+                          ]),
+                      child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16),
+                          ),
+                          child: BottomAppBar(
+                              elevation: 10,
+                              height: 76,
+                              shape: const CircularNotchedRectangle(),
+                              padding: EdgeInsets.zero,
+                              shadowColor:
+                                  appColor(context).appTheme.darkText.withOpacity(0.5),
+                              notchMargin: 6,
+                              child: isServiceman ? const ServicemanBottomNav() : const ProviderBottomNav()))),
+                  body: Consumer<ThemeService>(builder: (context, theme, child) {
+                    return NoInternetLayout(
+                        child: Center(child: value.pages[value.selectIndex]));
+                  })),
+            )),
+      );
     });
   }
 }

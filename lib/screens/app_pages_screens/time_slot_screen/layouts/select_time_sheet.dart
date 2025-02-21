@@ -24,7 +24,7 @@ class SelectTimeSheet extends StatelessWidget {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(language(context, appFonts.selectTime),
+                      Text(language(context, translations!.selectTime),
                           style: appCss.dmDenseblack18
                               .textColor(appColor(context).appTheme.darkText)),
                       const Icon(CupertinoIcons.multiply)
@@ -80,7 +80,7 @@ class SelectTimeSheet extends StatelessWidget {
                             }
                           })
                     ]).paddingSymmetric(horizontal: Insets.i20),
-                ButtonCommon(title: appFonts.addTime, onTap: onTap)
+                ButtonCommon(title: translations!.addTime, onTap: onTap)
                     .paddingSymmetric(horizontal: Insets.i20)
               ]))).bottomSheetExtension(context),
         );

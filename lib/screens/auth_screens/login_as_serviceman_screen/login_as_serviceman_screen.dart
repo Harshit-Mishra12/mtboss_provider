@@ -9,7 +9,7 @@ class LoginAsServicemanScreen extends StatelessWidget {
         builder: (loginContext, value, child) {
       return LoadingComponent(
           child: Scaffold(
-            key: value.servicemenKey,
+              key: value.servicemenKey,
               resizeToAvoidBottomInset: false,
               appBar: const AuthAppBarCommon(),
               body: SafeArea(
@@ -25,8 +25,8 @@ class LoginAsServicemanScreen extends StatelessWidget {
                               children: [
                                 const VSpace(Sizes.s35),
                                 Text(
-                                    language(
-                                            context, appFonts.loginAsServiceman)
+                                    language(context,
+                                            translations!.loginAsServiceman)
                                         .toUpperCase(),
                                     style: appCss.dmDenseBold20.textColor(
                                         appColor(context).appTheme.darkText)),
@@ -35,8 +35,9 @@ class LoginAsServicemanScreen extends StatelessWidget {
                               ]).alignment(Alignment.centerLeft))
                     ]),
                     ButtonCommon(
-                      onTap: ()=> route.popAndPushNamed(context, routeName.loginProvider),
-                            title: appFonts.loginAsProvider,
+                            onTap: () => route.popAndPushNamed(
+                                context, routeName.loginProvider),
+                            title: translations!.loginAsProvider,
                             borderColor: appColor(context).appTheme.primary,
                             color: appColor(context).appTheme.whiteBg,
                             style: appCss.dmDenseMedium16

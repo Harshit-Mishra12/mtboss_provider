@@ -31,38 +31,32 @@ class IntroProvider with ChangeNotifier {
             return Consumer<IntroProvider>(builder: (context, value, child) {
               return AlertDialogCommon(
                   isBooked: true,
-                  title: appFonts.selectOption,
+                  title: translations!.selectOption,
                   widget: Column(children: [
-                    Text(language(context, appFonts.toCreateAnew),
+                    Text(language(context, translations!.toCreateAnew),
                         style: appCss.dmDenseMedium13
                             .textColor(appColor(context).appTheme.lightText)),
                     const VSpace(Sizes.s15),
-                    Text(language(context, appFonts.iAmJoining),
+                    Text(language(context, translations!.iAmJoining),
                             style: appCss.dmDenseMedium14
                                 .textColor(appColor(context).appTheme.primary))
                         .alignment(Alignment.centerLeft),
                     const VSpace(Sizes.s35),
                     Row(
-                      mainAxisAlignment: appArray.joiningList.length > 1
-                          ? MainAxisAlignment
-                              .spaceBetween // Spread items if multiple exist
-                          : MainAxisAlignment.center, // Center if only one item
-                      children: appArray.joiningList
-                          .toList()
-                          .asMap()
-                          .entries
-                          .map((e) => JoiningLayout(
-                              data: e.value,
-                              index: e.key,
-                              selectedIndex: selectedIndex,
-                              onTap: () => onTapOption(e.key)))
-                          .toList(),
-                    )
-                        .paddingSymmetric(horizontal: Insets.i10)
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: appArray.joiningList
+                                .asMap()
+                                .entries
+                                .map((e) => JoiningLayout(
+                                    data: e.value,
+                                    index: e.key,
+                                    selectedIndex: selectedIndex,
+                                    onTap: () => onTapOption(e.key)))
+                                .toList())
                         .paddingSymmetric(horizontal: Insets.i10)
                   ]),
                   subtext: "",
-                  bText1: appFonts.continues,
+                  bText1: translations!.continues,
                   b1OnTap: () => onContinue(context));
             });
           });

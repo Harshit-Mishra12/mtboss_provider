@@ -98,6 +98,7 @@ class ImageAssets {
   final noImageFound3 = "assets/images/no_image_found3.png";
   final noImageFound4 = "assets/images/no_image_found4.png";
 
+
   final b1 = "assets/images/b1.png";
   final b2 = "assets/images/b2.png";
   final b3 = "assets/images/b3.png";
@@ -124,6 +125,8 @@ class ImageAssets {
   final grapghSkeleton = "assets/images/grapghSkeleton.png";
   final graphDark = "assets/images/graphDark.png";
 
+
+
 // Freelancer images
 
   final noListFree = "assets/images/noListFree.png";
@@ -135,4 +138,7 @@ class ImageAssets {
   final couponShimmer = "assets/images/coupon_shimmer.png";
   final maintenance = "assets/images/maintenance.png";
   final bottomSub = "assets/images/bottomSub.png";
+
+
+
 }

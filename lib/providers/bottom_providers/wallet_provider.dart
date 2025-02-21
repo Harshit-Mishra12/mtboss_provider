@@ -182,13 +182,15 @@ class WalletProvider with ChangeNotifier {
               "pending") {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               duration: Duration(milliseconds: 500),
-              content: Text(language(context, appFonts.yourPaymentIsDeclined)),
+              content:
+                  Text(language(context, translations!.yourPaymentIsDeclined)),
               backgroundColor: appColor(context).appTheme.red,
             ));
           } else {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               duration: Duration(milliseconds: 500),
-              content: Text(language(context, appFonts.successfullyComplete)),
+              content:
+                  Text(language(context, translations!.successfullyComplete)),
               backgroundColor: appColor(context).appTheme.primary,
             ));
           }

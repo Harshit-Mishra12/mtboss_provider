@@ -7,7 +7,7 @@ class AppSettingLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingCtrl = Provider.of<AppSettingProvider>(context, listen: true);
-    return Consumer<ThemeService>(builder: (themeContext, theme, child) {
+    return Consumer2<LanguageProvider,ThemeService>(builder: (themeContext,lang, theme, child) {
       return SafeArea(
           child: SingleChildScrollView(
               child: Column(children: [

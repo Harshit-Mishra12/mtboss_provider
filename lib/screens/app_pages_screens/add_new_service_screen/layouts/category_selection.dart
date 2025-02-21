@@ -20,7 +20,6 @@ class CategorySelectionLayout extends StatefulWidget {
 }
 
 class _CategorySelectionLayoutState extends State<CategorySelectionLayout> {
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AddNewServiceProvider>(builder: (context1, value, child) {
@@ -59,10 +58,16 @@ class _CategorySelectionLayoutState extends State<CategorySelectionLayout> {
                               .asMap()
                               .entries
                               .map((e) => Container(
-                                      margin:  EdgeInsets.only(bottom: value.categories.length -1 != e.key? Sizes.s8:0,right: Sizes.s5),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: Sizes.s9,
-                                          vertical: Sizes.s5),
+                                      margin: EdgeInsets.only(
+                                          bottom: value.categories.length - 1 !=
+                                                  e.key
+                                              ? Sizes.s8
+                                              : 0,
+                                          right: Sizes.s5),
+                                      padding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: Sizes.s9,
+                                              vertical: Sizes.s5),
                                       decoration: ShapeDecoration(
                                           shape: SmoothRectangleBorder(
                                             borderRadius: SmoothBorderRadius(
@@ -70,24 +75,33 @@ class _CategorySelectionLayoutState extends State<CategorySelectionLayout> {
                                                 cornerSmoothing: 1),
                                           ),
                                           color: Color.fromRGBO(84, 101, 255, 0.1)),
-                                      child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            SvgPicture.asset(eSvgAssets.cross,height: 16,colorFilter: ColorFilter.mode(appColor(context).appTheme.primary, BlendMode.srcIn),),
-                                        const HSpace(Sizes.s2),
-                                        Text(e.value.title!,
-                                            style: appCss.dmDenseLight14
-                                                .textColor(appColor(context)
-                                                    .appTheme
-                                                    .primary))
-                                      ]))
+                                      child:
+                                          Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                            SvgPicture.asset(
+                                              eSvgAssets.cross,
+                                              height: 16,
+                                              colorFilter: ColorFilter.mode(
+                                                  appColor(context)
+                                                      .appTheme
+                                                      .primary,
+                                                  BlendMode.srcIn),
+                                            ),
+                                            const HSpace(Sizes.s2),
+                                            Text(e.value.title!,
+                                                style: appCss.dmDenseLight14
+                                                    .textColor(appColor(context)
+                                                        .appTheme
+                                                        .primary))
+                                          ]))
                                   .inkWell(
                                       onTap: () => value.onChangeCategory(
                                           e.value, e.value.id)))
                               .toList()),
                     ),
                   if (value.categories.isEmpty)
-                    Text(language(context, appFonts.categories),
+                    Text(language(context, translations!.categories),
                         style: appCss.dmDenseMedium14
                             .textColor(appColor(context).appTheme.lightText))
                 ],
@@ -102,7 +116,6 @@ class _CategorySelectionLayoutState extends State<CategorySelectionLayout> {
           ],
         ),
       ).inkWell(onTap: () => value.onBottomSheet(context));
-
     });
   }
 }

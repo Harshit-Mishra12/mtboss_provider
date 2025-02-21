@@ -1,4 +1,3 @@
-
 import '../../../../config.dart';
 
 class BottomLocationLayout extends StatelessWidget {
@@ -14,20 +13,20 @@ class BottomLocationLayout extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CommonArrow(svgColor: appColor(context).appTheme.whiteBg,
-                    color: appColor(context).appTheme.primary,
-                    arrow: rtl(context)
-                        ? eSvgAssets.arrowRight
-                        : eSvgAssets.arrowLeft)
+                CommonArrow(
+                        svgColor: appColor(context).appTheme.whiteBg,
+                        color: appColor(context).appTheme.primary,
+                        arrow: rtl(context)
+                            ? eSvgAssets.arrowRight
+                            : eSvgAssets.arrowLeft)
                     .inkWell(onTap: () => route.pop(context)),
-
-                CommonArrow(svgColor: appColor(context).appTheme.whiteBg,
-                    color: appColor(context).appTheme.primary,
-                    arrow:eSvgAssets.search)
+                CommonArrow(
+                        svgColor: appColor(context).appTheme.whiteBg,
+                        color: appColor(context).appTheme.primary,
+                        arrow: eSvgAssets.search)
                     .inkWell(onTap: () => value.searchLocation(context))
-
               ],
-            ) .paddingSymmetric(vertical: Insets.i50, horizontal: Insets.i20),
+            ).paddingSymmetric(vertical: Insets.i50, horizontal: Insets.i20),
             Column(children: [
               Align(
                   alignment: Alignment.centerRight,
@@ -43,7 +42,6 @@ class BottomLocationLayout extends StatelessWidget {
                                       cornerRadius: 8, cornerSmoothing: 1))),
                           child: SvgPicture.asset(eSvgAssets.zipcode,
                               fit: BoxFit.scaleDown,
-
                               colorFilter: ColorFilter.mode(
                                   appColor(context).appTheme.whiteBg,
                                   BlendMode.srcIn)))
@@ -54,14 +52,15 @@ class BottomLocationLayout extends StatelessWidget {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(language(context, appFonts.selectService),
+                      Text(language(context, translations!.selectService),
                           style: appCss.dmDenseRegular14
                               .textColor(appColor(context).appTheme.lightText))
                     ]),
                 const VSpace(Sizes.s15),
-                CurrentAddressTextLayout(currentAddress: value.currentAddress,street: value.street),
+                CurrentAddressTextLayout(
+                    currentAddress: value.currentAddress, street: value.street),
                 ButtonCommon(
-                    title: appFonts.confirmLocation,
+                    title: translations!.confirmLocation,
                     onTap: () => value.onEdit(context))
               ]).paddingAll(Insets.i20))
                   .bottomSheetExtension(context)

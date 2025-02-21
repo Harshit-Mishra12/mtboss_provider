@@ -17,7 +17,7 @@ class ServiceProofList extends StatelessWidget {
                 Text(a.value.title! + a.value.id.toString(),
                     style: appCss.dmDenseblack16
                         .textColor(appColor(context).appTheme.darkText)),
-                Text(language(context, appFonts.editProof),
+                Text(language(context, translations!.editProof),
                         style: appCss.dmDenseRegular14
                             .textColor(appColor(context).appTheme.primary))
                     .inkWell(onTap: () => onTap!(a.value))

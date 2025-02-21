@@ -30,7 +30,7 @@ class SelectServicemenLayout extends StatelessWidget {
             if (index == 1)
               RichText(
                   text: TextSpan(
-                      text: "${language(context, appFonts.charges)} : ",
+                      text: "${language(context, translations!.charges)} : ",
                       style: appCss.dmDenseMedium12
                           .textColor(appColor(context).appTheme.green),
                       children: [
@@ -39,7 +39,8 @@ class SelectServicemenLayout extends StatelessWidget {
                         style: appCss.dmDenseSemiBold14
                             .textColor(appColor(context).appTheme.green)),
                     TextSpan(
-                        text: "/${language(context, appFonts.perServicemen)}",
+                        text:
+                            "/${language(context, translations!.perServicemen)}",
                         style: appCss.dmDenseMedium12
                             .textColor(appColor(context).appTheme.green))
                   ])).paddingOnly(top: Insets.i4)

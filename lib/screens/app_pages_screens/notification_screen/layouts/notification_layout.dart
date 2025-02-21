@@ -56,11 +56,20 @@ class NotificationLayout extends StatelessWidget {
                             : appColor(context).appTheme.fieldCardBg,
                         shape: BoxShape.circle),
                 const HSpace(Sizes.s12),
-                Text(data!.data!.title == null ? "" : data!.data!.title!,
-                    style: appCss.dmDenseMedium14.textColor(data!.readAt != null
-                        ? appColor(context).appTheme.lightText
-                        : appColor(context).appTheme.darkText)),
-              ]),
+                SizedBox(
+                  width: Sizes.s200,
+                  child: Text(
+                      /* data!.data!.title == null ? "" : */ data
+                              ?.data?.title ??
+                          "",
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: appCss.dmDenseMedium14.textColor(
+                          data!.readAt != null
+                              ? appColor(context).appTheme.lightText
+                              : appColor(context).appTheme.darkText)),
+                ),
+              ]).expanded(),
               Text(checkCurrentDateShowMin(data!.createdAt!).toString(),
                   style: appCss.dmDenseRegular12
                       .textColor(appColor(context).appTheme.lightText))

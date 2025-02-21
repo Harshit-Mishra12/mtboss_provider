@@ -15,7 +15,6 @@ class NotificationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
   // page init animation start
   onAnimate(TickerProvider sync) {
     animationController = AnimationController(
@@ -37,8 +36,12 @@ class NotificationProvider with ChangeNotifier {
   onDeleteNotification(context, sync) {
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
 
-    value.onDeleteDialog(sync, context, eImageAssets.notificationBell,
-        appFonts.deleteNotification, appFonts.areYouDeleteNotification, () {
+    value.onDeleteDialog(
+        sync,
+        context,
+        eImageAssets.notificationBell,
+        translations!.deleteNotification,
+        translations!.areYouDeleteNotification, () {
       route.pop(context);
       deleteNotification(context);
     });
@@ -51,55 +54,61 @@ class NotificationProvider with ChangeNotifier {
       route.pushNamed(context, routeName.providerDetail,
           arg: {'providerId': model.data!.providerId});
     } else if (model.data!.type == "booking") {
-     // log("DNH :${model.data!.toJson()}");
-      if (model.data!.message!.toLowerCase().contains(appFonts.pending)) {
-
+      // log("DNH :${model.data!.toJson()}");
+      if (model.data!.message!.toLowerCase().contains(translations!.pending!)) {
         route.pushNamed(context, routeName.pendingBooking,
-            arg:  model.data!.bookingId);
-      } else if (model.data!.message!.toLowerCase().contains(appFonts.accepted)) {
+            arg: model.data!.bookingId);
+      } else if (model.data!.message!
+          .toLowerCase()
+          .contains(translations!.accepted!)) {
         route.pushNamed(context, routeName.acceptedBooking,
-            arg:  model.data!.bookingId);
+            arg: model.data!.bookingId);
       } else if (model.data!.message!.toLowerCase().contains(appFonts.onHold)) {
         route.pushNamed(context, routeName.ongoingBooking,
-            arg:  model.data!.bookingId);
-      } else if (model.data!.message!.toLowerCase().contains(appFonts.ongoing) ||
+            arg: model.data!.bookingId);
+      } else if (model.data!.message!
+              .toLowerCase()
+              .contains(translations!.ongoing!) ||
           model.data!.message!.toLowerCase().contains(appFonts.ontheway) ||
           model.data!.message!.toLowerCase().contains(appFonts.startAgain) ||
           model.data!.message!.toLowerCase().contains(appFonts.onHold)) {
         route.pushNamed(context, routeName.ongoingBooking,
-            arg:  model.data!.bookingId);
-      } else if (model.data!.message!.toLowerCase().contains(appFonts.completed)) {
+            arg: model.data!.bookingId);
+      } else if (model.data!.message!
+          .toLowerCase()
+          .contains(translations!.completed!)) {
         route.pushNamed(context, routeName.completedBooking,
-            arg:  model.data!.bookingId);
-      } else if (model.data!.message!.toLowerCase().contains(appFonts.assigned)) {
+            arg: model.data!.bookingId);
+      } else if (model.data!.message!
+          .toLowerCase()
+          .contains(translations!.assigned!)) {
         route.pushNamed(context, routeName.acceptedBooking,
-            arg:  model.data!.bookingId);
-      } else if (model.data!.message!.toLowerCase().contains(appFonts.cancel)) {
-        route.pushNamed(
-            navigatorKey.currentContext, routeName.cancelledBooking,
-            arg:  model.data!.bookingId);
+            arg: model.data!.bookingId);
+      } else if (model.data!.message!
+          .toLowerCase()
+          .contains(translations!.cancel!)) {
+        route.pushNamed(navigatorKey.currentContext, routeName.cancelledBooking,
+            arg: model.data!.bookingId);
       }
     }
   }
 
   //delete
   deleteNotification(context) async {
-
     try {
       await apiServices
           .getApi(api.deleteNotification, [], isToken: true)
           .then((value) async {
         if (value.isSuccess!) {
           final userApi =
-          Provider.of<UserDataApiProvider>(context, listen: false);
+              Provider.of<UserDataApiProvider>(context, listen: false);
           await userApi.getNotificationList();
           final de = Provider.of<DeleteDialogProvider>(context, listen: false);
           de.onResetPass(
               context,
-              language(context, appFonts.hurrayNotificationCleared),
-              language(context, appFonts.okay),
-                  () => route.pop(context));
-
+              language(context, translations!.hurrayNotificationCleared),
+              language(context, translations!.okay),
+              () => route.pop(context));
         }
       });
     } catch (e) {

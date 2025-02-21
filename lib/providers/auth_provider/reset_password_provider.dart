@@ -53,11 +53,11 @@ class ResetPasswordProvider extends ChangeNotifier {
                 context: context,
                 builder: (context1) {
                   return AlertDialogCommon(
-                      title: appFonts.successfullyChanged,
+                      title: translations!.successfullyChanged,
                       height: Sizes.s140,
                       image: eGifAssets.successGif,
-                      subtext: language(context, appFonts.thankYou),
-                      bText1: language(context, appFonts.loginAgain),
+                      subtext: language(context, translations!.thankYou),
+                      bText1: language(context, translations!.loginAgain),
                       b1OnTap: () {
                         txtNewPassword.text = "";
                         txtConfirmPassword.text = "";
@@ -101,5 +101,4 @@ class ResetPasswordProvider extends ChangeNotifier {
     otp = data['otp'];
     notifyListeners();
   }
-
 }

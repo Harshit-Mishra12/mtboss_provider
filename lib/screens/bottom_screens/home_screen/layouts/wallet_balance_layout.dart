@@ -25,14 +25,14 @@ class WalletBalanceLayout extends StatelessWidget {
                             shape: BoxShape.circle),
                     const HSpace(Sizes.s10),
                     isServiceman
-                        ? Text(language(context, appFonts.walletBal),
+                        ? Text(language(context, translations!.walletBal),
                             style: appCss.dmDenseMedium15
                                 .textColor(appColor(context).appTheme.stroke))
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                                Text(language(context, appFonts.walletBal),
+                                Text(language(context, translations!.walletBal),
                                     style: appCss.dmDenseMedium15.textColor(
                                         appColor(context).appTheme.whiteColor)),
                                 Text(
@@ -46,7 +46,7 @@ class WalletBalanceLayout extends StatelessWidget {
                           "${getSymbol(context)}${currency(context).currencyVal * double.parse(userModel!.servicemanWallet != null && userModel!.servicemanWallet!.balance != null ? userModel!.servicemanWallet!.balance.toString() : "00")}",
                           style: appCss.dmDenseBold14
                               .textColor(appColor(context).appTheme.whiteColor))
-                      : Text(language(context, appFonts.withdraw),
+                      : Text(language(context, translations!.withdraw),
                               style: appCss.dmDenseBold14.textColor(
                                   appColor(context).appTheme.primary))
                           .paddingSymmetric(

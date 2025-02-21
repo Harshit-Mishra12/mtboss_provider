@@ -14,37 +14,41 @@ class SignUpOneFreelancer extends StatelessWidget {
       return Form(
         key: value.signupFreelanceFormKey1,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          ContainerWithTextLayout(title: appFonts.userName)
+          ContainerWithTextLayout(title: translations!.userName)
               .paddingOnly(bottom: Insets.i8),
           TextFieldCommon(
                   focusNode: value.ownerNameFocus,
                   controller: value.ownerName,
-                  hintText: appFonts.enterName,
+                  hintText: translations!.enterName!,
                   validator: (v) => validation.nameValidation(context, v),
                   prefixIcon: eSvgAssets.user)
               .paddingSymmetric(horizontal: Insets.i20),
-          ContainerWithTextLayout(title: appFonts.phoneNo)
+          ContainerWithTextLayout(title: translations!.phoneNo)
               .paddingOnly(bottom: Insets.i8, top: Insets.i20),
           RegisterWidgetClass().phoneTextBox(
-            dialCode: value.dialCode,
-              context, value.providerNumber, value.providerNumberFocus,
+              dialCode: value.dialCode,
+              context,
+              value.providerNumber,
+              value.providerNumberFocus,
               onChanged: (CountryCodeCustom? code) =>
                   value.changeDialCode(code!),
               onFieldSubmitted: (values) => validation.fieldFocusChange(
                   context, value.providerNumberFocus, value.emailFocus)),
-          ContainerWithTextLayout(title: appFonts.email)
+          ContainerWithTextLayout(title: translations!.email)
               .paddingOnly(bottom: Insets.i8, top: Insets.i20),
           TextFieldCommon(
                   focusNode: value.providerEmailFocus,
                   controller: value.providerEmail,
                   validator: (v) => validation.emailValidation(context, v),
-                  hintText: appFonts.enterEmail,
+                  hintText: translations!.enterEmail!,
                   prefixIcon: eSvgAssets.email)
               .paddingSymmetric(horizontal: Insets.i20),
-          ContainerWithTextLayout(title: appFonts.knownLanguage)
+          ContainerWithTextLayout(title: translations!.knownLanguage)
               .paddingOnly(bottom: Insets.i8, top: Insets.i20),
           Stack(children: [
             MultiSelectDropDownCustom(
+                    backgroundColor: appColor(context).appTheme.whiteBg,
+                    optionsBackgroundColor: appColor(context).appTheme.whiteBg,
                     onOptionSelected: (options) =>
                         value.onLanguageSelect(options),
                     searchEnabled: true,
@@ -90,17 +94,17 @@ class SignUpOneFreelancer extends StatelessWidget {
                 right: rtl(context) ? Insets.i35 : 0,
                 top: Insets.i16)
           ]),
-          ContainerWithTextLayout(title: appFonts.identityType)
+          ContainerWithTextLayout(title: translations!.identityType)
               .paddingOnly(bottom: Insets.i8, top: Insets.i20),
           DropDownLayout(
-                  hintText: appFonts.selectType,
+                  hintText: translations!.selectType,
                   icon: eSvgAssets.identity,
                   doc: value.documentModel,
                   isIcon: true,
                   document: documentList,
                   onChanged: (val) => value.onIdentityChange(val))
               .paddingSymmetric(horizontal: Insets.i20),
-          Text(language(context, appFonts.identityNo),
+          Text(language(context, translations!.identityNo),
                   style: appCss.dmDenseSemiBold14
                       .textColor(appColor(context).appTheme.darkText))
               .padding(
@@ -109,11 +113,11 @@ class SignUpOneFreelancer extends StatelessWidget {
                   focusNode: value.identityNumberFocus,
                   controller: value.identityNumber,
                   validator: (v) => validation.dynamicTextValidation(
-                      context, v, appFonts.enterIdentityNo),
-                  hintText: appFonts.enterIdentityNo,
+                      context, v, translations!.enterIdentityNo),
+                  hintText: translations!.enterIdentityNo!,
                   prefixIcon: eSvgAssets.identity)
               .paddingSymmetric(horizontal: Insets.i20),
-          Text(language(context, appFonts.uploadPhoto),
+          Text(language(context, translations!.uploadPhoto),
                   style: appCss.dmDenseSemiBold14
                       .textColor(appColor(context).appTheme.darkText))
               .padding(
@@ -145,13 +149,14 @@ class SignUpOneFreelancer extends StatelessWidget {
                                 SvgPicture.asset(eSvgAssets.upload),
                                 const VSpace(Sizes.s6),
                                 Text(
-                                    language(context, appFonts.uploadLogoImage),
+                                    language(
+                                        context, translations!.uploadLogoImage),
                                     style: appCss.dmDenseMedium12.textColor(
                                         appColor(context).appTheme.lightText))
                               ]).paddingSymmetric(vertical: Insets.i15))))
               .inkWell(onTap: () => value.onImagePick(context, isLogo: false))
               .paddingSymmetric(horizontal: Insets.i20),
-          ContainerWithTextLayout(title: appFonts.experience)
+          ContainerWithTextLayout(title: translations!.experience)
               .paddingOnly(top: Insets.i24, bottom: Insets.i8),
           Row(children: [
             Expanded(
@@ -162,7 +167,7 @@ class SignUpOneFreelancer extends StatelessWidget {
                         controller: value.experience,
                         validator: (v) =>
                             validation.commonValidation(context, v),
-                        hintText: appFonts.addExperience,
+                        hintText: translations!.addExperience!,
                         prefixIcon: eSvgAssets.timer)
                     .paddingOnly(
                         left: rtl(context) ? 0 : Insets.i20,
@@ -172,7 +177,7 @@ class SignUpOneFreelancer extends StatelessWidget {
                 child: DarkDropDownLayout(
                         isBig: true,
                         val: value.chosenValue,
-                        hintText: appFonts.month,
+                        hintText: translations!.month,
                         isIcon: false,
                         categoryList: appArray.experienceList,
                         onChanged: (val) => value.onDropDownChange(val))
@@ -180,22 +185,22 @@ class SignUpOneFreelancer extends StatelessWidget {
                         right: rtl(context) ? Insets.i8 : Insets.i20,
                         left: rtl(context) ? Insets.i20 : Insets.i8))
           ]),
-          ContainerWithTextLayout(title: appFonts.password)
+          ContainerWithTextLayout(title: translations!.password)
               .paddingOnly(bottom: Insets.i8, top: Insets.i20),
           TextFieldCommon(
                   focusNode: value.passwordFocus,
                   controller: value.password,
-                  hintText: appFonts.enterPassword,
+                  hintText: translations!.enterPassword!,
                   validator: (v) => validation.dynamicTextValidation(
-                      context, v, appFonts.pleaseEnterPassword),
+                      context, v, translations!.pleaseEnterPassword),
                   prefixIcon: eSvgAssets.lock)
               .paddingSymmetric(horizontal: Insets.i20),
-          ContainerWithTextLayout(title: appFonts.confirmPassword)
+          ContainerWithTextLayout(title: translations!.confirmPassword)
               .paddingOnly(bottom: Insets.i8, top: Insets.i20),
           TextFieldCommon(
                   focusNode: value.reEnterPasswordFocus,
                   controller: value.reEnterPassword,
-                  hintText: appFonts.reEnterPassword,
+                  hintText: translations!.reEnterPassword!,
                   validator: (v) => validation.confirmPassValidation(
                       context, v, value.password.text),
                   prefixIcon: eSvgAssets.lock)

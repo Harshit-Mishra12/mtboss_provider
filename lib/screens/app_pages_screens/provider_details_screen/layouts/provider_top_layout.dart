@@ -63,7 +63,7 @@ class ProviderTopLayout extends StatelessWidget {
                                 endIndent: 3)
                             .paddingSymmetric(horizontal: Insets.i10),
                       Text(
-                          "${provider!.experienceDuration ?? 0} ${provider!.experienceInterval != null ?capitalizeFirstLetter(provider!.experienceInterval) : "Years"} ${appFonts.of} ${language(context, appFonts.experience)}",
+                          "${provider!.experienceDuration ?? 0} ${provider!.experienceInterval != null ? capitalizeFirstLetter(provider!.experienceInterval) : "Years"} ${translations!.of} ${language(context, translations!.experience)}",
                           style: appCss.dmDenseMedium13
                               .textColor(appColor(context).appTheme.darkText))
                     ])),
@@ -71,7 +71,7 @@ class ProviderTopLayout extends StatelessWidget {
                 const DottedLines(),
                 const VSpace(Sizes.s10),
                 ServicesDeliveredLayout(services: provider!.served ?? "0"),
-                Text(language(context, appFonts.detailsOfProvider),
+                Text(language(context, translations!.detailsOfProvider),
                         style: appCss.dmDenseMedium12
                             .textColor(appColor(context).appTheme.lightText))
                     .paddingOnly(top: Insets.i15, bottom: Insets.i8),
@@ -79,13 +79,14 @@ class ProviderTopLayout extends StatelessWidget {
                   Text(provider!.description!,
                       style: appCss.dmDenseMedium14
                           .textColor(appColor(context).appTheme.darkText)),
-                Text(language(context, appFonts.personalInfo),
+                Text(language(context, translations!.personalInfo),
                         style: appCss.dmDenseMedium12
                             .textColor(appColor(context).appTheme.lightText))
                     .paddingOnly(top: Insets.i15, bottom: Insets.i8),
                 PersonalDetailLayout(
                   email: provider!.email!,
-                  phone: "${provider!.code} ${provider!.phone!.replaceRange(0, provider!.phone!.length, "*")}",
+                  phone:
+                      "${provider!.code} ${provider!.phone!.replaceRange(0, provider!.phone!.length, "*")}",
                   knownLanguage: provider!.knownLanguages,
                 )
               ]).paddingAll(Insets.i20));

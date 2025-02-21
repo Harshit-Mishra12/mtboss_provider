@@ -49,19 +49,18 @@ class ApiServices {
         //dio.options.headers["authtoken"] = authtoken;
         SharedPreferences pref = await SharedPreferences.getInstance();
         String? token = pref.getString(session.accessToken);
-        String? language = pref.getString("selectedLocale")??"english";
+        String? language = pref.getString("selectedLocale") ?? "english";
         log("token : $token");
 
         var response = await dio.get(
           apiName,
           data: params,
-          options: Options(
-              headers: isToken ? headersToken(token, language) : headers),
+          options: Options(headers: isToken ? headersToken(token) : headers),
         );
         if (response.statusCode == 200) {
           //get response
           var responseData = response.data;
-// log("responseData::$responseData");
+       log("$apiName");
           //set data to class
           if (isData) {
             apiData.message = isMessage
@@ -160,8 +159,7 @@ class ApiServices {
       try {
         final response = await dio.post(apiName,
             data: body,
-            options: Options(
-                headers: isToken ? headersToken(token, language) : headers));
+            options: Options(headers: isToken ? headersToken(token) : headers));
 
         var responseData = response.data;
         log("STA :${response.statusCode}");
@@ -240,8 +238,7 @@ class ApiServices {
         final response = await dio.delete(
           apiName,
           data: body,
-          options: Options(
-              headers: isToken ? headersToken(token, language) : headers),
+          options: Options(headers: isToken ? headersToken(token) : headers),
         );
         var responseData = response.data;
         if (response.statusCode == 200) {
@@ -289,8 +286,7 @@ class ApiServices {
         final response = await dio.put(
           apiName,
           data: jsonEncode(body),
-          options: Options(
-              headers: isToken ? headersToken(token, language) : headers),
+          options: Options(headers: isToken ? headersToken(token) : headers),
         );
         var responseData = response.data;
         if (response.statusCode == 200) {

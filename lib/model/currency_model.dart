@@ -1,4 +1,3 @@
-
 import '../config.dart';
 
 class CurrencyModel {
@@ -17,27 +16,29 @@ class CurrencyModel {
   String? deletedAt;
   List<Media>? media;
 
-
   CurrencyModel(
       {this.id,
-        this.code,
-        this.symbol,
-        this.noOfDecimal,
-        this.exchangeRate,
-        this.thousandsSeparator,
-        this.decimalSeparator,
-        this.status,
-        this.createdById,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,this.media});
+      this.code,
+      this.symbol,
+      this.noOfDecimal,
+      this.exchangeRate,
+      this.thousandsSeparator,
+      this.decimalSeparator,
+      this.status,
+      this.createdById,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.media});
 
   CurrencyModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = int.tryParse(json['id'].toString()) ?? 0;
     code = json['code'];
     symbol = json['symbol'];
     noOfDecimal = json['no_of_decimal'];
-    exchangeRate = json['exchange_rate'] != null ?double.parse(json['exchange_rate'].toString()) :null;
+    exchangeRate = json['exchange_rate'] != null
+        ? double.parse(json['exchange_rate'].toString())
+        : null;
     thousandsSeparator = json['thousands_separator'];
     decimalSeparator = json['decimal_separator'];
 

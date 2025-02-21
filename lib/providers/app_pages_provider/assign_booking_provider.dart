@@ -43,13 +43,13 @@ class AssignBookingProvider with ChangeNotifier {
         context: context,
         builder: (context1) {
           return AlertDialogCommon(
-              title: appFonts.startService,
+              title: translations!.startService,
               image: eGifAssets.rocket,
-              subtext: appFonts.areYouSureStartService,
+              subtext: translations!.areYouSureStartService,
               height: Sizes.s145,
               isTwoButton: true,
-              firstBText: appFonts.cancel,
-              secondBText: appFonts.yes,
+              firstBText: translations!.cancel,
+              secondBText: translations!.yes,
               firstBTap: () => route.pop(context),
               secondBTap: () {
                 route.pop(context);
@@ -86,9 +86,12 @@ class AssignBookingProvider with ChangeNotifier {
       notifyListeners();
       dynamic data;
       if (isCancel) {
-        data = {"reason": reasonCtrl.text, "booking_status": appFonts.cancel};
+        data = {
+          "reason": reasonCtrl.text,
+          "booking_status": translations!.cancel
+        };
       } else {
-        data = {"booking_status": appFonts.ontheway};
+        data = {"booking_status": appFonts..ontheway};
       }
       log("DATA :$data");
       await apiServices
@@ -116,11 +119,11 @@ class AssignBookingProvider with ChangeNotifier {
                   context: context,
                   builder: (context1) => AppAlertDialogCommon(
                       height: Sizes.s100,
-                      title: appFonts.assignBooking,
-                      firstBText: appFonts.doItLater,
-                      secondBText: appFonts.yes,
+                      title: translations!.assignBooking,
+                      firstBText: translations!.doItLater,
+                      secondBText: translations!.yes,
                       image: eGifAssets.dateGif,
-                      subtext: appFonts.doYouWant,
+                      subtext: translations!.doYouWant,
                       firstBTap: () => route.pop(context),
                       secondBTap: () {
                         route.pop(context);
@@ -151,9 +154,9 @@ class AssignBookingProvider with ChangeNotifier {
         builder: (context1) {
           return AlertDialogCommon(
               isTwoButton: true,
-              title: appFonts.cancelService,
+              title: translations!.cancelService,
               image: eGifAssets.error,
-              subtext: appFonts.areYouSureCancelService,
+              subtext: translations!.areYouSureCancelService,
               height: Sizes.s145,
               firstBTap: () => route.pop(context),
               secondBTap: () {
@@ -167,8 +170,8 @@ class AssignBookingProvider with ChangeNotifier {
                           validator: (val) =>
                               validation.commonValidation(context, val),
                           controller: reasonCtrl,
-                          title: appFonts.reasonOfCancelBooking,
-                          singleText: appFonts.send,
+                          title: translations!.reasonOfCancelBooking,
+                          singleText: translations!.send,
                           singleTap: () {
                             if (formKey.currentState!.validate()) {
                               updateStatus(context, isCancel: true);
@@ -176,8 +179,8 @@ class AssignBookingProvider with ChangeNotifier {
                           },
                         ));
               },
-              secondBText: appFonts.yes,
-              firstBText: appFonts.cancel);
+              secondBText: translations!.yes,
+              firstBText: translations!.cancel);
         });
   }
 }

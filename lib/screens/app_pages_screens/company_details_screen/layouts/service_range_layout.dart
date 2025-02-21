@@ -54,7 +54,7 @@ class ServiceRangeLayout extends StatelessWidget {
             ])),
         const DividerCommon().paddingOnly(top: Insets.i10, bottom: Insets.i15),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(language(context, appFonts.serviceAvailable),
+          Text(language(context, translations!.serviceAvailable),
               style: appCss.dmDenseRegular12
                   .textColor(appColor(context).appTheme.darkText)),
           FlutterSwitchCommon(
@@ -68,7 +68,6 @@ class ServiceRangeLayout extends StatelessWidget {
       ])
           .paddingSymmetric(horizontal: Insets.i15)
           .boxShapeExtension(color: appColor(context).appTheme.fieldCardBg)
-
     ]);
   }
 }

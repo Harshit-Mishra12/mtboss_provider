@@ -1,5 +1,4 @@
-import 'package:country_list_pick/country_selection_theme.dart';
-import 'package:fixit_provider/widgets/country_picker_custom/country_code_custom.dart';
+import 'package:fixit_provider/widgets/country_picker_custom/layouts/country_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -8,17 +7,18 @@ import '../../config.dart';
 class SelectionList extends StatefulWidget {
   const SelectionList(this.elements, this.initialSelection,
       {super.key,
-        this.appBar,
-        this.theme,
-        this.countryBuilder,
-        this.useUiOverlay = true,
-        this.useSafeArea = false});
+      this.appBar,
+      this.theme,
+      this.countryBuilder,
+      this.useUiOverlay = true,
+      this.useSafeArea = false});
 
   final PreferredSizeWidget? appBar;
   final List elements;
   final CountryCodeCustom? initialSelection;
   final CountryTheme? theme;
-  final Widget Function(BuildContext context, CountryCodeCustom)? countryBuilder;
+  final Widget Function(BuildContext context, CountryCodeCustom)?
+      countryBuilder;
   final bool useUiOverlay;
   final bool useSafeArea;
 
@@ -34,7 +34,7 @@ class SelectionListState extends State<SelectionList> {
 
   var posSelected = 0;
   var height = 0.0;
-   dynamic sizeHeightContainer;
+  dynamic sizeHeightContainer;
   dynamic heightscroller;
   dynamic text;
   dynamic oldtext;
@@ -59,7 +59,7 @@ class SelectionListState extends State<SelectionList> {
   }
 
   final List _alphabet =
-  List.generate(26, (i) => String.fromCharCode('A'.codeUnitAt(0) + i));
+      List.generate(26, (i) => String.fromCharCode('A'.codeUnitAt(0) + i));
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class SelectionListState extends State<SelectionList> {
                             widget.theme?.searchText ?? 'SEARCH',
                             style: TextStyle(
                                 color:
-                                widget.theme?.labelColor ?? Colors.black),
+                                    widget.theme?.labelColor ?? Colors.black),
                           ),
                         ),
                         Container(
@@ -113,7 +113,7 @@ class SelectionListState extends State<SelectionList> {
                               contentPadding: const EdgeInsets.only(
                                   left: 15, bottom: 0, top: 0, right: 15),
                               hintText:
-                              widget.theme?.searchHintText ?? "Search...",
+                                  widget.theme?.searchHintText ?? "Search...",
                             ),
                             onChanged: _filterElements,
                           ),
@@ -124,7 +124,7 @@ class SelectionListState extends State<SelectionList> {
                             widget.theme?.lastPickText ?? 'LAST PICK',
                             style: TextStyle(
                                 color:
-                                widget.theme?.labelColor ?? Colors.black),
+                                    widget.theme?.labelColor ?? Colors.black),
                           ),
                         ),
                         Container(
@@ -134,10 +134,13 @@ class SelectionListState extends State<SelectionList> {
                             child: ListTile(
                               leading: Image.asset(
                                 widget.initialSelection!.flagUri!,
-                                package: 'country_list_pick',
                                 width: 32.0,
                               ),
-                              title: Text(widget.initialSelection!.name!,style: appCss.dmDenseMedium14.textColor(appColor(context).appTheme.darkText),),
+                              title: Text(
+                                widget.initialSelection!.name!,
+                                style: appCss.dmDenseMedium14.textColor(
+                                    appColor(context).appTheme.darkText),
+                              ),
                               trailing: const Padding(
                                 padding: EdgeInsets.only(right: 20.0),
                                 child: Icon(Icons.check, color: Colors.green),
@@ -153,7 +156,7 @@ class SelectionListState extends State<SelectionList> {
                     delegate: SliverChildBuilderDelegate((context, index) {
                       return widget.countryBuilder != null
                           ? widget.countryBuilder!(
-                          context, countries.elementAt(index))
+                              context, countries.elementAt(index))
                           : getListCountry(countries.elementAt(index));
                     }, childCount: countries.length),
                   )
@@ -170,8 +173,10 @@ class SelectionListState extends State<SelectionList> {
                       color: Colors.transparent,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [...List.generate(_alphabet.length,
-                                  (index) => _getAlphabetItem(index))],
+                        children: [
+                          ...List.generate(_alphabet.length,
+                              (index) => _getAlphabetItem(index))
+                        ],
                       ),
                     ),
                   ),
@@ -193,10 +198,12 @@ class SelectionListState extends State<SelectionList> {
         child: ListTile(
           leading: Image.asset(
             e.flagUri!,
-            package: 'country_list_pick',
             width: 30.0,
           ),
-          title: Text(e.name!),
+          title: Text(
+            e.name!,
+            style: TextStyle(color: appColor(context).appTheme.darkText),
+          ),
           onTap: () {
             _sendDataBack(context, e);
           },
@@ -215,7 +222,7 @@ class SelectionListState extends State<SelectionList> {
             if (text != oldtext) {
               for (var i = 0; i < countries.length; i++) {
                 if (text.toString().compareTo(
-                    countries[i].name.toString().toUpperCase()[0]) ==
+                        countries[i].name.toString().toUpperCase()[0]) ==
                     0) {
                   _controllerScroll!.jumpTo((i * itemSizeHeight) + 10);
                   break;
@@ -240,14 +247,14 @@ class SelectionListState extends State<SelectionList> {
             textAlign: TextAlign.center,
             style: (index == posSelected)
                 ? TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color:
-                widget.theme?.alphabetSelectedTextColor ?? Colors.white)
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color:
+                        widget.theme?.alphabetSelectedTextColor ?? Colors.white)
                 : TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: widget.theme?.alphabetTextColor ?? Colors.black),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: widget.theme?.alphabetTextColor ?? Colors.black),
           ),
         ),
       ),
@@ -259,9 +266,9 @@ class SelectionListState extends State<SelectionList> {
     setState(() {
       countries = widget.elements
           .where((e) =>
-      e.code.contains(s) ||
-          e.dialCode.contains(s) ||
-          e.name.toUpperCase().contains(s))
+              e.code.contains(s) ||
+              e.dialCode.contains(s) ||
+              e.name.toUpperCase().contains(s))
           .toList();
     });
   }
@@ -278,8 +285,8 @@ class SelectionListState extends State<SelectionList> {
         if (text != oldtext) {
           for (var i = 0; i < countries.length; i++) {
             if (text
-                .toString()
-                .compareTo(countries[i].name.toString().toUpperCase()[0]) ==
+                    .toString()
+                    .compareTo(countries[i].name.toString().toUpperCase()[0]) ==
                 0) {
               _controllerScroll!.jumpTo((i * itemSizeHeight) + 15);
               break;
@@ -297,7 +304,7 @@ class SelectionListState extends State<SelectionList> {
 
   _scrollListener() {
     int scrollPosition =
-    (_controllerScroll!.position.pixels / itemSizeHeight).round();
+        (_controllerScroll!.position.pixels / itemSizeHeight).round();
     if (scrollPosition < countries.length) {
       String? countryName = countries.elementAt(scrollPosition).name;
       setState(() {
@@ -309,7 +316,7 @@ class SelectionListState extends State<SelectionList> {
     if ((_controllerScroll!.offset) >=
         (_controllerScroll!.position.maxScrollExtent)) {}
     if (_controllerScroll!.offset <=
-        _controllerScroll!.position.minScrollExtent &&
+            _controllerScroll!.position.minScrollExtent &&
         !_controllerScroll!.position.outOfRange) {}
   }
 }

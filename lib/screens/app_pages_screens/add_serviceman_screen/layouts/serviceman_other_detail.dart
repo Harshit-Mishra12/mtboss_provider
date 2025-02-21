@@ -8,7 +8,7 @@ class ServicemanOtherDetail extends StatelessWidget {
     return Consumer<AddServicemenProvider>(builder: (context1, value, child) {
       return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const ServicemenDetailForm(),
-        ContainerWithTextLayout(title: appFonts.knownLanguage)
+        ContainerWithTextLayout(title: translations!.knownLanguage)
             .paddingOnly(bottom: Insets.i8, top: Insets.i20),
         const KnownLanguageLayout(),
         const ExperienceLayout(),
@@ -16,13 +16,13 @@ class ServicemanOtherDetail extends StatelessWidget {
           Row(children: [
             const SmallContainer(),
             const HSpace(Sizes.s20),
-            Text(language(context, appFonts.location),
+            Text(language(context, translations!.location),
                 overflow: TextOverflow.ellipsis,
                 style: appCss.dmDenseSemiBold14
                     .textColor(appColor(context).appTheme.darkText))
           ]),
           if (value.address == null)
-            Text("+ ${language(context, appFonts.addLocation)}",
+            Text("+ ${language(context, translations!.addLocation)}",
                     style: appCss.dmDenseMedium12
                         .textColor(appColor(context).appTheme.darkText))
                 .paddingSymmetric(horizontal: Insets.i20)
@@ -33,52 +33,51 @@ class ServicemanOtherDetail extends StatelessWidget {
                 onTap: () => value.addAddressWithRouting(context, true),
                 focusNode: value.location,
                 validator: (name) => validation.dynamicTextValidation(
-                    context, name, appFonts.pleaseAddAddress),
+                    context, name, translations!.pleaseAddAddress),
                 controller: value.locationCtrl,
-                hintText: appFonts.location,
+                hintText: translations!.location!,
                 prefixIcon: eSvgAssets.locationOut)
             .paddingSymmetric(horizontal: Insets.i20),
-
-        ContainerWithTextLayout(title: appFonts.description)
+        ContainerWithTextLayout(title: translations!.description)
             .paddingOnly(top: Insets.i24, bottom: Insets.i8),
         CommonDescriptionBox(
             description: value.description, focusNode: value.descriptionFocus),
         if (value.servicemanModel == null)
-          ContainerWithTextLayout(title: appFonts.password)
+          ContainerWithTextLayout(title: translations!.password)
               .paddingOnly(bottom: Insets.i8, top: Insets.i20),
         if (value.servicemanModel == null)
           TextFieldCommon(
                   focusNode: value.passwordFocus,
                   controller: value.password,
-              obscureText: value.isNewPassword,
-              suffixIcon: SvgPicture.asset(
-                  value.isNewPassword
-                      ? eSvgAssets.hide
-                      : eSvgAssets.eye,
-                  fit: BoxFit.scaleDown)
-                  .inkWell(onTap: () => value.newPasswordSeenTap()),
-              validator: (name) => validation.dynamicTextValidation(
-                      context, name, appFonts.pleaseEnterPassword),
-                  hintText: appFonts.enterPassword,
+                  obscureText: value.isNewPassword,
+                  suffixIcon: SvgPicture.asset(
+                          value.isNewPassword
+                              ? eSvgAssets.hide
+                              : eSvgAssets.eye,
+                          fit: BoxFit.scaleDown)
+                      .inkWell(onTap: () => value.newPasswordSeenTap()),
+                  validator: (name) => validation.dynamicTextValidation(
+                      context, name, translations!.pleaseEnterPassword),
+                  hintText: translations!.enterPassword!,
                   prefixIcon: eSvgAssets.lock)
               .paddingSymmetric(horizontal: Insets.i20),
         if (value.servicemanModel == null)
-          ContainerWithTextLayout(title: appFonts.confirmPassword)
+          ContainerWithTextLayout(title: translations!.confirmPassword)
               .paddingOnly(bottom: Insets.i8, top: Insets.i20),
         if (value.servicemanModel == null)
           TextFieldCommon(
-              obscureText: value.isConfirmPassword,
-              suffixIcon: SvgPicture.asset(
-                  value.isConfirmPassword
-                      ? eSvgAssets.hide
-                      : eSvgAssets.eye,
-                  fit: BoxFit.scaleDown)
-                  .inkWell(onTap: () => value.confirmPasswordSeenTap()),
-              focusNode: value.rePasswordFocus,
+                  obscureText: value.isConfirmPassword,
+                  suffixIcon: SvgPicture.asset(
+                          value.isConfirmPassword
+                              ? eSvgAssets.hide
+                              : eSvgAssets.eye,
+                          fit: BoxFit.scaleDown)
+                      .inkWell(onTap: () => value.confirmPasswordSeenTap()),
+                  focusNode: value.rePasswordFocus,
                   controller: value.reEnterPassword,
                   validator: (name) => validation.confirmPassValidation(
                       context, name, value.password.text),
-                  hintText: appFonts.enterPassword,
+                  hintText: translations!.enterPassword!,
                   prefixIcon: eSvgAssets.lock)
               .paddingSymmetric(horizontal: Insets.i20)
       ]);

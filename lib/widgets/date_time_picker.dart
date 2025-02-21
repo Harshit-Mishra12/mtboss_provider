@@ -18,10 +18,10 @@ class _DateTimePickerState extends State<DateTimePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EarningHistoryProvider>(builder: (context1, value, child) {
+    return Consumer2<LanguageProvider,EarningHistoryProvider>(builder: (context1, lang,value, child) {
       return StatefulWrapper(
-          onInit: () =>
-              Future.delayed(DurationsDelay.ms150).then((val) => value.onInit()),
+          onInit: () => Future.delayed(DurationsDelay.ms150)
+              .then((val) => value.onInit()),
           child: Container(
               alignment: Alignment.center,
               height: MediaQuery.of(context).size.height / 1.5,
@@ -38,7 +38,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(language(context, appFonts.selectDate),
+                      Text(language(context, translations!.selectDate),
                           style: appCss.dmDenseBold18
                               .textColor(appColor(context).appTheme.darkText)),
                       const Icon(CupertinoIcons.multiply)
@@ -49,7 +49,8 @@ class _DateTimePickerState extends State<DateTimePicker> {
                   Text("${value.rangeStart!.day} ${monthCondition(value.rangeStart!.month.toString())} TO ${value.rangeEnd!.day} ${monthCondition(value.rangeStart!.month.toString())} ${value.selectedYear.year}",
                           style: appCss.dmDenseMedium18
                               .textColor(appColor(context).appTheme.primary))
-                      .padding(horizontal: Insets.i20, bottom: Insets.i15).alignment(Alignment.centerLeft),
+                      .padding(horizontal: Insets.i20, bottom: Insets.i15)
+                      .alignment(Alignment.centerLeft),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   CommonArrow(
                       arrow: eSvgAssets.arrowLeft,
@@ -99,7 +100,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                       onTap: () => value.onRightArrow()),
                 ]).paddingSymmetric(horizontal: Insets.i10),
                 const VSpace(Sizes.s15),
-                    TableCalendar(
+                TableCalendar(
                         rowHeight: 40,
                         headerVisible: false,
                         daysOfWeekVisible: true,
@@ -107,7 +108,8 @@ class _DateTimePickerState extends State<DateTimePicker> {
                         pageAnimationEnabled: false,
                         rangeSelectionMode: RangeSelectionMode.toggledOn,
                         lastDay: DateTime.utc(DateTime.now().year + 100, 3, 14),
-                        firstDay: DateTime.utc(DateTime.now().year, DateTime.january, DateTime.now().day),
+                        firstDay: DateTime.utc(DateTime.now().year,
+                            DateTime.january, DateTime.now().day),
                         onDaySelected: value.onDaySelected,
                         focusedDay: value.focusedDay.value,
                         rangeStartDay: value.rangeStart,
@@ -117,7 +119,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                         startingDayOfWeek: StartingDayOfWeek.monday,
                         onRangeSelected: (start, end, focusedDay) =>
                             value.onRangeSelect(start, end, focusedDay),
-                        headerStyle:  const HeaderStyle(
+                        headerStyle: const HeaderStyle(
                             leftChevronVisible: false,
                             formatButtonVisible: false,
                             rightChevronVisible: false),
@@ -129,43 +131,37 @@ class _DateTimePickerState extends State<DateTimePicker> {
                           return isSameDay(value.focusedDay.value, day);
                         },
                         daysOfWeekStyle: DaysOfWeekStyle(
-
                             dowTextFormatter: (date, locale) =>
-                            DateFormat.E(locale).format(date)[0],
-                            weekdayStyle: appCss.dmDenseBold14.textColor(appColor(context).appTheme.primary),
-
-                            weekendStyle: appCss.dmDenseBold14.textColor(appColor(context).appTheme.primary)),
-                        calendarStyle: CalendarStyle(rangeHighlightColor: appColor(context).appTheme.primary.withOpacity(0.10),
+                                DateFormat.E(locale).format(date)[0],
+                            weekdayStyle: appCss.dmDenseBold14
+                                .textColor(appColor(context).appTheme.primary),
+                            weekendStyle: appCss.dmDenseBold14
+                                .textColor(appColor(context).appTheme.primary)),
+                        calendarStyle: CalendarStyle(
+                            rangeHighlightColor: appColor(context)
+                                .appTheme
+                                .primary
+                                .withOpacity(0.10),
                             rangeEndDecoration: BoxDecoration(
                                 color: appColor(context).appTheme.primary,
-                                shape: BoxShape.circle
-                            ),
-
+                                shape: BoxShape.circle),
                             defaultTextStyle: appCss.dmDenseLight14.textColor(appColor(context).appTheme.darkText),
                             withinRangeTextStyle: appCss.dmDenseLight14.textColor(appColor(context).appTheme.primary),
                             rangeStartTextStyle: appCss.dmDenseLight14.textColor(appColor(context).appTheme.whiteColor),
                             rangeEndTextStyle: appCss.dmDenseLight14.textColor(appColor(context).appTheme.whiteColor),
-                            rangeStartDecoration:BoxDecoration(
-                                color: appColor(context).appTheme.primary,
-                                shape: BoxShape.circle
-                            ) ,
-                            todayTextStyle: appCss.dmDenseMedium14
-                                .textColor(appColor(context).appTheme.primary),
-                            todayDecoration: BoxDecoration(
-                                color: appColor(context)
-                                    .appTheme
-                                    .primary
-                                    .withOpacity(.10),
-                                shape: BoxShape.circle))).paddingAll(
-                        Insets.i20)
-                        .boxShapeExtension(
-                        color: appColor(context).appTheme.fieldCardBg)
-                        .paddingSymmetric(horizontal: Insets.i20),
+                            rangeStartDecoration: BoxDecoration(color: appColor(context).appTheme.primary, shape: BoxShape.circle),
+                            todayTextStyle: appCss.dmDenseMedium14.textColor(appColor(context).appTheme.primary),
+                            todayDecoration: BoxDecoration(color: appColor(context).appTheme.primary.withOpacity(.10), shape: BoxShape.circle)))
+                    .paddingAll(Insets.i20)
+                    .boxShapeExtension(color: appColor(context).appTheme.fieldCardBg)
+                    .paddingSymmetric(horizontal: Insets.i20),
                 BottomSheetButtonCommon(
-                    textOne: appFonts.clearFilter,
-                    textTwo: appFonts.apply,
-                    applyTap: ()=> route.pop(context),
-                    clearTap: ()=> route.pop(context)).paddingSymmetric(horizontal: Insets.i20,vertical: Insets.i20)
+                        textOne: translations!.clearFilter,
+                        textTwo: translations!.apply,
+                        applyTap: () => route.pop(context),
+                        clearTap: () => route.pop(context))
+                    .paddingSymmetric(
+                        horizontal: Insets.i20, vertical: Insets.i20)
               ]))));
     });
   }

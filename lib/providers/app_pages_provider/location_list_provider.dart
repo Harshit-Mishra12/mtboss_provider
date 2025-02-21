@@ -21,7 +21,6 @@ class LocationListProvider with ChangeNotifier {
   FocusNode addressFocus = FocusNode();
   FocusNode zipcodeFocus = FocusNode();
 
-
   //multiple address select or unselect
   onTapLocation(id, val) {
     if (!selectedLocation.contains(id)) {
@@ -42,13 +41,12 @@ class LocationListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
   //delete location confirmation
-  onLocationDelete(index, context, sync,id) {
+  onLocationDelete(index, context, sync, id) {
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
 
-    value.onDeleteDialog(sync, context, eImageAssets.location, appFonts.delete,
-        appFonts.areYiuSureDeleteLocation, () {
+    value.onDeleteDialog(sync, context, eImageAssets.location,
+        translations!.delete, translations!.areYiuSureDeleteLocation, () {
       addressList.removeAt(index);
       route.pop(context);
       final userApi = Provider.of<UserDataApiProvider>(context, listen: false);
@@ -70,12 +68,10 @@ class LocationListProvider with ChangeNotifier {
     }
   }
 
-
 //add Address Api in Service
   addServiceAvailabilityApi(context) async {
     showLoading(context);
     notifyListeners();
-
 
     var body = {
       for (var i = 0; i < selectedLocation.length; i++)
@@ -94,10 +90,10 @@ class LocationListProvider with ChangeNotifier {
 
         if (value.isSuccess!) {
           final serviceDetail =
-          Provider.of<ServiceDetailsProvider>(context, listen: false);
+              Provider.of<ServiceDetailsProvider>(context, listen: false);
           serviceDetail.getServiceId(context);
           final userApi =
-          Provider.of<UserDataApiProvider>(context, listen: false);
+              Provider.of<UserDataApiProvider>(context, listen: false);
           await userApi.getAddressList(context);
           snackBarMessengers(context,
               message: value.message, color: appColor(context).appTheme.green);
@@ -109,9 +105,8 @@ class LocationListProvider with ChangeNotifier {
           route.pop(context);
         } else {
           final userApi =
-          Provider.of<UserDataApiProvider>(context, listen: false);
+              Provider.of<UserDataApiProvider>(context, listen: false);
           await userApi.getAddressList(context);
-
         }
       });
     } catch (e) {
@@ -126,9 +121,8 @@ class LocationListProvider with ChangeNotifier {
     notifyListeners();
 
     route.pushNamed(context, routeName.location,
-        arg: {"index": index, "isEdit": true, "data": val}).then((e) async{
-      final userApi =
-      Provider.of<UserDataApiProvider>(context, listen: false);
+        arg: {"index": index, "isEdit": true, "data": val}).then((e) async {
+      final userApi = Provider.of<UserDataApiProvider>(context, listen: false);
       await userApi.getAddressList(context);
     });
   }

@@ -8,7 +8,7 @@ class PopularServiceScreen extends StatelessWidget {
     final value = Provider.of<DashboardProvider>(context, listen: true);
     return Consumer<UserDataApiProvider>(builder: (context1, userApi, child) {
       return Scaffold(
-          appBar: AppBarCommon(title: appFonts.popularService),
+          appBar: AppBarCommon(title: translations!.popularService),
           body: SingleChildScrollView(
               child: Column(children: [
             SearchTextFieldCommon(
@@ -22,12 +22,16 @@ class PopularServiceScreen extends StatelessWidget {
                 onFieldSubmitted: (v) => userApi.getPopularServiceList(
                       search: v,
                     )).padding(bottom: Insets.i20),
-            ...popularServiceList.asMap().entries.map((e) =>
-                FeaturedServicesLayout(
-                    data: e.value,
-                    onToggle: (val) => userApi.updateActiveStatusService(context, e.value.id, val,e.key),
-                    onTap: () =>
-                        route.pushNamed(context, routeName.serviceDetails,arg: {"detail":e.value.id})))
+            ...popularServiceList.asMap().entries.map(
+                (e) =>
+                    FeaturedServicesLayout(
+                        data: e.value,
+                        onToggle: (val) => userApi.updateActiveStatusService(
+                            context, e.value.id, val, e.key),
+                        onTap: () => route.pushNamed(
+                            context,
+                            routeName.serviceDetails,
+                            arg: {"detail": e.value.id})))
           ]).paddingSymmetric(horizontal: Insets.i20)));
     });
   }

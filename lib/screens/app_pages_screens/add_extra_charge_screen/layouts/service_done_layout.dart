@@ -8,7 +8,8 @@ class ServiceDoneLayout extends StatelessWidget {
     final value = Provider.of<AddExtraChargesProvider>(context);
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Expanded(
-          child: Text(language(context, appFonts.noOfServiceDoneByServicemen),
+          child: Text(
+              language(context, translations!.noOfServiceDoneByServicemen),
               style: appCss.dmDenseMedium12
                   .textColor(appColor(context).appTheme.darkText))),
       const HSpace(Sizes.s15),
@@ -21,7 +22,7 @@ class ServiceDoneLayout extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppRadius.r6))),
         SizedBox(
             width: Sizes.s100,
-            height:  Sizes.s40,
+            height: Sizes.s40,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

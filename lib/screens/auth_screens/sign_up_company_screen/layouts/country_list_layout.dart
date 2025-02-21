@@ -13,7 +13,7 @@ class CountryListLayout extends StatelessWidget {
             child: CountryListPick(
                 appBar: AppBar(
                     centerTitle: true,
-                    title: Text(appFonts.selectCountry,
+                    title: Text(translations!.selectCountry,
                         style: appCss.dmDenseBold20.textColor(
                             appColor(context).appTheme.whiteBg)),
                     elevation: 0,

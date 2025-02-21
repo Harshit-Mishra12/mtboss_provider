@@ -8,7 +8,7 @@ class MonthlyYearlyLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisSize: MainAxisSize.min, children: [
-      Text(language(context, appFonts.monthly),
+      Text(language(context, translations!.monthly),
           style: isMonthly == false
               ? appCss.dmDenseSemiBold14
                   .textColor(appColor(context).appTheme.primary)
@@ -29,7 +29,7 @@ class MonthlyYearlyLayout extends StatelessWidget {
                   inactiveColor: appColor(context).appTheme.primary,
                   onToggle: onToggle!))
           .paddingSymmetric(horizontal: Insets.i8),
-      Text(language(context, appFonts.yearly),
+      Text(language(context, translations!.yearly),
           style: isMonthly!
               ? appCss.dmDenseSemiBold14
                   .textColor(appColor(context).appTheme.primary)

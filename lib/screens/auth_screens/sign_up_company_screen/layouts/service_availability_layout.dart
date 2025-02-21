@@ -7,16 +7,17 @@ class ServiceAvailabilityLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Consumer2<SignUpCompanyProvider, CommonApiProvider>(
+    return Consumer2<SignUpCompanyProvider, CommonApiProvider>(
         builder: (context1, value, api, child) {
-        return Column(
-          children: [
-            Text(language(context, appFonts.serviceAvailability).toUpperCase(),
-                style: appCss.dmDenseSemiBold16
-                    .textColor(appColor(context).appTheme.darkText)),
-            const VSpace(Sizes.s15),
-              const ZoneDropDown(),
-           /* SliderLayout(
+      return Column(
+        children: [
+          Text(
+              language(context, translations!.serviceAvailability).toUpperCase(),
+              style: appCss.dmDenseSemiBold16
+                  .textColor(appColor(context).appTheme.darkText)),
+          const VSpace(Sizes.s15),
+          const ZoneDropDown(),
+          /* SliderLayout(
                 val: value.slider,
                 onDragging: (handlerIndex, lowerValue, upperValue) =>
                     value.slidingValue(lowerValue))
@@ -33,12 +34,11 @@ class ServiceAvailabilityLayout extends StatelessWidget {
             if (appArray.serviceAvailableAreaList.isNotEmpty)
               ServiceAvailabilityList(sync: sync),
 */
-            const VSpace(Sizes.s30),
-            const DottedLines(),
-            const VSpace(Sizes.s15),
-          ],
-        );
-      }
-    );
+          const VSpace(Sizes.s30),
+          const DottedLines(),
+          const VSpace(Sizes.s15),
+        ],
+      );
+    });
   }
 }

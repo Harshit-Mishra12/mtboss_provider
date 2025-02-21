@@ -20,7 +20,7 @@ class PrimaryAddress {
   String? createdAt;
   String? updatedAt;
   String? deletedAt;
-  int? companyId;
+  String? companyId;
   double? availabilityRadius;
   int? status;
   CountryStateModel? country;

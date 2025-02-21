@@ -9,7 +9,8 @@ class ResetPasswordScreen extends StatelessWidget {
         builder: (context1, resetPass, child) {
       return LoadingComponent(
           child: StatefulWrapper(
-              onInit: () =>Future.delayed(DurationsDelay.ms150).then((value) => resetPass.getArg(context)),
+              onInit: () => Future.delayed(DurationsDelay.ms150)
+                  .then((value) => resetPass.getArg(context)),
               child: Scaffold(
                   appBar: const AuthAppBarCommon(),
                   body: SingleChildScrollView(
@@ -20,8 +21,8 @@ class ResetPasswordScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        language(
-                                                context, appFonts.resetPassword)
+                                        language(context,
+                                                translations!.resetPassword)
                                             .toUpperCase(),
                                         style: appCss.dmDenseBold20.textColor(
                                             appColor(context)

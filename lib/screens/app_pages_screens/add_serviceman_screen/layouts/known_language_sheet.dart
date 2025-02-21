@@ -31,7 +31,8 @@ class KnownLanguageBottomSheet extends StatelessWidget {
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(language(context, appFonts.selectLanguage),
+                            Text(
+                                language(context, translations!.selectLanguage),
                                 style: appCss.dmDenseMedium18.textColor(
                                     appColor(context).appTheme.darkText)),
                             const Icon(CupertinoIcons.multiply)
@@ -55,21 +56,20 @@ class KnownLanguageBottomSheet extends StatelessWidget {
                       if (knownLanguageList.isEmpty) const CommonEmpty(),
                       if (knownLanguageList.isNotEmpty)
                         ...knownLanguageList.asMap().entries.map((e) => Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(e.value.key!,
-                                        style: appCss.dmDenseMedium14.textColor(
-                                            appColor(context)
-                                                .appTheme
-                                                .darkText)),
-                                    CheckBoxCommon(
-                                        isCheck: value.languageSelect
-                                            .contains(e.value),
-                                        onTap: () =>
-                                            value.onLanguageSelect(e.value))
-                                  ],
-                                )
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                      Text(e.value.key!,
+                                          style: appCss.dmDenseMedium14
+                                              .textColor(appColor(context)
+                                                  .appTheme
+                                                  .darkText)),
+                                      CheckBoxCommon(
+                                          isCheck:
+                                              value.isLanguageSelected(e.value),
+                                          onTap: () =>
+                                              value.onLanguageSelect(e.value))
+                                    ])
                                     .padding(
                                         vertical: Insets.i10,
                                         horizontal: Insets.i15)
@@ -89,13 +89,13 @@ class KnownLanguageBottomSheet extends StatelessWidget {
                     Align(
                         alignment: Alignment.bottomCenter,
                         child: BottomSheetButtonCommon(
-                                textOne: appFonts.clearAll,
-                                textTwo: appFonts.apply,
+                                textOne: translations!.clearAll,
+                                textTwo: translations!.apply,
                                 applyTap: () {
                                   route.pop(context);
                                   //  value.searchService(context, isPop: true);
                                 },
-                                clearTap: () =>value.clearTap(context))
+                                clearTap: () => value.clearTap(context))
                             .padding(horizontal: Sizes.s20, bottom: Sizes.s20))
                   ]).bottomSheetExtension(context);
                 }),

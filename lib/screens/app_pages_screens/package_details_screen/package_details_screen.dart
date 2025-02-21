@@ -24,41 +24,48 @@ class _PackageDetailsScreenState extends State<PackageDetailsScreen>
         child: StatefulWrapper(
             onInit: () => Future.delayed(
                 const Duration(milliseconds: 50), () => value.onReady(context)),
-            child:  value.widget1Opacity == 0.0 ? const ServicePackageShimmer() :
-            RefreshIndicator(
-              onRefresh: (){
-                return value.onRefresh(context);
-              },
-              child: Scaffold(
-                  appBar: ActionAppBar(title: appFonts.packageDetails,onTap: ()=> value.onBack(context, true), actions: [
-                    CommonArrow(
-                            arrow: eSvgAssets.delete,
-                            onTap: () => value.onPackageDelete(context, this))
-                        .paddingSymmetric(horizontal: Insets.i20)
-                  ]),
-                  body: SingleChildScrollView(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+            child: value.widget1Opacity == 0.0
+                ? const ServicePackageShimmer()
+                : RefreshIndicator(
+                    onRefresh: () {
+                      return value.onRefresh(context);
+                    },
+                    child: Scaffold(
+                        appBar: ActionAppBar(
+                            title: translations!.packageDetails,
+                            onTap: () => value.onBack(context, true),
+                            actions: [
+                              CommonArrow(
+                                      arrow: eSvgAssets.delete,
+                                      onTap: () =>
+                                          value.onPackageDelete(context, this))
+                                  .paddingSymmetric(horizontal: Insets.i20)
+                            ]),
+                        body: SingleChildScrollView(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                               PackageDetailsLayout(data: value.packageModel),
                               const DottedLines()
                                   .paddingSymmetric(vertical: Insets.i15),
-                              Text(language(context, appFonts.disclaimer),
+                              Text(language(context, translations!.disclaimer),
                                   style: appCss.dmDenseMedium12.textColor(
                                       appColor(context).appTheme.darkText)),
-                              Text(language(context, appFonts.youWillOnlyGet),
-                                  style: appCss.dmDenseRegular12
-                                      .textColor(appColor(context).appTheme.red)),
+                              Text(
+                                  language(
+                                      context, translations!.youWillOnlyGet),
+                                  style: appCss.dmDenseRegular12.textColor(
+                                      appColor(context).appTheme.red)),
                               ButtonCommon(
-                                      title: appFonts.editPackage,
-                                      onTap: () => route.pushNamed(
-                                              context, routeName.appPackage, arg: {
-                                            'isEdit': true,
-                                            "data": value.packageModel
-                                          }))
-                                  .paddingOnly(top: Insets.i40, bottom: Insets.i30)
+                                  title: translations!.editPackage,
+                                  onTap: () => route.pushNamed(
+                                          context, routeName.appPackage, arg: {
+                                        'isEdit': true,
+                                        "data": value.packageModel
+                                      })).paddingOnly(
+                                  top: Insets.i40, bottom: Insets.i30)
                             ]).paddingSymmetric(horizontal: Insets.i20))),
-            )),
+                  )),
       );
     });
   }

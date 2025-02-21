@@ -52,7 +52,7 @@ class StatusDetailLayout extends StatelessWidget {
                                   appColor(context).appTheme.primary)),
                           if (data!.servicePackageId != null)
                             ButtonCommon(
-                                    title: appFonts.package,
+                                    title: translations!.package,
                                     width: Sizes.s68,
                                     height: Sizes.s22,
                                     color: appColor(context).appTheme.whiteBg,
@@ -64,7 +64,7 @@ class StatusDetailLayout extends StatelessWidget {
                                 .paddingSymmetric(horizontal: Insets.i8)
                         ]),
                         Row(children: [
-                          Text(language(context, appFonts.viewStatus),
+                          Text(language(context, translations!.viewStatus),
                               style: appCss.dmDenseMedium12.textColor(
                                   appColor(context).appTheme.primary)),
                           const HSpace(Sizes.s5),
@@ -95,7 +95,7 @@ class StatusDetailLayout extends StatelessWidget {
                               icon: eSvgAssets.calender,
                               title: DateFormat("dd MMM, yyyy")
                                   .format(DateTime.parse(data!.dateTime!)),
-                              subtitle: appFonts.date,
+                              subtitle: translations!.date,
                               padding: 0),
                           Container(
                                   height: Sizes.s78,
@@ -106,7 +106,7 @@ class StatusDetailLayout extends StatelessWidget {
                               icon: eSvgAssets.clock,
                               title: DateFormat("hh:mm aa")
                                   .format(DateTime.parse(data!.dateTime!)),
-                              subtitle: appFonts.time)
+                              subtitle: translations!.time)
                         ]).paddingSymmetric(horizontal: Insets.i10),
                         const DottedLines(),
                         const VSpace(Sizes.s17),
@@ -127,9 +127,10 @@ class StatusDetailLayout extends StatelessWidget {
                                       width: 1,
                                       color: appColor(context).appTheme.stroke)
                                   .paddingSymmetric(horizontal: Insets.i9),
+                              // if(data!.address != null)
                               Expanded(
                                   child: Text(
-                                      data!.consumer != null
+                                      data!.address != null
                                           ? "${data!.address!.area != null ? "${data!.address!.area}, " : ""}${data!.address!.address}, ${data!.address!.country!.name}, ${data!.address!.state!.name}, ${data!.address!.postalCode}"
                                           : "",
                                       overflow: TextOverflow.fade,
@@ -137,7 +138,7 @@ class StatusDetailLayout extends StatelessWidget {
                                           appColor(context).appTheme.darkText)))
                             ])).padding(
                             horizontal: Insets.i10, bottom: Insets.i15),
-                        if (data!.bookingStatus != null)
+                        if (data!.bookingStatus != null && data!.address != null)
                           if (data!.bookingStatus!.slug != "cancel")
                             ViewLocationCommon(address: data!.address!)
                       ]).boxBorderExtension(context,
@@ -146,7 +147,7 @@ class StatusDetailLayout extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         if (data!.description != null)
-                          Text(language(context, appFonts.description),
+                          Text(language(context, translations!.description),
                               style: appCss.dmDenseMedium12.textColor(
                                   appColor(context).appTheme.lightText)),
                         if (data!.description != null) const VSpace(Sizes.s6),
@@ -158,7 +159,7 @@ class StatusDetailLayout extends StatelessWidget {
                               data!.bookingStatus!.slug == "cancelled" ||
                               data!.bookingStatus!.slug == "cancel")
                       ? CustomerLayout(
-                          title: appFonts.customerDetails, data: data!.consumer)
+                          title: translations!.customerDetails, data: data!.consumer)
                       : CustomerServiceLayout(
                           id: data!.consumerId,
                           role: "user",
@@ -166,7 +167,7 @@ class StatusDetailLayout extends StatelessWidget {
                           token: data!.consumer!.fcmToken,
                           phone: data!.consumer!.phone?.toString().replaceRange(0, data!.consumer!.phone.toString().length, "*"),
                           code: data!.consumer!.code,
-                          title: appFonts.customerDetails,
+                          title: translations!.customerDetails,
                           image: data!.consumer!.media != null &&
                                   data!.consumer!.media!.isNotEmpty
                               ? data!.consumer!.media![0].originalUrl!
@@ -192,7 +193,7 @@ class StatusDetailLayout extends StatelessWidget {
                                                           .slug ==
                                                       "assigned" ||
                                                   data!.bookingStatus!.slug ==
-                                                      appFonts.ongoing ||
+                                                      translations!.ongoing ||
                                                   data!.bookingStatus!.slug ==
                                                       "cancelled" ||
                                                   (data!.bookingStatus!.slug ==
@@ -206,15 +207,15 @@ class StatusDetailLayout extends StatelessWidget {
                                                   .appTheme
                                                   .darkText),
                                           text:
-                                              language(context, appFonts.note),
+                                              language(context, translations!.note),
                                           children: [
                                         TextSpan(
                                             style: appCss.dmDenseRegular12.textColor(data!.bookingStatus!.slug == "assigned" ||
                                                     data!.bookingStatus!.slug ==
-                                                        appFonts.ongoing ||
+                                                        translations!.ongoing ||
                                                     data!.bookingStatus!.slug ==
-                                                        appFonts.cancel ||
-                                                    (data!.bookingStatus!.slug == appFonts.accepted &&
+                                                        translations!.cancel ||
+                                                    (data!.bookingStatus!.slug == translations!.accepted &&
                                                         data!.providerId !=
                                                             userModel!.id
                                                                 .toString())
@@ -224,12 +225,12 @@ class StatusDetailLayout extends StatelessWidget {
                                                     .darkText),
                                             text: language(
                                                 context,
-                                                data!.bookingStatus!.slug == appFonts.assigned ||
-                                                        data!.bookingStatus!.slug == appFonts.ongoing ||
-                                                        data!.bookingStatus!.slug == appFonts.cancel ||
-                                                        (data!.bookingStatus!.slug == appFonts.accepted && data!.providerId != userModel!.id.toString())
-                                                    ? appFonts.youAssignedService
-                                                    : appFonts.servicemenIsNotSelected))
+                                                data!.bookingStatus!.slug == translations!.assigned ||
+                                                        data!.bookingStatus!.slug == translations!.ongoing ||
+                                                        data!.bookingStatus!.slug == translations!.cancel ||
+                                                        (data!.bookingStatus!.slug == translations!.accepted && data!.providerId != userModel!.id.toString())
+                                                    ? translations!.youAssignedService
+                                                    : translations!.servicemenIsNotSelected))
                                       ]))
                                 ])
                           : data!.servicemen!
@@ -249,7 +250,7 @@ class StatusDetailLayout extends StatelessWidget {
                                                       .appTheme
                                                       .red),
                                               text: language(
-                                                  context, appFonts.note),
+                                                  context, translations!.note),
                                               children: [
                                             TextSpan(
                                                 style: appCss.dmDenseRegular12
@@ -258,7 +259,7 @@ class StatusDetailLayout extends StatelessWidget {
                                                         .red),
                                                 text: language(
                                                     context,
-                                                    appFonts
+                                                    translations!
                                                         .youAssignedService))
                                           ]))
                                     ])
@@ -269,7 +270,7 @@ class StatusDetailLayout extends StatelessWidget {
                                       .map((s) => CustomerServiceLayout(
                                               id: s.value.id,
                                               bookingId: data!.id.toString(),
-                                              title: appFonts.servicemanDetail,
+                                              title: translations!.servicemanDetail,
                                               phone: s.value.phone.toString(),
                                               code: s.value.code,
                                               token: s.value.fcmToken,

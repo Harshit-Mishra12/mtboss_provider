@@ -8,9 +8,10 @@ class LatestBlogDetailsScreen extends StatelessWidget {
     return Consumer<LatestBLogDetailsProvider>(
         builder: (context1, value, child) {
       return StatefulWrapper(
-          onInit: () => Future.delayed(const Duration(milliseconds: 100),() => value.onReady(context)),
+          onInit: () => Future.delayed(
+              const Duration(milliseconds: 100), () => value.onReady(context)),
           child: Scaffold(
-              appBar: AppBarCommon(title: appFonts.latestBlog),
+              appBar: AppBarCommon(title: translations!.latestBlog),
               body: SingleChildScrollView(
                   child: Column(children: [
                 SizedBox(

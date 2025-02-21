@@ -10,40 +10,42 @@ class SignUpOne extends StatelessWidget {
           key: value.signupFormKey1,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            ContainerWithTextLayout(title: appFonts.logo),
+            ContainerWithTextLayout(title: translations!.logo),
             const VSpace(Sizes.s12),
-             CompanyLogoLayout(imageFile: value.imageFile)
+            CompanyLogoLayout(imageFile: value.imageFile)
                 .inkWell(onTap: () => value.onImagePick(context))
                 .paddingSymmetric(horizontal: Insets.i20),
-            ContainerWithTextLayout(title: appFonts.companyName)
+            ContainerWithTextLayout(title: translations!.companyName)
                 .paddingOnly(top: Insets.i24, bottom: Insets.i8),
             TextFieldCommon(
                     controller: value.companyName,
                     validator: (v) => validation.nameValidation(context, v),
                     focusNode: value.companyNameFocus,
-                    hintText: appFonts.enterCompanyName,
+                    hintText: translations!.enterCompanyName!,
                     prefixIcon: eSvgAssets.companyName)
                 .paddingSymmetric(horizontal: Insets.i20),
-            ContainerWithTextLayout(title: appFonts.companyPhoneNo)
+            ContainerWithTextLayout(title: translations!.companyPhoneNo)
                 .paddingOnly(top: Insets.i24, bottom: Insets.i8),
             RegisterWidgetClass().phoneTextBox(
                 dialCode: value.dialCode,
-                context, value.companyPhone, value.phoneNameFocus,
+                context,
+                value.companyPhone,
+                value.phoneNameFocus,
                 onChanged: (CountryCodeCustom? code) =>
                     value.changeDialCode(code!),
                 onFieldSubmitted: (values) => validation.fieldFocusChange(
                     context, value.phoneNameFocus, value.companyMailFocus)),
-            ContainerWithTextLayout(title: appFonts.companyMail)
+            ContainerWithTextLayout(title: translations!.companyMail)
                 .paddingOnly(top: Insets.i24, bottom: Insets.i8),
             TextFieldCommon(
                     validator: (v) => validation.emailValidation(context, v),
                     controller: value.companyMail,
                     focusNode: value.companyMailFocus,
                     keyboardType: TextInputType.emailAddress,
-                    hintText: appFonts.enterMail,
+                    hintText: translations!.enterMail!,
                     prefixIcon: eSvgAssets.email)
                 .paddingSymmetric(horizontal: Insets.i20),
-            ContainerWithTextLayout(title: appFonts.experience)
+            ContainerWithTextLayout(title: translations!.experience)
                 .paddingOnly(top: Insets.i24, bottom: Insets.i8),
             Row(children: [
               Expanded(
@@ -54,7 +56,7 @@ class SignUpOne extends StatelessWidget {
                               validation.commonValidation(context, v),
                           focusNode: value.experienceFocus,
                           controller: value.experience,
-                          hintText: appFonts.addExperience,
+                          hintText: translations!.addExperience!,
                           prefixIcon: eSvgAssets.timer)
                       .paddingOnly(
                           left: rtl(context) ? 0 : Insets.i20,
@@ -64,7 +66,7 @@ class SignUpOne extends StatelessWidget {
                   child: DarkDropDownLayout(
                           isBig: true,
                           val: value.chosenValue,
-                          hintText: appFonts.month,
+                          hintText: translations!.month,
                           isIcon: false,
                           categoryList: appArray.experienceList,
                           onChanged: (val) => value.onDropDownChange(val))
@@ -72,16 +74,16 @@ class SignUpOne extends StatelessWidget {
                           right: rtl(context) ? Insets.i8 : Insets.i20,
                           left: rtl(context) ? Insets.i20 : Insets.i8))
             ]),
-            ContainerWithTextLayout(title: appFonts.description)
+            ContainerWithTextLayout(title: translations!.description)
                 .paddingOnly(top: Insets.i24, bottom: Insets.i8),
             Stack(children: [
               TextFieldCommon(
                       focusNode: value.descriptionFocus,
                       isNumber: true,
                       validator: (v) => validation.dynamicTextValidation(
-                          context, v, appFonts.pleaseEnterDesc),
+                          context, v, translations!.pleaseEnterDesc),
                       controller: value.description,
-                      hintText: appFonts.enterDetails,
+                      hintText: translations!.enterDetails!,
                       maxLines: 3,
                       minLines: 3,
                       isMaxLine: true)

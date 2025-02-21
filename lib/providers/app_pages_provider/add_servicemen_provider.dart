@@ -60,15 +60,19 @@ class AddServicemenProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  //language selection
+//language selection
   onLanguageSelect(options) {
     if (!languageSelect.contains(options)) {
       languageSelect.add(options);
+      log("languageSelect::${languageSelect}");
     } else {
       languageSelect.remove(options);
     }
     notifyListeners();
-    //notifyListeners();
+  }
+
+  bool isLanguageSelected(language) {
+    return languageSelect.any((selected) => selected.key == language.key);
   }
 
   clearTap(context) {
@@ -85,7 +89,7 @@ class AddServicemenProvider with ChangeNotifier {
       isScrollControlled: true,
       context: context,
       builder: (context) {
-        return KnownLanguageBottomSheet();
+        return const KnownLanguageBottomSheet();
       },
     ).then((value) {
       log("SSS");
@@ -227,23 +231,26 @@ class AddServicemenProvider with ChangeNotifier {
                 }
               } else {
                 snackBarMessengers(context,
-                    message: language(context, appFonts.pleaseSelectLocation));
+                    message:
+                        language(context, translations!.pleaseSelectLocation));
               }
             } else {
               snackBarMessengers(context,
-                  message: language(context, appFonts.pleaseSelectLanguage));
+                  message:
+                      language(context, translations!.pleaseSelectLanguage));
             }
           } else {
             snackBarMessengers(context,
-                message: language(context, appFonts.pleaseSelectIdentityType));
+                message:
+                    language(context, translations!.pleaseSelectIdentityType));
           }
         } else {
           snackBarMessengers(context,
-              message: language(context, appFonts.pleaseUploadDocument));
+              message: language(context, translations!.pleaseUploadDocument));
         }
       } else {
         snackBarMessengers(context,
-            message: language(context, appFonts.pleaseUploadProfilePhoto));
+            message: language(context, translations!.pleaseUploadProfilePhoto));
       }
     }
   }
@@ -260,7 +267,7 @@ class AddServicemenProvider with ChangeNotifier {
             editServiceman(context);
           } else {
             snackBarMessengers(context,
-                message: language(context, appFonts.pleaseSelectLocation));
+                message: language(context, translations!.pleaseSelectLocation));
           }
         } else {
           if (profileFile != null) {
@@ -269,14 +276,15 @@ class AddServicemenProvider with ChangeNotifier {
                 editServiceman(context);
               } else {
                 snackBarMessengers(context,
-                    message: language(context, appFonts.pleaseSelectLocation));
+                    message:
+                        language(context, translations!.pleaseSelectLocation));
               }
             }
           }
         }
       } else {
         snackBarMessengers(context,
-            message: language(context, appFonts.pleaseUploadProfilePhoto));
+            message: language(context, translations!.pleaseUploadProfilePhoto));
       }
     }
   }
@@ -519,7 +527,6 @@ onReady(){
   onBack(context, isBack) {
     servicemanModel = null;
     imageFile = null;
-
     userName.text = "";
     email.text = "";
     number.text = "";
@@ -528,7 +535,7 @@ onReady(){
     password.text = "";
     reEnterPassword.text = "";
     locationCtrl.text = "";
-    languageSelect =  [];
+    languageSelect = [];
     identityValue = null;
     profileFile = null;
     identityNumber.text = "";
@@ -536,7 +543,7 @@ onReady(){
     appArray.servicemanDocImageList = [];
     address = null;
     description.text = "";
-    if(isBack) {
+    if (isBack) {
       route.pop(context);
     }
   }

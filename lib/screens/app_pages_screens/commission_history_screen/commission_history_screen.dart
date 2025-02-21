@@ -9,7 +9,8 @@ class CommissionHistory extends StatelessWidget {
         builder: (context1, value, userApi, child) {
       return LoadingComponent(
         child: Scaffold(
-            appBar: ActionAppBar(title: appFonts.commissionHistory, actions: [
+            appBar:
+                ActionAppBar(title: translations!.commissionHistory, actions: [
               if (!isServiceman && !isFreelancer)
                 CommonArrow(
                         arrow: eSvgAssets.about,
@@ -37,8 +38,10 @@ class CommissionHistory extends StatelessWidget {
                                     width: Sizes.s40, height: Sizes.s40),
                                 const HSpace(Sizes.s10),
                                 Text(
-                                        language(context,
-                                            appFonts.totalReceivedCommission),
+                                        language(
+                                            context,
+                                            translations!
+                                                .totalReceivedCommission),
                                         style: appCss.dmDenseMedium15.textColor(
                                             appColor(context)
                                                 .appTheme
@@ -59,8 +62,8 @@ class CommissionHistory extends StatelessWidget {
                             SizedBox(
                                 width: Sizes.s200,
                                 child: Text(
-                                    language(
-                                        context, appFonts.onlyCompletedByMe),
+                                    language(context,
+                                        translations!.onlyCompletedByMe),
                                     style: appCss.dmDenseMedium12.textColor(
                                         value.isCompletedMe
                                             ? appColor(context).appTheme.primary

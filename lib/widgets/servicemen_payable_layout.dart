@@ -6,34 +6,27 @@ class ServicemenPayableLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-              language(
-                  context, appFonts.servicemenPayableAmount),
-              style: appCss.dmDenseMedium14.textColor(
-                  appColor(context).appTheme.darkText)),
-          const VSpace(Sizes.s8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("\$${amount ?? "0"}",
-                  style: appCss.dmDenseSemiBold14.textColor(
-                      appColor(context).appTheme.green)),
-
-              Text("/${language(context, appFonts.perServicemen)}",style: appCss.dmDenseRegular12.textColor(appColor(context).appTheme.lightText))
-            ]
-          ).paddingAll(Insets.i15)
-              .boxShapeExtension(
-              radius: AppRadius.r10,
-              color: appColor(context)
-                  .appTheme
-                  .green
-                  .withOpacity(0.1)),
-        ]).paddingAll(Insets.i15).boxBorderExtension(context,
-        isShadow: true,
-        bColor: appColor(context).appTheme.stroke,
-        radius: AppRadius.r12).paddingOnly(top: Insets.i25);
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(language(context, translations!.servicemenPayableAmount),
+          style: appCss.dmDenseMedium14
+              .textColor(appColor(context).appTheme.darkText)),
+      const VSpace(Sizes.s8),
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text("\$${amount ?? "0"}",
+            style: appCss.dmDenseSemiBold14
+                .textColor(appColor(context).appTheme.green)),
+        Text("/${language(context, translations!.perServicemen)}",
+            style: appCss.dmDenseRegular12
+                .textColor(appColor(context).appTheme.lightText))
+      ]).paddingAll(Insets.i15).boxShapeExtension(
+          radius: AppRadius.r10,
+          color: appColor(context).appTheme.green.withOpacity(0.1)),
+    ])
+        .paddingAll(Insets.i15)
+        .boxBorderExtension(context,
+            isShadow: true,
+            bColor: appColor(context).appTheme.stroke,
+            radius: AppRadius.r12)
+        .paddingOnly(top: Insets.i25);
   }
 }

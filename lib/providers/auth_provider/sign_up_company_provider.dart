@@ -98,7 +98,7 @@ class SignUpCompanyProvider with ChangeNotifier {
   FocusNode providerPhoneNumberFocus = FocusNode();
   FocusNode providerEmailFocus = FocusNode();
 
-  String? documentModel;
+  String documentModel = '';
   XFile? imageFile, docFile;
 
   //new password see tap
@@ -274,8 +274,8 @@ class SignUpCompanyProvider with ChangeNotifier {
   onLocationDelete(index, context, sync) {
     final value = Provider.of<DeleteDialogProvider>(context, listen: false);
 
-    value.onDeleteDialog(sync, context, eImageAssets.location, appFonts.delete,
-        appFonts.areYiuSureDeleteLocation, () {
+    value.onDeleteDialog(sync, context, eImageAssets.location,
+        translations!.delete, translations!.areYiuSureDeleteLocation, () {
       appArray.serviceAvailableAreaList.removeAt(index);
       route.pop(context);
       notifyListeners();
@@ -284,22 +284,32 @@ class SignUpCompanyProvider with ChangeNotifier {
   }
 
   //on page initialize
-  onReady() {
+  void onReady() {
     pageIndex = 0;
     fPageIndex = 0;
     notifyListeners();
-    countryList = countryStateList;
-    statesList = stateList;
-    zonesList = zoneList;
-    countryValue = countryList[0].id!;
+
+    // Assign lists and handle null values
+    countryList = countryStateList ?? [];
+    statesList = stateList ?? [];
+    zonesList = zoneList ?? [];
+
+    // Check list lengths before accessing elements
+    if (countryList.isNotEmpty) {
+      countryValue = countryList[0].id!;
+    } else {
+      countryValue = -1; // Fallback value
+    }
+
     country = null;
-    countryValue = -1;
     stateValue = -1;
     state = null;
+
     descriptionFocus.addListener(() {
       notifyListeners();
     });
-    log("signup.countryList :${countryList.length}");
+
+    log("signup.countryList : ${countryList.length}");
     notifyListeners();
   }
 
@@ -329,9 +339,13 @@ class SignUpCompanyProvider with ChangeNotifier {
   }
 
   onIdentityChange(val) {
-    log("SS ::4$val");
-    documentModel = val.toString();
-    notifyListeners();
+    if (val != null) {
+      log("SS ::4 $val"); // Log the value for debugging
+      documentModel = val.toString(); // Update the document model
+      notifyListeners(); // Notify listeners about the change
+    } else {
+      log("SS ::4 Received a null value"); // Log null value for debugging
+    }
   }
 
   scrollAnimated(double position) {
@@ -354,20 +368,22 @@ class SignUpCompanyProvider with ChangeNotifier {
                 fPageIndex++;
               } else {
                 snackBarMessengers(context,
-                    message:
-                        language(context, appFonts.pleaseSelectDurationUnit));
+                    message: language(
+                        context, translations!.pleaseSelectDurationUnit));
               }
             } else {
               snackBarMessengers(context,
-                  message: language(context, appFonts.pleaseUploadDocument));
+                  message:
+                      language(context, translations!.pleaseUploadDocument));
             }
           } else {
             snackBarMessengers(context,
-                message: language(context, appFonts.pleaseSelectIdentityType));
+                message:
+                    language(context, translations!.pleaseSelectIdentityType));
           }
         } else {
           snackBarMessengers(context,
-              message: language(context, appFonts.pleaseSelectLanguage));
+              message: language(context, translations!.pleaseSelectLanguage));
         }
       }
     } else if (fPageIndex == 1) {
@@ -389,15 +405,15 @@ class SignUpCompanyProvider with ChangeNotifier {
               }
             } else {
               snackBarMessengers(context,
-                  message: language(context, appFonts.selectZone));
+                  message: language(context, translations!.selectZone));
             }
           } else {
             snackBarMessengers(context,
-                message: language(context, appFonts.pleaseSelectState));
+                message: language(context, translations!.pleaseSelectState));
           }
         } else {
           snackBarMessengers(context,
-              message: language(context, appFonts.pleaseSelectCountry));
+              message: language(context, translations!.pleaseSelectCountry));
         }
       }
     }
@@ -414,7 +430,7 @@ class SignUpCompanyProvider with ChangeNotifier {
           pageIndex++;
         } else {
           snackBarMessengers(context,
-              message: language(context, appFonts.addCompanyLogo));
+              message: language(context, translations!.addCompanyLogo));
         }
       }
     } else if (pageIndex == 1) {
@@ -426,15 +442,15 @@ class SignUpCompanyProvider with ChangeNotifier {
               pageIndex++;
             } else {
               snackBarMessengers(context,
-                  message: language(context, appFonts.selectZone));
+                  message: language(context, translations!.selectZone));
             }
           } else {
             snackBarMessengers(context,
-                message: language(context, appFonts.selectState));
+                message: language(context, translations!.selectState));
           }
         } else {
           snackBarMessengers(context,
-              message: language(context, appFonts.selectCountry));
+              message: language(context, translations!.selectCountry));
         }
       }
     } else if (pageIndex == 2) {
@@ -453,15 +469,17 @@ class SignUpCompanyProvider with ChangeNotifier {
               }
             } else {
               snackBarMessengers(context,
-                  message: language(context, appFonts.pleaseUploadDocument));
+                  message:
+                      language(context, translations!.pleaseUploadDocument));
             }
           } else {
             snackBarMessengers(context,
-                message: language(context, appFonts.pleaseSelectIdentityType));
+                message:
+                    language(context, translations!.pleaseSelectIdentityType));
           }
         } else {
           snackBarMessengers(context,
-              message: language(context, appFonts.pleaseSelectLanguage));
+              message: language(context, translations!.pleaseSelectLanguage));
         }
       }
     }
@@ -534,15 +552,14 @@ class SignUpCompanyProvider with ChangeNotifier {
           "is_primary": "1"
         }
       };
-      log("Final request body: ${body.toString()}");
+
       log("BODU :$body");
 
       dio.FormData formData = dio.FormData.fromMap(body);
       await apiServices.postApi(api.register, formData).then((value) async {
-        log("API Response: ${value.toJson()}");
         hideLoading(context);
         notifyListeners();
-        log("API Response check  :${value.isSuccess}");
+        log("ISS :${value.isSuccess}");
         if (value.isSuccess!) {
           final commonApi =
               Provider.of<CommonApiProvider>(context, listen: false);
@@ -581,7 +598,19 @@ class SignUpCompanyProvider with ChangeNotifier {
             FirebaseApi().onlineActiveStatusChange(false);
           }
 
-          route.pushReplacementNamed(context, routeName.dashboard);
+          showLoading(context).then((value) {
+            route.pushReplacementNamed(context, routeName.dashboard);
+            companyName.clear();
+            companyPhone.clear();
+            companyMail.clear();
+            experience.clear();
+            description.clear();
+            areaData.clear();
+            latitude.clear();
+            longitude.clear();
+            area.clear();
+            city.clear();
+          });
           pageIndex = 0;
           notifyListeners();
         } else {
@@ -749,7 +778,7 @@ class SignUpCompanyProvider with ChangeNotifier {
       slider = 0.0;
       imageFile = null;
       docFile = null;
-      documentModel = null;
+      documentModel = '';
 
       companyName.text = "";
       companyPhone.text = "";
@@ -793,7 +822,7 @@ class SignUpCompanyProvider with ChangeNotifier {
       slider = 0.0;
       imageFile = null;
       docFile = null;
-      documentModel = null;
+      documentModel = '';
 
       companyName.text = "";
       companyPhone.text = "";

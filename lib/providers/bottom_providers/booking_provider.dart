@@ -81,8 +81,8 @@ class BookingProvider with ChangeNotifier {
             validator: (value) => validation.commonValidation(context, value),
             focusNode: reasonFocus,
             controller: reasonCtrl,
-            title: appFonts.reasonOfRejectBooking,
-            singleText: appFonts.send,
+            title: translations!.reasonOfRejectBooking,
+            singleText: translations!.send,
             globalKey: formKey,
             singleTap: () {
               if (formKey.currentState!.validate()) {
@@ -101,17 +101,16 @@ class BookingProvider with ChangeNotifier {
 
   onAssignTap(context, BookingModel? bookingModel) {
     log("bookingModel!.requiredServicemen::${bookingModel!.requiredServicemen}");
-
     if (isFreelancer) {
       showDialog(
           context: context,
           builder: (context1) => AppAlertDialogCommon(
               height: Sizes.s145,
-              title: appFonts.assignToMe,
-              firstBText: appFonts.cancel,
-              secondBText: appFonts.yes,
+              title: translations!.assignToMe,
+              firstBText: translations!.cancel,
+              secondBText: translations!.yes,
               image: eImageAssets.assignMe,
-              subtext: appFonts.areYouSureYourself,
+              subtext: translations!.areYouSureYourself,
               secondBTap: () {
                 assignServiceman(context, [userModel!.id], bookingModel.id);
               },
@@ -274,14 +273,14 @@ class BookingProvider with ChangeNotifier {
   }
 
   /*onTapBookings(data,context){
-    if(data.status == appFonts.pending) {
+    if(data.status == translations!.pending) {
       //route.pushNamed(context, routeName.packageBookingScreen);
       if(data.servicemanLists.isNotEmpty) {
         route.pushNamed(context, routeName.pendingBooking,arg: true);
       } else {
         route.pushNamed(context, routeName.pendingBooking,arg: false);
       }
-    } else if(data.status == appFonts.accepted) {
+    } else if(data.status == translations!.accepted) {
       if(isFreelancer) {
         route.pushNamed(context, routeName.assignBooking);
       } else {
@@ -292,9 +291,9 @@ class BookingProvider with ChangeNotifier {
         }
 
       }
-    } else if(data.status == appFonts.pendingApproval) {
+    } else if(data.status == translations!.pendingApproval) {
       route.pushNamed(context, routeName.pendingApprovalBooking);
-    } else if(data.status == appFonts.ongoing) {
+    } else if(data.status == translations!.ongoing) {
       if(data.servicemanLists.isNotEmpty) {
         route.pushNamed(context, routeName.ongoingBooking,arg: {
           "bool": false
@@ -304,13 +303,13 @@ class BookingProvider with ChangeNotifier {
           "bool": true
         });
       }
-    } else if(data.status == appFonts.hold) {
+    } else if(data.status == translations!.hold) {
       route.pushNamed(context, routeName.holdBooking);
-    } else if(data.status == appFonts.completed) {
+    } else if(data.status == translations!.completed) {
       route.pushNamed(context, routeName.completedBooking);
-    } else if(data.status == appFonts.cancelled) {
+    } else if(data.status == translations!.cancelled) {
       route.pushNamed(context, routeName.cancelledBooking);
-    } else if(data.status == appFonts.assigned) {
+    } else if(data.status == translations!.assigned) {
       if(data.servicemanLists.isNotEmpty) {
         route.pushNamed(context, routeName.assignBooking,arg: {
           "bool": true

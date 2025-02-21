@@ -7,16 +7,17 @@ class ProviderReviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ServiceReviewProvider>(builder: (context, value, child) {
-
+    return Consumer2<LanguageProvider,ServiceReviewProvider>(builder: (context, lang,value, child) {
       return Scaffold(
-          appBar: AppBarCommon(title: appFonts.review),
+          appBar: AppBarCommon(title: translations!.review),
           body: SingleChildScrollView(
               child: Column(children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              RatingLayout(initialRating: double.parse(value.services!.ratingCount.toString())),
+              RatingLayout(
+                  initialRating:
+                      double.parse(value.services!.ratingCount.toString())),
               Row(children: [
-                Text(language(context, appFonts.averageRate),
+                Text(language(context, translations!.averageRate),
                     style: appCss.dmDenseMedium12
                         .textColor(appColor(context).appTheme.primary)),
                 const HSpace(Sizes.s4),
@@ -34,7 +35,8 @@ class ProviderReviewScreen extends StatelessWidget {
                 .paddingSymmetric(horizontal: Insets.i40),
             const VSpace(Sizes.s15),
             Column(
-                    children:  value.services!.reviewRatings!.reversed.toList()
+                    children: value.services!.reviewRatings!.reversed
+                        .toList()
                         .asMap()
                         .entries
                         .map((e) => ProgressBarLayout(
@@ -48,7 +50,7 @@ class ProviderReviewScreen extends StatelessWidget {
             Row(children: [
               Expanded(
                   flex: 4,
-                  child: Text(language(context, appFonts.review),
+                  child: Text(language(context, translations!.review),
                       style: appCss.dmDenseMedium16
                           .textColor(appColor(context).appTheme.darkText))),
               Expanded(
@@ -56,13 +58,13 @@ class ProviderReviewScreen extends StatelessWidget {
                   child: DropDownLayout(
                       isField: true,
                       isIcon: false,
-                      hintText: appFonts.all,
+                      hintText: translations!.all,
                       val: value.settingExValue,
                       categoryList: appArray.reviewLowHighList,
                       onChanged: (val) => value.onSettingReview(val)))
             ]),
             const VSpace(Sizes.s15),
-           /* ...appArray.reviewList
+            /* ...appArray.reviewList
                 .asMap()
                 .entries
                 .map((e) => ServiceReviewLayout(

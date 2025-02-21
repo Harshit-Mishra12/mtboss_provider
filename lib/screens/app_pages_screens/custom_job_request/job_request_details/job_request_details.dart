@@ -108,7 +108,7 @@ class JobRequestDetails extends StatelessWidget {
                                                             Text(
                                                                 language(
                                                                     context,
-                                                                    appFonts
+                                                                    translations!
                                                                         .amount),
                                                                 style: appCss
                                                                     .dmDenseMedium12
@@ -133,7 +133,6 @@ class JobRequestDetails extends StatelessWidget {
                                                     services:
                                                         serviceCtrl.service),
                                                 const VSpace(Sizes.s15),
-
                                                 if (serviceCtrl.service!.bids !=
                                                         null &&
                                                     serviceCtrl.service!.bids!
@@ -142,18 +141,17 @@ class JobRequestDetails extends StatelessWidget {
                                                                 .providerId ==
                                                             userModel!.id)
                                                         .isNotEmpty)
-                                                  if(serviceCtrl.service!.bids!
+                                                  if (serviceCtrl.service!.bids!
                                                       .where((element) =>
-                                                  element
-                                                      .status ==
-                                                      "accepted")
+                                                          element.status ==
+                                                          "accepted")
                                                       .isNotEmpty)
-                                                  MyBid(
-                                                      service:
-                                                          serviceCtrl.service),
+                                                    MyBid(
+                                                        service: serviceCtrl
+                                                            .service),
                                                 const VSpace(Sizes.s15),
                                                 CustomerLayout(
-                                                    title: appFonts
+                                                    title: translations!
                                                         .customerDetails,
                                                     data: serviceCtrl
                                                         .service!.user,
@@ -176,7 +174,7 @@ class JobRequestDetails extends StatelessWidget {
                                                             userModel!.id)
                                                         .isEmpty)
                                                   ButtonCommon(
-                                                      title: appFonts.bid,
+                                                      title: translations!.bid,
                                                       onTap: () => serviceCtrl
                                                           .bidClick(context))
                                               ]).paddingSymmetric(

@@ -8,16 +8,17 @@ class NewLocationProvider with ChangeNotifier {
   int? argIndex;
   bool? status;
   List categoryList = [
-    appFonts.home,
-    appFonts.work,
-    appFonts.other,
+    translations!.home,
+    translations!.work,
+    translations!.other,
   ];
   int? radius;
   bool isCheck = false,
       isEdit = false,
       isCompany = false,
       isServiceman = false,
-      isAddressServiceman = false,isService=false;
+      isAddressServiceman = false,
+      isService = false;
   GlobalKey<FormState> locationFormKey = GlobalKey<FormState>();
 
   PrimaryAddress? address;
@@ -173,11 +174,11 @@ class NewLocationProvider with ChangeNotifier {
     }
   }
 
-//dial code selection
-  changeDialCode(CountryCode country) {
-    dialCode = country.dialCode!;
-    notifyListeners();
-  }
+// //dial code selection
+//   changeDialCode(CountryCode country) {
+//     dialCode = country.dialCode!;
+//     notifyListeners();
+//   }
 
   //category selection
   onCategory(index) {
@@ -242,12 +243,12 @@ class NewLocationProvider with ChangeNotifier {
               Provider.of<DeleteDialogProvider>(context, listen: false);
           data.onResetPass(
               context,
-              language(context, appFonts.congLocationSuccessAdded),
-              language(context, appFonts.okay), () {
+              language(context, translations!.congLocationSuccessAdded),
+              language(context, translations!.okay), () {
             route.pop(context);
             route.pop(context);
             route.pop(context);
-          }, title: appFonts.successfullyAdded);
+          }, title: translations!.successfullyAdded);
         } else {
           snackBarMessengers(context,
               color: appColor(context).appTheme.red, message: value.message);
@@ -320,62 +321,29 @@ class NewLocationProvider with ChangeNotifier {
       if (isEdit) {
         editAddress(context);
       } else {
-        if (isService) {
-          final loc = Provider.of<AddNewServiceProvider>(context, listen: false);
-          PrimaryAddress primaryAddress = PrimaryAddress(
-              address: addressCtrl.text,
-              area: streetCtrl.text,
-              availabilityRadius: double.parse(radius.toString()),
-              city: cityCtrl.text,
-              countryId: country!.id,
-              stateId: state!.id,
-              isPrimary: 1,
-              latitude: latitudeCtrl.text,
-              longitude: longitudeCtrl.text,
-              country: country,
-              state: state,
-              status: 1,
-              type: categoryList[selectIndex],
-              userId: userModel!.id.toString(),
-              postalCode: zipCtrl.text);
-          loc.area = primaryAddress.area;
-          loc.zipCode= primaryAddress.postalCode;
-          loc.latitude= primaryAddress.latitude;
-          loc.longitude= primaryAddress.longitude;
-          loc.city= primaryAddress.city;
-          loc.country = primaryAddress.country;
-          loc.state = primaryAddress.state;
-
-          loc.areaData =
-          "${primaryAddress.address!} - ${primaryAddress.country!.name} - ${primaryAddress.state!.name}";
-          loc.notifyListeners();
-          route.pop(context);
-          route.pop(context);
+        if (!isServiceman) {
+          addAddress(context);
         } else {
-          if (!isServiceman) {
+          log("isAddressServiceman L::$isAddressServiceman");
+          if (isAddressServiceman) {
             addAddress(context);
           } else {
-            log("isAddressServiceman L$isAddressServiceman");
-            if (isAddressServiceman) {
-              addAddress(context);
-            } else {
-              if (isSubscription) {
-                if (addressList.length <
-                    int.parse(activeSubscription!.allowedMaxAddresses ?? "0")) {
-                  addAddress(context);
-                } else {
-                  snackBarMessengers(context,
-                      message:
-                      language(context, appFonts.youCanAddOnlyMinAddress));
-                }
+            if (isSubscription) {
+              if (addressList.length <
+                  int.parse(activeSubscription!.allowedMaxAddresses ?? "0")) {
+                addAddress(context);
               } else {
-                if (addressList.length < 3) {
-                  addAddress(context);
-                } else {
-                  snackBarMessengers(context,
-                      message:
-                      language(context, appFonts.youCanAddOnlyMinAddress));
-                }
+                snackBarMessengers(context,
+                    message: language(
+                        context, translations!.youCanAddOnlyMinAddress));
+              }
+            } else {
+              if (addressList.length < 3) {
+                addAddress(context);
+              } else {
+                snackBarMessengers(context,
+                    message: language(
+                        context, translations!.youCanAddOnlyMinAddress));
               }
             }
           }

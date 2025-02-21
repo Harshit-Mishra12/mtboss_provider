@@ -9,7 +9,7 @@ import '../../screens/auth_screens/current_location_screen/layouts/google.dart';
 
 class LocationProvider with ChangeNotifier {
   AnimationController? animationController;
-  LatLng? position,currentPosition;
+  LatLng? position, currentPosition;
   double? newLog, newLat;
   Position? position1;
   int primaryAddress = 0;
@@ -30,23 +30,25 @@ class LocationProvider with ChangeNotifier {
   List<CountryStateModel> countryStateList = [];
   List<StateModel> stateList = [];
 
-
   Placemark? place;
-  bool isEdit = false, isCompany = false, isServiceman = false, isAddressServiceman = false,isSignUp = false,isService=false;
+  bool isEdit = false,
+      isCompany = false,
+      isServiceman = false,
+      isAddressServiceman = false,
+      isSignUp = false,
+      isService = false;
   int count = 0;
   bool isNewPassword = true, isConfirmPassword = true;
   //fetch current location on click
   fetchCurrent(context) async {
-
     newLat = null;
     newLog = null;
 
     mapController!.animateCamera(CameraUpdate.newLatLng(
-    LatLng(currentPosition!.latitude, currentPosition!.longitude)));
-position = currentPosition;
+        LatLng(currentPosition!.latitude, currentPosition!.longitude)));
+    position = currentPosition;
     getAddressFromLatLng(context);
     notifyListeners();
-
   }
 
   //on map create controller initialize
@@ -59,8 +61,8 @@ position = currentPosition;
     route.push(context, SearchLocation()).then((e) async {
       if (e != null) {
         log("GET :$e");
-        newLat= null;
-        newLog= null;
+        newLat = null;
+        newLog = null;
         position = e;
         mapController!.animateCamera(CameraUpdate.newLatLng(
             LatLng(position!.latitude, position!.longitude)));
@@ -70,7 +72,6 @@ position = currentPosition;
       }
     });
   }
-
 
   //animation
   onAnimate(TickerProvider sync, context) async {
@@ -87,7 +88,6 @@ position = currentPosition;
       await animationController!.reverse();
     }
   }
-
 
   // click on confirmation button add in list
   onTapLocationAdd(context) {
@@ -117,7 +117,7 @@ position = currentPosition;
     argumentData = ModalRoute.of(context)?.settings.arguments;
 
     if (argumentData != null) {
-      if(argumentData['isSignUp'] != null){
+      if (argumentData['isSignUp'] != null) {
         isSignUp = true;
         await Geolocator.requestPermission().then((value) async {
           log("GEO LOCATION : $value");
@@ -135,7 +135,7 @@ position = currentPosition;
           await Geolocator.requestPermission();
           log("ERROR $error");
         });
-      }else {
+      } else {
         isCompany = argumentData["isCompany"] ?? false;
         isService = argumentData["isService"] ?? false;
         isAddressServiceman = argumentData["isAddressServiceman"] ?? false;
@@ -197,13 +197,14 @@ position = currentPosition;
     notifyListeners();
   }
 
-
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec =
-    await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 
   //fetch location detail as per lat long
@@ -229,34 +230,33 @@ position = currentPosition;
       //locationVal.countryCtrl.text = place!.country!;
       //locationVal.stateCtrl.text = place!.administrativeArea!;
       locationVal.addressCtrl.text = place!.subLocality!;
-      final Uint8List markerIcon = await getBytesFromAsset( eImageAssets.pin, 150);
+      final Uint8List markerIcon =
+          await getBytesFromAsset(eImageAssets.pin, 150);
       markers.add(Marker(
-          draggable: true,
-          onDrag: (value) {
-
-            mapController!.animateCamera(CameraUpdate.newLatLng(
-                LatLng(value.latitude, value.longitude)));
-            notifyListeners();
-          },
-          onDragEnd: (value) {
-            log("newLat :$value");
-            newLat = value.latitude;
-            newLog = value.longitude;
-            position = LatLng(value.latitude, value.longitude);
-            if (newLat != null && newLog != null) {
-              getAddressFromLatLng(context);
-            }
-            notifyListeners();
-          },
-          markerId: MarkerId(LatLng(
-                  newLat ?? position!.latitude, newLog ?? position!.longitude)
-              .toString()),
-          position: LatLng(
-              newLat ?? position!.latitude, newLog ?? position!.longitude),
-          infoWindow:
-              InfoWindow(title: place!.name, snippet: place!.subLocality),
+        draggable: true,
+        onDrag: (value) {
+          mapController!.animateCamera(
+              CameraUpdate.newLatLng(LatLng(value.latitude, value.longitude)));
+          notifyListeners();
+        },
+        onDragEnd: (value) {
+          log("newLat :$value");
+          newLat = value.latitude;
+          newLog = value.longitude;
+          position = LatLng(value.latitude, value.longitude);
+          if (newLat != null && newLog != null) {
+            getAddressFromLatLng(context);
+          }
+          notifyListeners();
+        },
+        markerId: MarkerId(
+            LatLng(newLat ?? position!.latitude, newLog ?? position!.longitude)
+                .toString()),
+        position:
+            LatLng(newLat ?? position!.latitude, newLog ?? position!.longitude),
+        infoWindow: InfoWindow(title: place!.name, snippet: place!.subLocality),
         icon: BitmapDescriptor.fromBytes(markerIcon),
-          ));
+      ));
 
       notifyListeners();
     }).catchError((e) {
@@ -272,10 +272,10 @@ position = currentPosition;
         context: context,
         builder: (context1) {
           return AlertDialogCommon(
-              title: appFonts.successfullyChanged,
+              title: translations!.successfullyChanged,
               image: eGifAssets.successGif,
-              subtext: appFonts.congratulation,
-              bText1: appFonts.okay,
+              subtext: translations!.congratulation,
+              bText1: translations!.okay,
               height: Sizes.s145,
               b1OnTap: () {
                 route.pop(context);
@@ -287,14 +287,12 @@ position = currentPosition;
 
   //edit location tap redirect to edit page
   onEdit(context) {
-if(isSignUp){
-route.pop(context,arg: true);
-}else {
-  log("argumentData :$argumentData");
-  route.pushNamed(context, routeName.addNewLocation, arg: {
-    "argumentData": argumentData,
-    "isService": isService
-  });
-}
+    if (isSignUp) {
+      route.pop(context, arg: true);
+    } else {
+      log("argumentData :$argumentData");
+      route.pushNamed(context, routeName.addNewLocation,
+          arg: {"argumentData": argumentData, "isService": isService});
+    }
   }
 }

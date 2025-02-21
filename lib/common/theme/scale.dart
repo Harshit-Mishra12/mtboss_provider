@@ -164,7 +164,7 @@ class FontSizes {
   static const double f70 = 70.0 * scale;
 }
 
-class Sizes {
+class   Sizes {
   static const double scale = 1;
 
   static const double s2 = 2 * scale;

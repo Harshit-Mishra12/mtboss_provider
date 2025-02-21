@@ -6,7 +6,10 @@ import '../../../../../config.dart';
 class JobRequestListCard extends StatelessWidget {
   final JobRequestModel? data;
 
-  const JobRequestListCard({super.key, this.data, });
+  const JobRequestListCard({
+    super.key,
+    this.data,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +34,23 @@ class JobRequestListCard extends StatelessWidget {
                             height: Sizes.s52,
                             width: Sizes.s52)
                         .boxShapeExtension(),
+                HSpace(Sizes.s10),
                 Expanded(
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text(capitalizeFirstLetter(data!.title),
-                        style: appCss.dmDenseMedium14
-                            .textColor(appColor(context).appTheme.darkText)),
-                    const VSpace(Sizes.s8),
-                    Text(
-                          (data!.status != "accepted" )
-                            ? "${getSymbol(context)}${currency(context).currencyVal * data!.initialPrice!}"
-                            : "${getSymbol(context)}${currency(context).currencyVal * data!.finalPrice!}",
-                        overflow: TextOverflow.ellipsis,
-                        style: appCss.dmDenseSemiBold12
-                            .textColor(appColor(context).appTheme.darkText)),
-                  ]).paddingOnly(left: Insets.i10),
-                )
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                      Text(capitalizeFirstLetter(data!.title),
+                          style: appCss.dmDenseMedium14
+                              .textColor(appColor(context).appTheme.darkText)),
+                      const VSpace(Sizes.s8),
+                      Text(
+                          (data!.status != "accepted")
+                              ? "${getSymbol(context)}${currency(context).currencyVal * data!.initialPrice!}"
+                              : "${getSymbol(context)}${currency(context).currencyVal * data!.finalPrice!}",
+                          overflow: TextOverflow.ellipsis,
+                          style: appCss.dmDenseSemiBold12
+                              .textColor(appColor(context).appTheme.darkText)),
+                    ]).paddingOnly(left: Insets.i10))
               ]),
             ),
             Column(
@@ -66,15 +71,17 @@ class JobRequestListCard extends StatelessWidget {
                 Text(
                     DateFormat("MMM d, yyyy")
                         .format(DateTime.parse(data!.bookingDate!)),
-                    style:
-                    appCss.dmDenseMedium12.textColor(appColor(context).appTheme.lightText))
+                    style: appCss.dmDenseMedium12
+                        .textColor(appColor(context).appTheme.lightText))
               ],
             )
           ]),
-
     ])
         .paddingAll(12)
         .boxBorderExtension(context, isShadow: true)
-        .marginOnly(bottom: Sizes.s20).inkWell(onTap: ()=> route.pushNamed(context,routeName.jobRequestDetail,arg: {"services":data}));
+        .marginOnly(bottom: Sizes.s20)
+        .inkWell(
+            onTap: () => route.pushNamed(context, routeName.jobRequestDetail,
+                arg: {"services": data}));
   }
 }

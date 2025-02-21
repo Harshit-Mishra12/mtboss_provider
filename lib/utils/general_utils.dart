@@ -14,22 +14,21 @@ const wpLink = 'whatsapp://send?phone=';
 
 enum MessageType { text, image, audio }
 
-
 //return color as per status
 Color colorCondition(String? text, context) {
-  if (text == appFonts.pending) {
+  if (text == translations!.pending) {
     return appColor(context).appTheme.pending;
-  } else if (text == appFonts.accepted) {
+  } else if (text == translations!.accepted) {
     return appColor(context).appTheme.accepted;
-  } else if (text == appFonts.ongoing || text == appFonts.startAgain) {
+  } else if (text == translations!.ongoing || text == appFonts.startAgain) {
     return appColor(context).appTheme.ongoing;
-  } else if (text == appFonts.cancel) {
+  } else if (text == translations!.cancel) {
     return appColor(context).appTheme.red;
-  } else if (text == appFonts.pendingApproval) {
+  } else if (text == translations!.pendingApproval) {
     return appColor(context).appTheme.pendingApproval;
   } else if (text == appFonts.onHold) {
     return appColor(context).appTheme.hold;
-  } else if (text == appFonts.assigned) {
+  } else if (text == translations!.assigned) {
     return appColor(context).appTheme.assign;
   } else if (text == appFonts.ontheway1) {
     return appColor(context).appTheme.onTheWay;
@@ -37,7 +36,6 @@ Color colorCondition(String? text, context) {
     return appColor(context).appTheme.primary;
   }
 }
-
 
 //star condition
 starCondition(String? rate) {
@@ -102,8 +100,10 @@ Future<bool> isNetworkConnection() async {
     final result = await InternetAddress.lookup(
         'google.com'); //Check For Internet Connection
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      // log("messageajsajds");
       return true;
     } else {
+      log("messageajsajds");
       return false;
     }
   }

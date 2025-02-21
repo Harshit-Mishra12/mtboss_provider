@@ -1,4 +1,3 @@
-
 import '../../../config.dart';
 
 class SelectServiceScreen extends StatelessWidget {
@@ -9,12 +8,12 @@ class SelectServiceScreen extends StatelessWidget {
     return Consumer2<SelectServiceProvider, UserDataApiProvider>(
         builder: (context1, value, userApi, child) {
       return Scaffold(
-          appBar: AppBarCommon(title: appFonts.selectServiceOnly),
+          appBar: AppBarCommon(title: translations!.selectServiceOnly),
           body: SingleChildScrollView(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                Text(language(context, appFonts.selectedService),
+                Text(language(context, translations!.selectedService),
                         style: appCss.dmDenseRegular14
                             .textColor(appColor(context).appTheme.lightText))
                     .paddingSymmetric(horizontal: Insets.i20),
@@ -38,7 +37,7 @@ class SelectServiceScreen extends StatelessWidget {
                         ).decorated(
                             color: appColor(context).appTheme.fieldCardBg))
                     : AddNewBoxLayout(
-                            title: appFonts.addNewService,
+                            title: translations!.addNewService,
                             width: MediaQuery.of(context).size.width)
                         .paddingSymmetric(
                             horizontal: Insets.i20, vertical: Insets.i15)
@@ -59,7 +58,7 @@ class SelectServiceScreen extends StatelessWidget {
                       },
                       onFieldSubmitted: (v) =>
                           userApi.getAllServiceList(search: v)),
-                  Text(language(context, appFonts.serviceList),
+                  Text(language(context, translations!.serviceList),
                           style: appCss.dmDenseRegular14
                               .textColor(appColor(context).appTheme.lightText))
                       .paddingSymmetric(vertical: Insets.i15),
@@ -69,7 +68,7 @@ class SelectServiceScreen extends StatelessWidget {
                       onTap: () => value.onSelectService(
                           context, e.value.id, e.value, e.key))),
                   ButtonCommon(
-                          title: appFonts.addService,
+                          title: translations!.addService,
                           onTap: () => route.pop(context))
                       .paddingOnly(bottom: Insets.i15, top: Insets.i15)
                 ]).paddingSymmetric(

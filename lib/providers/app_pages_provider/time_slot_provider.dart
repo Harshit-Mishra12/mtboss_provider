@@ -141,7 +141,7 @@ class TimeSlotProvider with ChangeNotifier {
         timeSlotAddApi(context);
       } else {
         snackBarMessengers(context,
-            message: language(context, appFonts.pleaseSelectDurationUnit));
+            message: language(context, translations!.pleaseSelectDurationUnit));
       }
     }
   }
@@ -227,11 +227,11 @@ class TimeSlotProvider with ChangeNotifier {
             /* showDialog(
                 context: context,
                 builder: (context) => AlertDialogCommon(
-                    title: appFonts.updateSuccessfully,
+                    title: translations!.updateSuccessfully,
                     height: Sizes.s140,
                     image: eGifAssets.successGif,
-                    subtext: language(context, appFonts.hurrayUpdateHour),
-                    bText1: language(context, appFonts.okay),
+                    subtext: language(context, translations!.hurrayUpdateHour),
+                    bText1: language(context, translations!.okay),
                     b1OnTap: () => route.pop(context)));*/
             snackBarMessengers(context,
                 message: value.message,
@@ -250,11 +250,11 @@ class TimeSlotProvider with ChangeNotifier {
             /*showDialog(
                 context: context,
                 builder: (context) => AlertDialogCommon(
-                    title: appFonts.updateSuccessfully,
+                    title: translations!.updateSuccessfully,
                     height: Sizes.s140,
                     image: eGifAssets.successGif,
-                    subtext: language(context, appFonts.hurrayUpdateHour),
-                    bText1: language(context, appFonts.okay),
+                    subtext: language(context, translations!.hurrayUpdateHour),
+                    bText1: language(context, translations!.okay),
                     b1OnTap: () => route.pop(context)));
 */
             snackBarMessengers(context,

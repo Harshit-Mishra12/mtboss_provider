@@ -5,13 +5,13 @@ class TimeSlotScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TimeSlotProvider>(builder: (context1, value, child) {
+    return Consumer2<LanguageProvider,TimeSlotProvider>(builder: (context1, lang,value, child) {
       return StatefulWrapper(
         onInit: () => Future.delayed(Durations.short3)
             .then((_) => value.fetchSlotTime(context)),
         child: LoadingComponent(
           child: Scaffold(
-              appBar: AppBarCommon(title: appFonts.timeSlots),
+              appBar: AppBarCommon(title: translations!.timeSlots),
               body: SingleChildScrollView(
                   child: Form(
                 key: value.formKey,
@@ -54,13 +54,13 @@ class TimeSlotScreen extends StatelessWidget {
                               onToggle: (val) => value.onToggle(e.key, val))),
                       const DividerCommon()
                           .paddingOnly(bottom: Insets.i15, top: Insets.i20),
-                      Text(language(context, appFonts.slotNote),
+                      Text(language(context, translations!.slotNote),
                               style: appCss.dmDenseMedium12.textColor(
                                   appColor(context).appTheme.lightText))
                           .paddingSymmetric(horizontal: Insets.i15),
                       const VSpace(Sizes.s15),
                       ContainerWithTextLayout(
-                          title: language(context, appFonts.gapBetween)),
+                          title: language(context, translations!.gapBetween)),
                       const VSpace(Sizes.s8),
                       Row(children: [
                         Expanded(
@@ -72,7 +72,7 @@ class TimeSlotScreen extends StatelessWidget {
                                 validator: (value) =>
                                     validation.dynamicTextValidation(
                                         context, value, "Please Add Gap Time"),
-                                hintText: appFonts.addGap,
+                                hintText: translations!.addGap!,
                                 prefixIcon: eSvgAssets.timer)),
                         const HSpace(Sizes.s6),
                         Expanded(
@@ -80,7 +80,7 @@ class TimeSlotScreen extends StatelessWidget {
                             child: DarkDropDownLayout(
                                 isBig: true,
                                 val: value.gapValue,
-                                hintText: appFonts.hour,
+                                hintText: translations!.hour,
                                 isIcon: false,
                                 categoryList: appArray.durationList,
                                 onChanged: (val) =>
@@ -89,7 +89,7 @@ class TimeSlotScreen extends StatelessWidget {
                     ]).paddingSymmetric(vertical: Insets.i15)
                   ]),
                   ButtonCommon(
-                          title: appFonts.updateHours,
+                          title: translations!.updateHours,
                           onTap: () => value.onUpdateHour(context))
                       .paddingOnly(top: Insets.i40, bottom: Insets.i30)
                 ]).padding(horizontal: Insets.i20, bottom: Insets.i20),

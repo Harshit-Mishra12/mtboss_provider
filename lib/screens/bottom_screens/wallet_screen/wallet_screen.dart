@@ -16,7 +16,7 @@ class WalletScreen extends StatelessWidget {
               appBar: AppBar(
                   leadingWidth: 0,
                   centerTitle: false,
-                  title: Text(language(context, appFonts.wallet),
+                  title: Text(language(context, translations!.wallet),
                       style: appCss.dmDenseBold18
                           .textColor(appColor(context).appTheme.darkText)),
                   actions: [
@@ -43,8 +43,8 @@ class WalletScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                          language(
-                                              context, appFonts.paymentHistory),
+                                          language(context,
+                                              translations!.paymentHistory),
                                           style: appCss.dmDenseBold18.textColor(
                                               appColor(context)
                                                   .appTheme
@@ -82,8 +82,8 @@ class WalletScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                          language(
-                                              context, appFonts.paymentHistory),
+                                          language(context,
+                                              translations!.paymentHistory),
                                           style: appCss.dmDenseBold18.textColor(
                                               appColor(context)
                                                   .appTheme

@@ -20,10 +20,12 @@ class VerifyOtpScreen extends StatelessWidget {
                           children: [
                         AuthTopLayout(
                             image: eImageAssets.mailVerify,
-                            title: appFonts.verifyOtp,
-                            subTitle: appFonts.enterTheCode,
+
+                            title: translations!.verifyOtp,
+                            subTitle: translations!.enterTheCode,
                             isNumber: true,
-                            number: otpCtrl.email),
+                            number: "test@gmail.com"),
+
                         Stack(children: [
                           const FieldsBackground(),
                           Form(
@@ -34,16 +36,19 @@ class VerifyOtpScreen extends StatelessWidget {
                                   children: [
                                     ContainerWithTextLayout(
                                         title: language(
-                                            context, appFonts.enterOtp)),
+
+                                            context, translations!.enterOtp)),
+
                                     const VSpace(Sizes.s8),
                                     const CommonOtpLayout(),
                                     const VSpace(Sizes.s20),
                                     ButtonCommon(
-                                        title: appFonts.verifyProceed,
+
+                                        title: translations!.verifyProceed,
                                         margin: Insets.i20,
-                                        onTap: () {
-                                          otpCtrl.onTapVerify(context);
-                                        }),
+                                        onTap: () => route.pushNamed(
+                                            context, routeName.resetPass)),
+
                                     const VSpace(Sizes.s15),
                                     otpCtrl.isCountDown
                                         ? Text("${otpCtrl.min} : ${otpCtrl.sec}",
@@ -54,7 +59,9 @@ class VerifyOtpScreen extends StatelessWidget {
                                             .alignment(Alignment.center)
                                         : Text(
                                                 language(context,
-                                                    appFonts.resendCode),
+
+                                                    translations!.resendCode),
+
                                                 style: appCss.dmDenseMedium14
                                                     .textColor(appColor(context)
                                                         .appTheme

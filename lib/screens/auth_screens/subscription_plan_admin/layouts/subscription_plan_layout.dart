@@ -1,4 +1,3 @@
-
 import '../../../../config.dart';
 
 class SubscriptionPlanLayout extends StatelessWidget {
@@ -18,7 +17,9 @@ class SubscriptionPlanLayout extends StatelessWidget {
         child: SingleChildScrollView(
             child: data != null
                 ? Column(children: [
-                    Text("Try ${appSettingModel!.subscriptionPlan!.freeTrialDays} Days For Free".toUpperCase(),
+                    Text(
+                        "Try ${appSettingModel!.subscriptionPlan!.freeTrialDays} Days For Free"
+                            .toUpperCase(),
                         textAlign: TextAlign.center,
                         style: appCss.dmDenseSemiBold20
                             .textColor(appColor(context).appTheme.whiteColor)),
@@ -35,8 +36,9 @@ class SubscriptionPlanLayout extends StatelessWidget {
                     ButtonCommon(
                             onTap: () => route.pushNamedAndRemoveUntil(
                                 context, routeName.planDetails,
-                                arg: {"isTrial":true}),
-                            title: "Start Your ${appSettingModel!.subscriptionPlan!.freeTrialDays}-Days Free Trial",
+                                arg: {"isTrial": true}),
+                            title:
+                                "Start Your ${appSettingModel!.subscriptionPlan!.freeTrialDays}-Days Free Trial",
                             color: appColor(context).appTheme.red)
                         .paddingOnly(bottom: Insets.i10)
                   ]).padding(top: Insets.i60, horizontal: Insets.i25)

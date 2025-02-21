@@ -48,7 +48,7 @@ class BookingDetailsLayout extends StatelessWidget {
                         icon: eSvgAssets.calender,
                         title: DateFormat("dd MMM, yyyy")
                             .format(DateTime.parse(data!.dateTime!)),
-                        subtitle: appFonts.date),
+                        subtitle: translations!.date),
                     Container(
                             height: Sizes.s70,
                             width: 1,
@@ -58,7 +58,7 @@ class BookingDetailsLayout extends StatelessWidget {
                         icon: eSvgAssets.clockOut,
                         title: DateFormat("hh:mm aa")
                             .format(DateTime.parse(data!.dateTime!)),
-                        subtitle: appFonts.time)
+                        subtitle: translations!.time)
                   ]).paddingSymmetric(horizontal: Insets.i10),
                   const DividerCommon(),
                   Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -82,7 +82,7 @@ class BookingDetailsLayout extends StatelessWidget {
                 ]).boxBorderExtension(context,
                     bColor: appColor(context).appTheme.stroke),
                 if (data!.description != null)
-                  Text(language(context, appFonts.description),
+                  Text(language(context, translations!.description),
                           style: appCss.dmDenseRegular12
                               .textColor(appColor(context).appTheme.lightText))
                       .paddingOnly(top: Insets.i15, bottom: Insets.i5),
@@ -91,7 +91,7 @@ class BookingDetailsLayout extends StatelessWidget {
                         .textColor(appColor(context).appTheme.darkText)),
                 const VSpace(Sizes.s15),
                 CustomerLayout(
-                    title: appFonts.customerDetails, data: data!.consumer),
+                    title: translations!.customerDetails, data: data!.consumer),
                 const VSpace(Sizes.s15),
                 ...data!.servicemen!.asMap().entries.map((e) =>
                     CustomerDetailsLayout(
@@ -100,7 +100,7 @@ class BookingDetailsLayout extends StatelessWidget {
                             arg: {"detail": e.value.id}),
                         onTapPhone: () =>
                             value.onTapPhone(e.value.phone, e.value.code),
-                        title: appFonts.servicemanDetail,
+                        title: translations!.servicemanDetail,
                         data: e.value,
                         onTapChat: () =>
                             route.pushNamed(context, routeName.chat, arg: {
@@ -125,7 +125,7 @@ class BookingDetailsLayout extends StatelessWidget {
                         list: data!.servicemen))
               ]).paddingAll(Insets.i15).boxBorderExtension(context,
                   isShadow: true, radius: AppRadius.r12),
-              Text(language(context, appFonts.commissionHistory),
+              Text(language(context, translations!.commissionHistory),
                       style: appCss.dmDenseMedium14
                           .textColor(appColor(context).appTheme.darkText))
                   .paddingOnly(top: Insets.i20, bottom: Insets.i10),
@@ -141,19 +141,19 @@ class BookingDetailsLayout extends StatelessWidget {
                     CommissionRowLayout(
                         isCommission: true,
                         data: data!.total,
-                        title: appFonts.totalReceivedCommission,
+                        title: translations!.totalReceivedCommission,
                         style: appCss.dmDenseblack14
                             .textColor(appColor(context).appTheme.darkText)),
                     CommissionRowLayout(
                         isCommission: true,
-                        title: appFonts.adminCommission,
+                        title: translations!.adminCommission,
                         data: value.commission!.adminCommission),
                     CommissionRowLayout(
                         isCommission: true,
-                        title: appFonts.servicemenCommission,
+                        title: translations!.servicemenCommission,
                         data: value.commission!.serviceCommission),
                     CommissionRowLayout(
-                        title: appFonts.yourCommission,
+                        title: translations!.yourCommission,
                         color: appColor(context).appTheme.primary,
                         data: value.commission!.providerCommission)
                   ]).paddingSymmetric(

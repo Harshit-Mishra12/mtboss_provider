@@ -69,7 +69,7 @@ class DeleteAccountAlert extends StatelessWidget {
                 ]),
                 // Sub text
                 const VSpace(Sizes.s15),
-                Text(language(context, appFonts.yourAccountWill),
+                Text(language(context, translations!.yourAccountWill),
                     textAlign: TextAlign.center,
                     style: appCss.dmDenseRegular14
                         .textColor(appColor(context).appTheme.lightText)
@@ -79,7 +79,7 @@ class DeleteAccountAlert extends StatelessWidget {
                   Expanded(
                       child: ButtonCommon(
                           onTap: () => route.pop(context),
-                          title: appFonts.cancel,
+                          title: translations!.cancel!,
                           borderColor: appColor(context).appTheme.red,
                           color: appColor(context).appTheme.whiteBg,
                           style: appCss.dmDenseSemiBold16
@@ -89,13 +89,13 @@ class DeleteAccountAlert extends StatelessWidget {
                       child: ButtonCommon(
                           color: appColor(context).appTheme.red,
                           onTap: () => route.pop(context),
-                          title: appFonts.delete))
+                          title: translations!.delete!))
                 ])
               ]).padding(
                   horizontal: Insets.i20, top: Insets.i60, bottom: Insets.i20),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 // Title
-                Text(language(context, appFonts.deleteAccount),
+                Text(language(context, translations!.deleteAccount),
                     style: appCss.dmDenseExtraBold18
                         .textColor(appColor(context).appTheme.darkText)),
                 Icon(CupertinoIcons.multiply,

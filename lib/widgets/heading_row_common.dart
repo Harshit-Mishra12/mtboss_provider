@@ -18,7 +18,7 @@ class HeadingRowCommon extends StatelessWidget {
               style: appCss.dmDenseBold18
                   .textColor(appColor(context).appTheme.darkText))),
       if (isViewAllShow)
-        Text(language(context, appFonts.viewAll),
+        Text(language(context, translations!.viewAll),
                 style: appCss.dmDenseRegular14
                     .textColor(appColor(context).appTheme.primary))
             .inkWell(onTap: onTap)
