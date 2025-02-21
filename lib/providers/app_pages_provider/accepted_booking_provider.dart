@@ -15,16 +15,16 @@ class AcceptedBookingProvider with ChangeNotifier {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   onReady(context) {
+    log("onReady triggered");
     selectIndex = 0;
     dynamic data = ModalRoute.of(context)!.settings.arguments ?? "";
     log("messageData:${data}");
-    if (isFreelancer != true) {
-      /*       if(data != ""){
-          amount = data["amount"] ?? "0";
-          isAssign = data["assign_me"] ?? false;
-        }*/
-    }
-
+    // if (isFreelancer != true) {
+    //   /*       if(data != ""){
+    //       amount = data["amount"] ?? "0";
+    //       isAssign = data["assign_me"] ?? false;
+    //     }*/
+    // }
     id = data.toString();
     log("ididid:$isFreelancer");
     notifyListeners();
